@@ -23,10 +23,8 @@ USE_GNOME=	glib20 intlhack introspection:build \
 USE_LDCONFIG=	yes
 CPE_VENDOR=	gnome
 
-OPTIONS_DEFINE=			DOCS SMB
-OPTIONS_SINGLE=			GSSAPI
-OPTIONS_SINGLE_GSSAPI=		GSSAPI_BASE GSSAPI_HEIMDAL GSSAPI_MIT GSSAPI_NONE
-OPTIONS_DEFAULT=		SMB GSSAPI_${${SSL_DEFAULT} == base :?BASE :NONE}
+OPTIONS_DEFINE=			DOCS GSSAPI SMB
+OPTIONS_DEFAULT=		SMB
 
 DOCS_MESON_TRUE=		gtk_doc
 DOCS_BUILD_DEPENDS=		gtkdoc-scan:textproc/gtk-doc
@@ -44,16 +42,9 @@ DOCSDIR=			${PREFIX}/share/gtk-doc/html/${PORTNAME}-${RELVERSION}
 # SMB_USES=			samba:run
 SMB_MESON_ENABLED=		ntlm
 
-GSSAPI_BASE_USES=		gssapi
-GSSAPI_BASE_MESON_ON=		-Dgssapi=enabled -Dkrb5_config=${KRB5CONFIG}
-
-GSSAPI_HEIMDAL_USES=		gssapi:heimdal
-GSSAPI_HEIMDAL_MESON_ON=	-Dgssapi=enabled -Dkrb5_config=${KRB5CONFIG}
-
-GSSAPI_MIT_USES=		gssapi:mit
-GSSAPI_MIT_MESON_ON=		-Dgssapi=enabled -Dkrb5_config=${KRB5CONFIG}
-
-GSSAPI_NONE_MESON_DISABLED=	gssapi
+GSSAPI_USES=			gssapi
+GSSAPI_MESON_ON=		-Dgssapi=enabled -Dkrb5_config=${KRB5CONFIG}
+GSSAPI_MESON_OFF=		-Dgssapi=disabled
 
 MESON_ARGS=	-Dvapi=disabled \
 		-Dsysprof=disabled \
