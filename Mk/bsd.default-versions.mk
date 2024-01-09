@@ -65,6 +65,40 @@ GHOSTSCRIPT_DEFAULT?=	10
 GL_DEFAULT?=		mesa-libs
 # Possible values: 1.19, 1.20, 1.21, 1.22-devel
 GO_DEFAULT?=		1.20
+
+# Possible values: base, heimdal, heimdal-devel, mit, mit-devel
+.  if !defined(GSSAPI_DEFAULT)
+_GSSAPI_PORT_LIB=${LOCALBASE}/lib/libkrb5.so
+_GSSAPI_BASE_HEADER=${DESTDIR}/usr/include/krb5.h
+# If no preference was set, check for an installed base version
+# but give an installed port preference over it.
+.    if !exists(${DESTDIR}/${_GSSAPI_PORT_LIB}) && exists(${_GSSAPI_BASE_HEADER})
+GSSAPI_DEFAULT=	base
+.    elif exists(${DESTDIR}/${_GSSAPI_PORT_LIB})
+.      if defined(PKG_BIN)
+# find installed port and use it for dependency
+.        if defined(DESTDIR)
+PKGARGS=	-c ${DESTDIR}
+.        else
+PKGARGS=
+.        endif
+GSSAPI_INSTALLED!=	${PKG_BIN} ${PKGARGS} which -qo ${_GSSAPI_PORT_LIB} || :
+.      endif
+.      if defined(GSSAPI_INSTALLED) && !empty(GSSAPI_INSTALLED)
+GSSAPI_DEFAULT:=	${GSSAPI_INSTALLED:T}
+WARNING+=	"You have the ${GSSAPI_INSTALLED} port installed but do not have DEFAULT_VERSIONS+=gssapi=${GSSAPI_DEFAULT} set in your make.conf"
+.      endif
+.    else
+check-makevars::
+	@${ECHO_MSG} "You have a ${_GSSAPI_PORT_LIB} file installed, but the framework is unable"
+	@${ECHO_MSG} "to determine what port it comes from."
+	@${ECHO_MSG} "Add DEFAULT_VERSIONS+=gssapi=<gssapi package name> to your /etc/make.conf and try again."
+	@${FALSE}
+.    endif
+# Make sure we have a default in the end
+GSSAPI_DEFAULT?=	base
+.  endif
+
 # Possible values: 1.8, 2.2, 3.0
 GUILE_DEFAULT?=		2.2
 # Possible versions: 6, 7
