@@ -47,7 +47,6 @@ OPTIONS_DEFINE=	DOCS EXAMPLES GSSAPI MAXMIND RADIUS
 
 MAXMIND_DESC=	Use Maxmind GeoIP library
 
-GSSAPI_LIB_DEPENDS=	libkrb5support.so:security/krb5
 GSSAPI_USES=		gssapi:mit
 GSSAPI_CONFIGURE_OFF=	--without-gssapi
 MAXMIND_LIB_DEPENDS=	libmaxminddb.so:net/libmaxminddb

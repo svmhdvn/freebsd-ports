@@ -16,10 +16,7 @@ BUILD_DEPENDS=	xsltproc:textproc/libxslt	\
 GNU_CONFIGURE=	yes
 TEST_TARGET=	check
 
-OPTIONS_DEFINE=	DOCS
-OPTIONS_SINGLE=		GSSAPI
-OPTIONS_SINGLE_GSSAPI=	GSSAPI_BASE GSSAPI_HEIMDAL GSSAPI_MIT
-OPTIONS_DEFAULT=	GSSAPI_BASE
+OPTIONS_DEFINE=	DOCS GSSAPI
 
 # xsltproc and docbook are needed to create the man-page. xmlto is only
 # required for generating HTML-documents, which are optional.
@@ -32,7 +29,7 @@ LDFLAGS+=	-L${ICONV_LIB_PATH} ${ICONV_LIB}
 USES=	autoreconf iconv ldap libtool localbase tar:bz2
 
 DOCS_BUILD_DEPENDS=	xmlto:textproc/xmlto
-GSSAPI_BASE_USES=	gssapi
+GSSAPI_USES=	gssapi
 GSSAPI_MIT_USES=	gssapi:mit,flags
 GSSAPI_HEIMDAL_USES=	gssapi:heimdal,flags
 

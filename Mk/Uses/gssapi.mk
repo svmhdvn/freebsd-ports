@@ -88,28 +88,32 @@ _HEADERS=	sys/types.h sys/stat.h stdint.h
 GSSAPI_VER=	${GSSAPI_DEFAULT}
 
 .  for _A in ${gssapi_ARGS}
-.    if ${_A} == "base" || ${_A:Mheimdal(-devel)?} || ${_A:Mmit(-devel)?}
+.    if ${_A} == "base" || \
+	${_A} == "heimdal" || \
+	${_A} == "heimdal-devel" || \
+	${_A} == "mit" || \
+	${_A} == "mit-devel"
 GSSAPI_VER=	${_A}
 .    elif ${_A} == "bootstrap"
 _KRB_BOOTSTRAP=	1
 .    elif ${_A} == "flags"
 _KRB_USEFLAGS=	1
 .    else
-IGNORE=	USES=gssapi - invalid args: [${_A}] specified
+BROKEN=	USES=gssapi - invalid args: [${_A}] specified
 .    endif
 .  endfor
 
-.  if ${GSSAPI_VER} == "base" || ${GSSAPI_VER:Mheimdal(-devel)?}
+.  if ${GSSAPI_VER} == "base" || ${GSSAPI_VER} == "heimdal" || ${GSSAPI_VER} == "heimdal-devel"
 GSSAPI_PROVIDER=heimdal
-.  elif ${GSSAPI_VER:Mmit(-devel)?}
+.  elif ${GSSAPI_VER} == "mit" || ${GSSAPI_VER} == "mit-devel"
 GSSAPI_PROVIDER=mit
 .  else
-IGNORE=	USES=gssapi - invalid GSSAPI version found: '${GSSAPI_VER}'
+BROKEN=	USES=gssapi - invalid GSSAPI version found: '${GSSAPI_VER}'
 .  endif
 
 .  if ${GSSAPI_VER} == "base"
 .    if ${SSL_DEFAULT} != base
-IGNORE=	You are using OpenSSL from ports and have selected GSSAPI from base, please select another GSSAPI value
+BROKEN=	You are using OpenSSL from ports and have selected GSSAPI from base, please select another GSSAPI value
 .    endif
 HEIMDAL_HOME=	/usr
 GSSAPIBASEDIR=	${HEIMDAL_HOME}

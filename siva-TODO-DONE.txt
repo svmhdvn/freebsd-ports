@@ -1,0 +1,10 @@
+TODO:
+
+# proper flag management
+net-mgmt/adcli
+
+# fix mariadb GSSAPI client vs server
+databases/mariadb*
+
+# remove hardcoded provider and support all providers:
+benchmarks/polygraph
