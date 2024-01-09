@@ -122,7 +122,7 @@ GSSAPI_NONE_CONFIGURE_ON=	--without-heimdal-krb5 \
 				--without-mit-krb5 \
 				--without-gnugss
 
-GSSAPI_BASE_USES=		gssapi
+GSSAPI_BASE_USES=		gssapi:base
 GSSAPI_BASE_CONFIGURE_ON=	--with-heimdal-krb5=${GSSAPIBASEDIR} \
 				${GSSAPI_CONFIGURE_ARGS} \
 				krb5_config=${GSSAPIBASEDIR}/bin/krb5-config
