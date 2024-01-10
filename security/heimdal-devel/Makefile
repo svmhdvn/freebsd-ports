@@ -22,9 +22,6 @@ USES=		autoreconf:build cpe gettext-runtime gssapi:bootstrap,heimdal \
 CPE_VENDOR=	${PORTNAME}_project
 USE_LDCONFIG=	${GSSAPILIBDIR}
 
-# Needs clang-format which is only provided by the port.
-# Else asm1_fails resulting in a command not found error.
-USES+=		llvm
 BUILD_DEPENDS=	p5-JSON>0:converters/p5-JSON
 
 GNU_CONFIGURE=	yes
@@ -50,7 +47,6 @@ CONFIGURE_ARGS=	--with-berkeley-db \
 		--with-readline="${LOCALBASE}" \
 		--with-hdbdir="/var/${PORTNAME}" \
 		--sysconfdir="${PREFIX}/etc" \
-		CLANG_FORMAT="${LOCALBASE}/bin/clang-format${LLVM_DEFAULT}" \
 		--enable-kx509 \
 		--without-microhttpd
 # XXX --with-readline picks up libreadline even if found in /usr/lib.
