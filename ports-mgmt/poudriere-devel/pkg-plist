@@ -4,8 +4,6 @@ bin/poudriere
 %%ETCDIR%%/hooks/pkgbuild.sh.sample
 @sample(0,0,0) etc/poudriered.conf.sample
 etc/rc.d/poudriered
-@comment libexec/poudriere/cachec
-libexec/poudriere/cached
 libexec/poudriere/clock
 libexec/poudriere/cpdup
 libexec/poudriere/dirempty
@@ -16,7 +14,6 @@ libexec/poudriere/poudriered
 libexec/poudriere/ptsort
 libexec/poudriere/pwait
 libexec/poudriere/rename
-%%RM%%libexec/poudriere/rm
 libexec/poudriere/setsid
 libexec/poudriere/sh
 libexec/poudriere/timeout
@@ -87,6 +84,7 @@ man/man8/poudriere.8.gz
 %%DATADIR%%/image_usb.sh
 %%DATADIR%%/image_zfs.sh
 %%DATADIR%%/image_zsnapshot.sh
+%%DATADIR%%/include/asserts.sh
 %%DATADIR%%/include/cache.sh
 %%DATADIR%%/include/colors.pre.sh
 %%DATADIR%%/include/colors.sh

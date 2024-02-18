@@ -1,5 +1,6 @@
 PORTNAME=	poudriere
-DISTVERSION=	3.4.99.20240122
+PORTREVISION=	1
+DISTVERSION=	3.4.99.20240227
 CATEGORIES=	ports-mgmt
 MASTER_SITES=	LOCAL/bdrewery/${PORTNAME}/ \
 		http://mirror.shatow.net/freebsd/${PORTNAME}/ \
@@ -16,7 +17,7 @@ CONFLICTS_INSTALL=	poudriere
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	freebsd
-GH_TAGNAME=	898262e4
+GH_TAGNAME=	1585103
 
 GNU_CONFIGURE=	yes
 ETCDIR=		${PREFIX}/etc/poudriere.d
