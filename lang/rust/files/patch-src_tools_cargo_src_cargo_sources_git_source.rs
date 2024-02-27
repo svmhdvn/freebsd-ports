@@ -13,9 +13,9 @@ be stabilized first.  It will be available in Rust 1.56.
 
 --- src/tools/cargo/src/cargo/sources/git/source.rs.orig	2021-10-04 20:59:57 UTC
 +++ src/tools/cargo/src/cargo/sources/git/source.rs
-@@ -205,6 +205,9 @@ impl<'cfg> Source for GitSource<'cfg> {
+@@ -92,6 +92,9 @@ impl<'cfg> Source for GitSource<'cfg> {
          kind: QueryKind,
-         f: &mut dyn FnMut(IndexSummary),
+         f: &mut dyn FnMut(Summary),
      ) -> Poll<CargoResult<()>> {
 +        if std::env::var("CARGO_FREEBSD_PORTS_SKIP_GIT_UPDATE").is_ok() {
 +            return Poll::Ready(Ok(()));
@@ -23,14 +23,14 @@ be stabilized first.  It will be available in Rust 1.56.
          if let Some(src) = self.path_source.as_mut() {
              src.query(dep, kind, f)
          } else {
-@@ -228,6 +231,10 @@ impl<'cfg> Source for GitSource<'cfg> {
+@@ -113,6 +116,10 @@ impl<'cfg> Source for GitSource<'cfg> {
+ 
+     fn block_until_ready(&mut self) -> CargoResult<()> {
          if self.path_source.is_some() {
-             self.mark_used(None)?;
-             return Ok(());
++            return Ok(());
 +        }
 +
 +        if std::env::var("CARGO_FREEBSD_PORTS_SKIP_GIT_UPDATE").is_ok() {
-+             return Ok(());
+             return Ok(());
          }
  
-         let git_fs = self.config.git_path();
