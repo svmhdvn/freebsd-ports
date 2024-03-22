@@ -1,6 +1,7 @@
 PORTNAME=	anope
-PORTVERSION=	2.0.14
+PORTVERSION=	2.1.5
 CATEGORIES=	irc
+PKGNAMESUFFIX=	-devel
 
 MAINTAINER=	devnull@apt322.org
 COMMENT=	Set of IRC services for IRC networks
@@ -9,7 +10,7 @@ WWW=		https://www.anope.org/
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/docs/COPYING
 
-CONFLICTS_INSTALL=	anope-devel
+CONFLICTS_INSTALL=	anope
 
 USES=		cmake localbase:ldflags shebangfix
 USE_GITHUB=	yes
@@ -30,13 +31,13 @@ TRE_DESC=		Tre Regex Module
 
 GNUTLS_LIB_DEPENDS=	libgnutls.so:security/gnutls
 
-LDAP_USES=	ldap
+LDAP_USES=		ldap
 
-MYSQL_USES=	mysql
+MYSQL_USES=		mysql
 
-NLS_USES=	gettext
+NLS_USES=		gettext
 
-OPENSSL_USES=	ssl
+OPENSSL_USES=		ssl
 
 PCRE_LIB_DEPENDS=	libpcre.so:devel/pcre
 
@@ -44,7 +45,7 @@ REDIS_RUN_DEPENDS=	redis>=0:databases/redis
 
 SASL_LIB_DEPENDS=	libsasl2.so:security/cyrus-sasl2
 
-SQLITE_USES=	sqlite
+SQLITE_USES=		sqlite
 
 TRE_LIB_DEPENDS=	libtre.so:textproc/libtre
 
@@ -54,36 +55,36 @@ post-patch:
 		${WRKSRC}/include/CMakeLists.txt
 
 post-patch-GNUTLS-on:
-	${LN} -s ${WRKSRC}/modules/extra/m_ssl_gnutls.cpp ${WRKSRC}/modules/
+	${LN} -s ${WRKSRC}/modules/extra/ssl_gnutls.cpp ${WRKSRC}/modules/
 
 post-patch-LDAP-on:
-	${LN} -s ${WRKSRC}/modules/extra/m_ldap.cpp ${WRKSRC}/modules/
-	${LN} -s ${WRKSRC}/modules/extra/m_ldap_authentication.cpp ${WRKSRC}/modules/
-	${LN} -s ${WRKSRC}/modules/extra/m_ldap_oper.cpp ${WRKSRC}/modules/
+	${LN} -s ${WRKSRC}/modules/extra/ldap.cpp ${WRKSRC}/modules/
+	${LN} -s ${WRKSRC}/modules/extra/ldap_authentication.cpp ${WRKSRC}/modules/
+	${LN} -s ${WRKSRC}/modules/extra/ldap_oper.cpp ${WRKSRC}/modules/
 
 post-patch-MYSQL-on:
-	${LN} -s ${WRKSRC}/modules/extra/m_mysql.cpp ${WRKSRC}/modules/
-	${LN} -s ${WRKSRC}/modules/extra/m_sql_authentication.cpp ${WRKSRC}/modules/
-	${LN} -s ${WRKSRC}/modules/extra/m_sql_log.cpp ${WRKSRC}/modules/
-	${LN} -s ${WRKSRC}/modules/extra/m_sql_oper.cpp ${WRKSRC}/modules/
+	${LN} -s ${WRKSRC}/modules/extra/mysql.cpp ${WRKSRC}/modules/
+	${LN} -s ${WRKSRC}/modules/extra/sql_authentication.cpp ${WRKSRC}/modules/
+	${LN} -s ${WRKSRC}/modules/extra/sql_log.cpp ${WRKSRC}/modules/
+	${LN} -s ${WRKSRC}/modules/extra/sql_oper.cpp ${WRKSRC}/modules/
 
 post-patch-OPENSSL-on:
-	${LN} -s ${WRKSRC}/modules/extra/m_ssl_openssl.cpp ${WRKSRC}/modules/
+	${LN} -s ${WRKSRC}/modules/extra/ssl_openssl.cpp ${WRKSRC}/modules/
 
 post-patch-PCRE-on:
-	${LN} -s ${WRKSRC}/modules/extra/m_regex_pcre.cpp ${WRKSRC}/modules/
+	${LN} -s ${WRKSRC}/modules/extra/regex_pcre2.cpp ${WRKSRC}/modules/
 
 post-patch-POSIX-on:
-	${LN} -s ${WRKSRC}/modules/extra/m_regex_posix.cpp ${WRKSRC}/modules/
+	${LN} -s ${WRKSRC}/modules/extra/regex_posix.cpp ${WRKSRC}/modules/
 
 post-patch-SQLITE-on:
-	${LN} -s ${WRKSRC}/modules/extra/m_sqlite.cpp ${WRKSRC}/modules/
+	${LN} -s ${WRKSRC}/modules/extra/sqlite.cpp ${WRKSRC}/modules/
 
 post-patch-STATS-on:
 	${LN} -s ${WRKSRC}/modules/extra/stats ${WRKSRC}/modules/
 
 post-patch-TRE-on:
-	${LN} -s ${WRKSRC}/modules/extra/m_regex_tre.cpp ${WRKSRC}/modules/
+	${LN} -s ${WRKSRC}/modules/extra/regex_tre.cpp ${WRKSRC}/modules/
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/anope/data/backups
