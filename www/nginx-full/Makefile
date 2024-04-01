@@ -36,9 +36,9 @@ OPTIONS_DEFAULT=DSO DEBUG DEBUGLOG FILE_AIO GOOGLE_PERFTOOLS \
 		SRCACHE STATSD VOD VTS UDPLOG X11 XSS WEBSOCKIFY
 
 .if defined(PACKAGE_BUILDING) || defined(BATCH)
-# Either GSSAPI_MIT or GSSAPI_HEIMDAL must be enabled to build binary package.
-# There's no chance to choose GSSAPI_RADIO via dialog while package building.
-OPTIONS_DEFAULT+=	GSSAPI_MIT
+# GSSAPI must be enabled to build binary package.
+# There's no chance to choose GSSAPI via dialog while package building.
+OPTIONS_DEFAULT+=	GSSAPI
 .endif
 
 .include "${MASTERDIR}/Makefile"

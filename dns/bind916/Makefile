@@ -1,47 +1,28 @@
 # pkg-help formatted with fmt 59 63
 
 PORTNAME=	bind
-DISTVERSION=	9.18.28
-.if defined(BIND_TOOLS_SLAVE)
-# dns/bind-tools here
-PORTREVISION=	0
-.else
-# dns/bind918 here
-PORTREVISION=	0
-.endif
+DISTVERSION=	9.16.50
+PORTREVISION=	1
 CATEGORIES=	dns net
 MASTER_SITES=	ISC/bind9/${DISTVERSION}
-.if defined(BIND_TOOLS_SLAVE)
-PKGNAMESUFFIX=	-tools
-.else
-PKGNAMESUFFIX=	918
-.endif
+PKGNAMESUFFIX=	916
+DISTNAME=	${PORTNAME}-${DISTVERSION}
 
 MAINTAINER=	mat@FreeBSD.org
-WWW=		https://www.isc.org/bind/
-.if defined(BIND_TOOLS_SLAVE)
-COMMENT=	Command line tools from BIND: delv, dig, host, nslookup...
-.else
 COMMENT=	BIND DNS suite with updated DNSSEC and DNS64
-.endif
+WWW=		https://www.isc.org/bind/
 
-# Uncomment when bind920 comes of age. +3 years if ESV, +1year otherwise, see
-# https://kb.isc.org/docs/aa-00896
-# DEPRECATED=	End of life, please migrate to a newer version of BIND9
-# EXPIRATION_DATE=	2025-12-31
+DEPRECATED=	End of life, please migrate to a newer version of BIND9
+EXPIRATION_DATE=	2024-04-30
 
 LICENSE=	MPL20
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 LIB_DEPENDS=	libuv.so:devel/libuv \
-		libnghttp2.so:www/libnghttp2 \
 		libxml2.so:textproc/libxml2
-
-.if !defined(BIND_TOOLS_SLAVE)
 RUN_DEPENDS=	bind-tools>0:dns/bind-tools
-.endif
 
-USES=		autoreconf compiler:c11 cpe libedit libtool pkgconfig ssl tar:xz
+USES=		compiler:c11 cpe libedit pkgconfig ssl tar:xz
 
 CPE_VENDOR=	isc
 CPE_VERSION=	${DISTVERSION:C/-.*//}
@@ -55,56 +36,75 @@ CONFIGURE_ARGS=	--disable-linux-caps \
 		--localstatedir=/var \
 		--sysconfdir=${ETCDIR} \
 		--with-dlopen=yes \
+		--without-python \
 		--with-libxml2 \
 		--with-openssl=${OPENSSLBASE} \
-		--enable-dnsrps \
-		--with-readline=libedit
-CONFIGURE_ENV=	READLINE_CFLAGS="-L${LOCALBASE}/lib"
+		--with-readline="-L${LOCALBASE}/lib -ledit"
 ETCDIR=		${PREFIX}/etc/namedb
 
-.if defined(BIND_TOOLS_SLAVE)
-EXTRA_PATCHES=		${PATCHDIR}/extrapatch-bind-tools
-CONFIGURE_ARGS+=	--libdir=${PREFIX}/lib/bind-tools
-.else
 USE_RC_SUBR=		named
 SUB_FILES=		named.conf pkg-message
-EXTRA_PATCHES=		${PATCHDIR}/extrapatch-no-bind-tools
 
 PORTDOCS=	*
 
-CONFLICTS=	bind920 bind9-devel
-.endif	# BIND_TOOLS_SLAVE
+CONFLICTS=	bind9[0-9][0-9] bind9-devel
 
 MAKE_JOBS_UNSAFE=	yes
 
-OPTIONS_DEFAULT=	IDN JSON LMDB \
+OPTIONS_DEFAULT=	DLZ_FILESYSTEM IDN JSON LMDB \
 			TCP_FASTOPEN DNSTAP
 OPTIONS_DEFINE=		DNSTAP DOCS FIXED_RRSET GEOIP GSSAPI IDN JSON LARGE_FILE LMDB \
-			OVERRIDECACHE QUERYTRACE \
+			OVERRIDECACHE PORTREVISION QUERYTRACE \
 			START_LATE TCP_FASTOPEN
 
-.if defined(BIND_TOOLS_SLAVE)
-OPTIONS_EXCLUDE=	DOCS GEOIP LMDB \
-			OVERRIDECACHE QUERYTRACE START_LATE \
-			TCP_FASTOPEN
-.endif	# BIND_TOOLS_SLAVE
+OPTIONS_RADIO=		CRYPTO
+OPTIONS_RADIO_CRYPTO=	NATIVE_PKCS11
+
+OPTIONS_GROUP=		DLZ
+OPTIONS_GROUP_DLZ=	DLZ_BDB DLZ_FILESYSTEM DLZ_LDAP DLZ_MYSQL \
+			DLZ_POSTGRESQL DLZ_STUB
 
 OPTIONS_SUB=	yes
 
+CRYPTO_DESC=		Choose which crypto engine to use
+DLZ_BDB_DESC=		DLZ BDB driver
+DLZ_DESC=		Dynamically Loadable Zones
+DLZ_FILESYSTEM_DESC=	DLZ filesystem driver
+DLZ_LDAP_DESC=		DLZ LDAP driver
+DLZ_MYSQL_DESC=		DLZ MySQL driver (no threading)
+DLZ_POSTGRESQL_DESC=	DLZ Postgres driver
+DLZ_STUB_DESC=		DLZ stub driver
 DNSTAP_DESC=		Provides fast passive logging of DNS messages
 FIXED_RRSET_DESC=	Enable fixed rrset ordering
 GSSAPI_DESC=		GSSAPI support
 LARGE_FILE_DESC=	64-bit file support
 LMDB_DESC=		Use LMDB for zone management
 OVERRIDECACHE_DESC=	Use the override-cache patch
+NATIVE_PKCS11_DESC=	Use PKCS\#11 native API (**READ HELP**)
+PORTREVISION_DESC=	Show PORTREVISION in the version string
 QUERYTRACE_DESC=	Enable the very verbose query tracelogging
 START_LATE_DESC=	Start BIND late in the boot process (see help)
 TCP_FASTOPEN_DESC=	RFC 7413 support
 
-DOCS_ALL_TARGET=	all html
+DLZ_BDB_CONFIGURE_ON=	--with-dlz-bdb=yes
+DLZ_BDB_USES=		bdb
+
+DLZ_FILESYSTEM_CONFIGURE_ON=	--with-dlz-filesystem=yes
+
+DLZ_LDAP_CONFIGURE_ON=	--with-dlz-ldap=yes
+DLZ_LDAP_USES=		ldap
+
+DLZ_MYSQL_CONFIGURE_ON=	--with-dlz-mysql=yes
+DLZ_MYSQL_USES=		mysql
+
+DLZ_POSTGRESQL_CONFIGURE_ON=	--with-dlz-postgres=yes
+DLZ_POSTGRESQL_USES=		pgsql
+
+DLZ_STUB_CONFIGURE_ON=	--with-dlz-stub=yes
+
 DOCS_BUILD_DEPENDS=	sphinx-build:textproc/py-sphinx \
 			${PYTHON_PKGNAMEPREFIX}sphinx_rtd_theme>0:textproc/py-sphinx_rtd_theme@${PY_FLAVOR}
-DOCS_USES=	gmake python:env
+DOCS_USES=	python:env
 
 DNSTAP_CONFIGURE_ENABLE=	dnstap
 DNSTAP_LIB_DEPENDS=		libfstrm.so:devel/fstrm \
@@ -137,6 +137,8 @@ LMDB_LIB_DEPENDS=	liblmdb.so:databases/lmdb
 
 OVERRIDECACHE_EXTRA_PATCHES=	${FILESDIR}/extrapatch-bind-min-override-ttl
 
+NATIVE_PKCS11_CONFIGURE_ENABLE=	native-pkcs11
+
 QUERYTRACE_CONFIGURE_ENABLE=	querytrace
 
 START_LATE_SUB_LIST=		NAMED_BEFORE="LOGIN" \
@@ -154,10 +156,8 @@ CONFIGURE_ARGS+=	--enable-developer \
 USES+=			perl5
 USE_PERL5=		build
 BUILD_DEPENDS+=		cmocka>0:sysutils/cmocka
-.endif
-
-.if !${PORT_OPTIONS:MDOCS}
-CONFIGURE_ENV+=		ac_cv_path_SPHINX_BUILD=
+.else
+CONFIGURE_ARGS+=	--disable-symtable
 .endif
 
 .include <bsd.port.pre.mk>
@@ -169,42 +169,43 @@ SUB_LIST+=	ENGINES=${LOCALBASE}/lib/engines
 .endif
 
 post-patch:
-.for FILE in check/named-checkconf.rst named/named.rst nsupdate/nsupdate.rst \
-	rndc/rndc.rst
+.for FILE in named-checkconf.8 named.8 named.conf.5 nsupdate.1 \
+	rndc.8
 	@${REINPLACE_CMD} -e 's#/etc/named.conf#${ETCDIR}/named.conf#g' \
 		-e 's#/etc/rndc.conf#${ETCDIR}/rndc.conf#g' \
 		-e "s#/var\/run\/named\/named.pid#/var/run/named/pid#" \
-		${WRKSRC}/bin/${FILE}
+		${WRKSRC}/doc/man/${FILE}in
 .endfor
 
-.if !defined(BIND_TOOLS_SLAVE)
+.  if ${PORTREVISION:N0}
+post-patch-PORTREVISION-on:
+	@${REINPLACE_CMD} -e '/EXTENSIONS/s#=$$#=_${PORTREVISION}#' \
+		${WRKSRC}/version
+.  endif
+
+post-build-DOCS-on:
+	cd ${WRKSRC}/doc/arm && ${MAKE} html
+
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/mtree
 	${MKDIR} ${STAGEDIR}${ETCDIR}
-.  for i in dynamic primary secondary working
+.  for i in dynamic master slave working
 	@${MKDIR} ${STAGEDIR}${ETCDIR}/$i
 .  endfor
 	${INSTALL_DATA} ${WRKDIR}/named.conf ${STAGEDIR}${ETCDIR}/named.conf.sample
 	${INSTALL_DATA} ${FILESDIR}/named.root ${STAGEDIR}${ETCDIR}
-	${INSTALL_DATA} ${FILESDIR}/empty.db ${STAGEDIR}${ETCDIR}/primary
-	${INSTALL_DATA} ${FILESDIR}/localhost-forward.db ${STAGEDIR}${ETCDIR}/primary
-	${INSTALL_DATA} ${FILESDIR}/localhost-reverse.db ${STAGEDIR}${ETCDIR}/primary
+	${INSTALL_DATA} ${FILESDIR}/empty.db ${STAGEDIR}${ETCDIR}/master
+	${INSTALL_DATA} ${FILESDIR}/localhost-forward.db ${STAGEDIR}${ETCDIR}/master
+	${INSTALL_DATA} ${FILESDIR}/localhost-reverse.db ${STAGEDIR}${ETCDIR}/master
 	${INSTALL_DATA} ${FILESDIR}/BIND.chroot.dist ${STAGEDIR}${PREFIX}/etc/mtree/BIND.chroot.dist.sample
 	${INSTALL_DATA} ${FILESDIR}/BIND.chroot.local.dist ${STAGEDIR}${PREFIX}/etc/mtree/BIND.chroot.local.dist.sample
+	${INSTALL_DATA} ${WRKSRC}/bin/rndc/rndc.conf \
+		${STAGEDIR}${ETCDIR}/rndc.conf.sample
 
 post-install-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}/arm
-	${INSTALL_DATA} ${WRKSRC}/CHANGES* \
+	${INSTALL_DATA} ${WRKSRC}/CHANGES* ${WRKSRC}/HISTORY.md \
 		${WRKSRC}/README.md ${STAGEDIR}${DOCSDIR}
 	cd ${WRKSRC}/doc/arm/_build/html && ${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR}/arm
-.else
-
-do-install:
-	for dir in bin lib doc/man; do \
-		(cd ${INSTALL_WRKSRC}/$$dir && ${SETENV} ${MAKE_ENV} ${FAKEROOT} ${MAKE_CMD} ${MAKE_FLAGS} ${MAKEFILE} ${MAKE_ARGS} ${INSTALL_TARGET}) ; \
-	done
-	@${RM} -r ${STAGEDIR}${PREFIX}/include
-
-.endif	# BIND_TOOLS_SLAVE
 
 .include <bsd.port.post.mk>

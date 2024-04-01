@@ -33,9 +33,7 @@ USE_GNOME=	glib20 intlhack introspection:build libxml2
 USE_LDCONFIG=	yes
 CPE_VENDOR=	gnome
 
-OPTIONS_SINGLE=			GSSAPI
-OPTIONS_SINGLE_GSSAPI=		GSSAPI_BASE GSSAPI_HEIMDAL GSSAPI_MIT GSSAPI_NONE
-OPTIONS_DEFAULT=		GSSAPI_${${SSL_DEFAULT} == base :?BASE :NONE}
+OPTIONS_DEFINE=	GSSAPI
 
 MESON_ARGS=	-Dtests=false \
 		-Dinstalled_tests=false \
@@ -47,16 +45,9 @@ MESON_ARGS=	-Dtests=false \
 		-Dvapi=disabled \
 		-Dntlm=disabled
 
-GSSAPI_BASE_USES=		gssapi
-GSSAPI_BASE_MESON_ON=		-Dgssapi=enabled -Dkrb5_config=${KRB5CONFIG}
-
-GSSAPI_HEIMDAL_USES=		gssapi:heimdal
-GSSAPI_HEIMDAL_MESON_ON=	-Dgssapi=enabled -Dkrb5_config=${KRB5CONFIG}
-
-GSSAPI_MIT_USES=		gssapi:mit
-GSSAPI_MIT_MESON_ON=		-Dgssapi=enabled -Dkrb5_config=${KRB5CONFIG}
-
-GSSAPI_NONE_MESON_DISABLED=	gssapi
+GSSAPI_USES=		gssapi
+GSSAPI_MESON_ON=	-Dgssapi=enabled -Dkrb5_config=${KRB5CONFIG}
+GSSAPI_MESON_OFF=	-Dgssapi=disabled
 
 BINARY_ALIAS=	python3=${PYTHON_CMD}
 

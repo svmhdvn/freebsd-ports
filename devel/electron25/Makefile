@@ -1,8 +1,9 @@
 PORTNAME=	electron
 DISTVERSIONPREFIX=	v
 DISTVERSION=	${ELECTRON_VER:S/-beta./.b/}
+PORTREVISION=	3
 CATEGORIES=	devel
-MASTER_SITES=	https://github.com/tagattie/FreeBSD-Electron/releases/download/v27.1.3/:chromium \
+MASTER_SITES=	https://github.com/tagattie/FreeBSD-Electron/releases/download/v25.5.0/:chromium \
 		https://commondatastorage.googleapis.com/chromium-nodejs/:chromium_node \
 		https://commondatastorage.googleapis.com/chromium-fonts/:chromium_testfonts
 PKGNAMESUFFIX=	${ELECTRON_VER_MAJOR}
@@ -21,20 +22,19 @@ LICENSE_COMB=	multi
 LICENSE_FILE=	${WRKSRC}/electron/LICENSE
 
 DEPRECATED=	EOLed upstream, switch to newer version
-EXPIRATION_DATE=	2024-05-31
+EXPIRATION_DATE=	2024-02-29
 
 ONLY_FOR_ARCHS=	aarch64 amd64 i386
 
-FETCH_DEPENDS=	yarn${NODEJS_SUFFIX}>0:www/yarn${NODEJS_SUFFIX}
-EXTRACT_DEPENDS=yarn${NODEJS_SUFFIX}>0:www/yarn${NODEJS_SUFFIX}
-PATCH_DEPENDS=	git:devel/git \
-		jq:textproc/jq
+FETCH_DEPENDS=	yarn-node18>0:www/yarn-node18
+EXTRACT_DEPENDS=yarn-node18>0:www/yarn-node18
+PATCH_DEPENDS=	git:devel/git
 BUILD_DEPENDS=	gperf:devel/gperf \
 		yasm:devel/yasm \
 		${LOCALBASE}/libdata/pkgconfig/dri.pc:graphics/mesa-dri \
 		${LOCALBASE}/include/linux/videodev2.h:multimedia/v4l_compat \
-		node${NODEJS_VERSION}>0:www/node${NODEJS_VERSION} \
-		npm${NODEJS_SUFFIX}>0:www/npm${NODEJS_SUFFIX}
+		node18>0:www/node18 \
+		npm-node18>0:www/npm-node18
 LIB_DEPENDS=	libatk-bridge-2.0.so:accessibility/at-spi2-core \
 		libatspi.so:accessibility/at-spi2-core \
 		libsnappy.so:archivers/snappy \
@@ -67,11 +67,11 @@ LIB_DEPENDS=	libatk-bridge-2.0.so:accessibility/at-spi2-core \
 RUN_DEPENDS=	xdg-open:devel/xdg-utils
 TEST_DEPENDS=	git:devel/git \
 		${PYTHON_PKGNAMEPREFIX}python-dbusmock>0:devel/py-python-dbusmock@${PY_FLAVOR} \
-		npm${NODEJS_SUFFIX}>0:www/npm${NODEJS_SUFFIX}
+		npm-node18>0:www/npm-node18
 
 USES=		bison compiler:c++17-lang cpe gettext-tools gl gmake gnome \
-		iconv:wchar_t jpeg localbase:ldflags ninja nodejs:18,build \
-		pkgconfig python:build,test shebangfix tar:xz xorg
+		iconv:wchar_t jpeg localbase:ldflags ninja pkgconfig \
+		python:build,test shebangfix tar:xz xorg
 
 CPE_VENDOR=	electronjs
 USE_GITHUB=	yes
@@ -108,7 +108,6 @@ GN_ARGS+=	clang_use_chrome_plugins=false \
 		enable_hangout_services_extension=true \
 		enable_nacl=false \
 		enable_remoting=false \
-		enable_rust=false \
 		fatal_linker_warnings=false \
 		icu_use_data_file=false \
 		is_clang=true \
@@ -118,6 +117,7 @@ GN_ARGS+=	clang_use_chrome_plugins=false \
 		use_allocator_shim=false \
 		use_aura=true \
 		use_custom_libcxx=false \
+		use_gnome_keyring=false \
 		use_lld=true \
 		use_partition_alloc=true \
 		use_partition_alloc_as_malloc=false \
@@ -128,11 +128,9 @@ GN_ARGS+=	clang_use_chrome_plugins=false \
 		use_system_libjpeg=true \
 		use_udev=false \
 		chrome_pgo_phase=0 \
-		extra_cflags="${CFLAGS}" \
 		extra_cxxflags="${CXXFLAGS}" \
 		extra_ldflags="${LDFLAGS}" \
-		ffmpeg_branding="${FFMPEG_BRAND}" \
-		override_electron_version="${ELECTRON_VER}"
+		ffmpeg_branding="${FFMPEG_BRAND}"
 
 # TODO: investigate building with these options:
 # use_system_minigbm
@@ -141,8 +139,8 @@ GN_BOOTSTRAP_FLAGS=	--no-clean --no-rebuild --skip-generate-buildfiles
 PLIST_SUB=	ELECTRON_VER=${ELECTRON_VER} \
 		ELECTRON_VER_MAJOR=${ELECTRON_VER_MAJOR}
 
-OPTIONS_DEFINE=		CODECS CUPS DEBUG DIST DRIVER GSSAPI LTO PIPEWIRE
-OPTIONS_DEFAULT=	CODECS CUPS DRIVER GSSAPI PIPEWIRE SNDIO
+OPTIONS_DEFINE=		CODECS CUPS DEBUG DIST DRIVER GSSAPI LTO
+OPTIONS_DEFAULT=	CODECS CUPS DRIVER GSSAPI SNDIO
 OPTIONS_EXCLUDE_aarch64=LTO
 OPTIONS_GROUP=		AUDIO
 OPTIONS_GROUP_AUDIO=	ALSA PULSEAUDIO SNDIO
@@ -151,7 +149,6 @@ CODECS_DESC=		Compile and enable patented codecs like H.264
 DIST_DESC=		Build distribution zip files
 DRIVER_DESC=		Install chromedriver
 GSSAPI_DESC=		GSSAPI support
-PIPEWIRE_DESC=		Screen capture via PipeWire
 
 ALSA_LIB_DEPENDS=	libasound.so:audio/alsa-lib
 ALSA_RUN_DEPENDS=	${LOCALBASE}/lib/alsa-lib/libasound_module_pcm_oss.so:audio/alsa-plugins \
@@ -187,6 +184,7 @@ DEBUG_VARS_OFF=		BUILDTYPE=Release \
 DIST_IMPLIES=		DRIVER
 DRIVER_MAKE_ARGS=	chromedriver
 
+GSSAPI_USES=		gssapi
 GSSAPI_VARS_ON=		GN_ARGS+=use_kerberos=true
 GSSAPI_VARS_OFF=	GN_ARGS+=use_kerberos=false
 
@@ -194,12 +192,6 @@ LTO_VARS=		GN_ARGS+=use_thin_lto=true \
 			GN_ARGS+=thin_lto_enable_optimizations=true \
 			WANTSPACE="14 GB"
 LTO_VARS_OFF=		GN_ARGS+=use_thin_lto=false
-
-PIPEWIRE_LIB_DEPENDS=	libpipewire-0.3.so:multimedia/pipewire
-PIPEWIRE_VARS=		GN_ARGS+=rtc_use_pipewire=true \
-			GN_ARGS+=rtc_link_pipewire=true
-PIPEWIRE_VARS_OFF=	GN_ARGS+=rtc_use_pipewire=false \
-			GN_ARGS+=rtc_link_pipewire=false
 
 PULSEAUDIO_LIB_DEPENDS=	libpulse.so:audio/pulseaudio
 PULSEAUDIO_VARS=	GN_ARGS+=use_pulseaudio=true
@@ -214,13 +206,13 @@ SNDIO_VARS=		GN_ARGS+=use_sndio=true
 SNDIO_VARS_OFF=		GN_ARGS+=use_sndio=false
 
 # See ${WRKSRC}/electron/DEPS for CHROMIUM_VER
-CHROMIUM_VER=			118.0.5993.159
+CHROMIUM_VER=			114.0.5735.289
 # See ${WRKSRC}/third_party/node/node_modules.tar.gz.sha1 for CHROMIUM_NODE_MODULES_HASH
-CHROMIUM_NODE_MODULES_HASH=	937cea04689b7b8dcf3cb9adbb12c79d1d6c38bb
+CHROMIUM_NODE_MODULES_HASH=	de0af8ec3401004cd1a420ab25892880330464c8
 # See ${WRKSRC}/third_party/test_fonts/test_fonts.tar.gz.sha1 for CHROMIUM_TEST_FONTS_HASH
 CHROMIUM_TEST_FONTS_HASH=	336e775eec536b2d785cc80eff6ac39051931286
 # See ${WRKSRC}/electron/DEPS for NODE_VER
-NODE_VER=			18.17.1
+NODE_VER=			18.15.0
 # See ${WRKSRC}/electron/DEPS for NAN_VER
 NAN_VER=			16fa32231e2ccd89d2804b3f765319128b20c4ac
 # See ${WRKSRC}/electron/DEPS for SQUIRREL_MAC_VER
@@ -230,14 +222,24 @@ REACTIVEOBJC_VER=		74ab5baccc6f7202c8ac69a8d1e152c29dc1ea76
 # See ${WRKSRC}/electron/DEPS for MANTLE_VER
 MANTLE_VER=			78d3966b3c331292ea29ec38661b25df0a245948
 
-YARN_TIMESTAMP=	61171200
+YARN_TIMESTAMP=	1701939428
 
 .include "Makefile.version"
 .include <bsd.port.pre.mk>
 
+.if ${COMPILER_VERSION} < 150
+LLVM_DEFAULT=		15
+BUILD_DEPENDS+=		clang${LLVM_DEFAULT}:devel/llvm${LLVM_DEFAULT}
+BINARY_ALIAS+=		cpp=${LOCALBASE}/bin/clang-cpp${LLVM_DEFAULT} \
+			cc=${LOCALBASE}/bin/clang${LLVM_DEFAULT} \
+			c++=${LOCALBASE}/bin/clang++${LLVM_DEFAULT} \
+			ar=${LOCALBASE}/bin/llvm-ar${LLVM_DEFAULT} \
+			nm=${LOCALBASE}/bin/llvm-nm${LLVM_DEFAULT} \
+			ld=${LOCALBASE}/bin/ld.lld${LLVM_DEFAULT}
+.else
 BINARY_ALIAS+=		ar=/usr/bin/llvm-ar \
 			nm=/usr/bin/llvm-nm
-CFLAGS+=		-Wno-error=implicit-function-declaration
+.endif
 
 .if ${ARCH} == "aarch64"
 PLIST_SUB+=	AARCH64="" \
@@ -261,7 +263,7 @@ PLIST_SUB+=	AARCH64="@comment " \
 FFMPEG_TARGET=	ia32
 .endif
 
-FFMPEG_BDIR=	${WRKSRC}/build.${FFMPEG_TARGET}.freebsd/${FFMPEG_BRAND}
+FFMPEG_BDIR=	${WRKSRC}/third_party/ffmpeg/build.${FFMPEG_TARGET}.freebsd/${FFMPEG_BRAND}
 FFMPEG_CDIR=	${WRKSRC}/third_party/ffmpeg/chromium/config/${FFMPEG_BRAND}/freebsd/${FFMPEG_TARGET}
 
 # Allow relocations against read-only segments (override lld default)

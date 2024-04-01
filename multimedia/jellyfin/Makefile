@@ -21,14 +21,13 @@ BUILD_DEPENDS=	npm:www/npm${NODEJS_SUFFIX} \
 RUN_DEPENDS=	ca_root_nss>0:security/ca_root_nss \
 		ffmpeg>0:multimedia/ffmpeg \
 		icu>0:devel/icu \
-		krb5>0:security/krb5 \
 		libinotify>0:devel/libinotify \
 		libunwind>0:devel/libunwind \
 		mediainfo>0:multimedia/mediainfo
 TEST_DEPENDS=	npm:www/npm${NODEJS_SUFFIX} \
 		dotnet:lang/dotnet
 
-USES=		nodejs:20,build sqlite:3 ssl elfctl
+USES=		gssapi:mit nodejs:20,build sqlite:3 ssl elfctl
 
 USE_GITHUB=	nodefault
 GH_ACCOUNT=	jellyfin:server,ui

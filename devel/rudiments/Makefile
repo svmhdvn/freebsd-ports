@@ -10,9 +10,8 @@ WWW=		https://rudiments.sourceforge.net
 LICENSE=	LGPL20
 
 LIB_DEPENDS=	libcurl.so:ftp/curl \
-		libgssapi_krb5.so:security/krb5
 
-USES=		libedit libtool pathfix pkgconfig readline shebangfix
+USES=		gssapi libedit libtool pathfix pkgconfig readline shebangfix
 GNU_CONFIGURE=	yes
 GNU_CONFIGURE_MANPREFIX=${PREFIX}/share
 PATHFIX_MAKEFILEIN=	Makefile
