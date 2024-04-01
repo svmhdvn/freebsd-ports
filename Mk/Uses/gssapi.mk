@@ -2,7 +2,7 @@
 #
 # Feature:	gssapi
 # Usage:	USES=gssapi or USES=gssapi:ARGS
-# Valid ARGS:	base (default, implicit), heimdal, mit.
+# Valid ARGS:	base (default, implicit), heimdal, heimdal-devel, mit, mit-devel
 #		"bootstrap" is a special prefix only for krb5 or heimdal ports.
 #		("bootstrap,mit")
 #		flags is a special suffix to define CFLAGS, LDFLAGS, and LDADD.
@@ -22,6 +22,8 @@
 #  GSSAPILIBDIR
 #  GSSAPILIBS
 #  GSSAPI_CONFIGURE_ARGS
+#  GSSAPI_VENDOR
+#  GSSAPI_PROVIDER
 #  KRB5CONFIG
 #
 # Affected variables:
@@ -36,24 +38,32 @@
 #
 # Usage:
 #
-#  A typical example:
+#  A typical example, where the port supports all GSSAPI providers and
+#  end-users can use DEFAULT_VERSIONS to decide which one they want.
 #
-#   OPTIONS_SINGLE= GSSAPI
-#   OPTIONS_SINGLE_GSSAPI= GSSAPI_BASE GSSAPI_HEIMDAL GSSAPI_MIT GSSAPI_NONE
+#   OPTIONS_DEFINE=		GSSAPI
 #
-#   GSSAPI_BASE_USES=	gssapi
-#   GSSAPI_BASE_CONFIGURE_ON= \
-#	--with-gssapi=${GSSAPIBASEDIR} ${GSSAPI_CONFIGURE_ARGS}
+#   GSSAPI_USES=		gssapi
+#   GSSAPI_CONFIGURE_ON=	--with-gssapi=${GSSAPIBASEDIR} ${GSSAPI_CONFIGURE_ARGS}
+#   GSSAPI_CONFIGURE_OFF=	--without-gssapi
 #
-#   GSSAPI_HEIMDAL_USES=gssapi:heimdal
-#   GSSAPI_HEIMDAL_CONFIGURE_ON= \
-#	--with-gssapi=${GSSAPIBASEDIR} ${GSSAPI_CONFIGURE_ARGS}
+#  An example of restricting the list of supported gssapi providers.
+#  The end user cannot use DEFAULT_VERSIONS, but can choose between the various
+#  port OPTIONS to choose between the supported providers.
+#  This example port chooses to only support Heimdal based providers from
+#  the ports collection.
 #
-#   GSSAPI_MIT_USES=	gssapi:mit
-#   GSSAPI_MIT_CONFIGURE_ON= \
-#	--with-gssapi=${GSSAPIBASEDIR} ${GSSAPI_CONFIGURE_ARGS}
+#   OPTIONS_SINGLE=			GSSAPI
+#   OPTIONS_SINGLE_GSSAPI=		GSSAPI_NONE GSSAPI_HEIMDAL GSSAPI_HEIMDAL_DEVEL
+#   OPTIONS_DEFAULT=			GSSAPI_NONE
 #
-#   GSSAPI_NONE_CONFIGURE_ON= --without-gssapi
+#   GSSAPI_NONE_CONFIGURE_ON=		--without-gssapi
+#
+#   GSSAPI_HEIMDAL_USES=		gssapi:heimdal
+#   GSSAPI_HEIMDAL_CONFIGURE_ON=	--with-gssapi=${GSSAPIBASEDIR} ${GSSAPI_CONFIGURE_ARGS}
+#
+#   GSSAPI_HEIMDAL_DEVEL_USES=		gssapi:heimdal-devel
+#   GSSAPI_HEIMDAL_DEVEL_CONFIGURE_ON=	--with-gssapi=${GSSAPIBASEDIR} ${GSSAPI_CONFIGURE_ARGS}
 #
 #  If pathname is required for Kerberos implementation, use ${GSSAPIBASEDIR}.
 #
@@ -73,19 +83,38 @@
 .if !defined(_INCLUDE_USES_GSSAPI_MK)
 _INCLUDE_USES_GSSAPI_MK=	yes
 
-_HEIMDAL_DEPENDS=${GSSAPILIBDIR}/libgssapi.so:security/heimdal
-_MITKRB5_DEPENDS=${GSSAPILIBDIR}/libkrb5support.so:security/krb5
 _HEADERS=	sys/types.h sys/stat.h stdint.h
 
-.  if empty(gssapi_ARGS)
-gssapi_ARGS=	base
-.  endif
+GSSAPI_PROVIDER=	${GSSAPI_DEFAULT}
+
 .  for _A in ${gssapi_ARGS}
-_local:=	${_A}
-.    if ${_local} == "base"
-.      if ${SSL_DEFAULT} != base
-IGNORE=	You are using OpenSSL from ports and have selected GSSAPI from base, please select another GSSAPI value
-.      endif
+.    if ${_A} == "base" || \
+	${_A} == "heimdal" || \
+	${_A} == "heimdal-devel" || \
+	${_A} == "mit" || \
+	${_A} == "mit-devel"
+GSSAPI_PROVIDER=	${_A}
+.    elif ${_A} == "bootstrap"
+_KRB_BOOTSTRAP=	1
+.    elif ${_A} == "flags"
+_KRB_USEFLAGS=	1
+.    else
+BROKEN=	USES=gssapi - invalid args: [${_A}] specified
+.    endif
+.  endfor
+
+.  if ${GSSAPI_PROVIDER} == "base" || ${GSSAPI_PROVIDER:Mheimdal*}
+GSSAPI_VENDOR=heimdal
+.  elif ${GSSAPI_PROVIDER:Mmit*}
+GSSAPI_VENDOR=mit
+.  else
+BROKEN=	USES=gssapi - could not determine vendor: invalid GSSAPI provider '${GSSAPI_PROVIDER}'
+.  endif
+
+.  if ${GSSAPI_PROVIDER} == "base"
+.    if ${SSL_DEFAULT} != "base"
+BROKEN=	You are using OpenSSL from ports and have selected GSSAPI from base, please select another GSSAPI value
+.    endif
 HEIMDAL_HOME=	/usr
 GSSAPIBASEDIR=	${HEIMDAL_HOME}
 GSSAPILIBDIR=	${GSSAPIBASEDIR}/lib
@@ -94,46 +123,41 @@ _HEADERS+=	gssapi/gssapi.h gssapi/gssapi_krb5.h krb5.h
 GSSAPICPPFLAGS=	-I"${GSSAPIINCDIR}"
 GSSAPILIBS=	-lkrb5 -lgssapi -lgssapi_krb5
 GSSAPILDFLAGS=
-.    elif ${_local} == "heimdal"
+.  elif ${GSSAPI_PROVIDER:Mheimdal*}
 HEIMDAL_HOME?=	${LOCALBASE}
 GSSAPIBASEDIR=	${HEIMDAL_HOME}
 GSSAPILIBDIR=	${GSSAPIBASEDIR}/lib/heimdal
 GSSAPIINCDIR=	${GSSAPIBASEDIR}/include/heimdal
 _HEADERS+=	gssapi/gssapi.h gssapi/gssapi_krb5.h krb5.h
-.      if !defined(_KRB_BOOTSTRAP)
-BUILD_DEPENDS+=	${_HEIMDAL_DEPENDS}
-RUN_DEPENDS+=	${_HEIMDAL_DEPENDS}
-.      else
-PREFIX=		${HEIMDAL_HOME}
-.      endif
+.    if !defined(_KRB_BOOTSTRAP)
+_GSSAPI_DEPENDS=	${GSSAPILIBDIR}/libgssapi.so:security/${GSSAPI_PROVIDER}
+BUILD_DEPENDS+=		${_GSSAPI_DEPENDS}
+RUN_DEPENDS+=		${_GSSAPI_DEPENDS}
+.    else
+PREFIX=			${HEIMDAL_HOME}
+.    endif
 GSSAPICPPFLAGS=	-I"${GSSAPIINCDIR}"
 GSSAPILIBS=	-lkrb5 -lgssapi
 GSSAPILDFLAGS=	-L"${GSSAPILIBDIR}"
 _RPATH=		${GSSAPILIBDIR}
-.    elif ${_local} == "mit"
+.  elif ${GSSAPI_PROVIDER:Mmit*}
 KRB5_HOME?=	${LOCALBASE}
 GSSAPIBASEDIR=	${KRB5_HOME}
 GSSAPILIBDIR=	${GSSAPIBASEDIR}/lib
 GSSAPIINCDIR=	${GSSAPIBASEDIR}/include
 _HEADERS+=	gssapi/gssapi.h gssapi/gssapi_krb5.h krb5.h
-.      if !defined(_KRB_BOOTSTRAP)
-BUILD_DEPENDS+=	${_MITKRB5_DEPENDS}
-RUN_DEPENDS+=	${_MITKRB5_DEPENDS}
-.      else
-PREFIX=		${KRB5_HOME}
-.      endif
+.    if !defined(_KRB_BOOTSTRAP)
+_GSSAPI_DEPENDS=	${GSSAPILIBDIR}/libkrb5support.so:security/krb5${GSSAPI_PROVIDER:S/mit//}
+BUILD_DEPENDS+=		${_GSSAPI_DEPENDS}
+RUN_DEPENDS+=		${_GSSAPI_DEPENDS}
+.    else
+PREFIX=			${KRB5_HOME}
+.    endif
 GSSAPILIBS=	-lkrb5 -lgssapi_krb5
 GSSAPICPPFLAGS=	-I"${GSSAPIINCDIR}"
 GSSAPILDFLAGS=	-L"${GSSAPILIBDIR}"
 _RPATH=		${GSSAPILIBDIR}
-.    elif ${_local} == "bootstrap"
-_KRB_BOOTSTRAP=	1
-.    elif ${_local} == "flags"
-_KRB_USEFLAGS=	1
-.    else
-IGNORE=	USES=gssapi - invalid args: [${_local}] specified
-.    endif
-.  endfor
+.  endif
 
 KRB5CONFIG=${GSSAPIBASEDIR}/bin/krb5-config
 
@@ -178,6 +202,8 @@ debug-krb:
 	@echo "GSSAPILIBS: ${GSSAPILIBS}"
 	@echo "GSSAPICPPFLAGS: ${GSSAPICPPFLAGS}"
 	@echo "GSSAPILDFLAGS: ${GSSAPILDFLAGS}"
+	@echo "GSSAPI_VENDOR: ${GSSAPI_VENDOR}"
+	@echo "GSSAPI_PROVIDER: ${GSSAPI_PROVIDER}"
 	@echo "GSSAPI_CONFIGURE_ARGS: ${GSSAPI_CONFIGURE_ARGS}"
 	@echo "KRB5CONFIG: ${KRB5CONFIG}"
 	@echo "CFLAGS: ${CFLAGS}"
