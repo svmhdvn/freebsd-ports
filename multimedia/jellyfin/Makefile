@@ -19,12 +19,11 @@ LIB_DEPENDS+=	libfontconfig.so:x11-fonts/fontconfig
 RUN_DEPENDS=	ca_root_nss>0:security/ca_root_nss \
 		ffmpeg>0:multimedia/ffmpeg \
 		icu>0:devel/icu \
-		krb5>0:security/krb5 \
 		libinotify>0:devel/libinotify \
 		libunwind>0:devel/libunwind \
 		mediainfo>0:multimedia/mediainfo
 
-USES=		sqlite:3 ssl:run
+USES=		gssapi:mit sqlite:3 ssl:run
 USE_RC_SUBR=	jellyfin
 
 NO_BUILD=	YES

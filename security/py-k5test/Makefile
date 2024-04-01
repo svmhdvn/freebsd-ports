@@ -1,8 +1,14 @@
 PORTNAME=	k5test
 PORTVERSION=	0.10.4
+PORTREVISION=	1
 CATEGORIES=	security python
-MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+#MASTER_SITES=	PYPI
+USE_GITHUB=		yes
+GH_ACCOUNT=		svmhdvn
+GH_TAGNAME=		krb5config
+DISTVERSIONPREFIX=	v
 
 MAINTAINER=	me@svmhdvn.name
 COMMENT=	A library for setting up self-contained Kerberos 5 environments

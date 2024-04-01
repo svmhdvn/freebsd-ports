@@ -56,7 +56,9 @@ GNUTLS_CONFIGURE_ENABLE=gnutls
 GNUTLS_PLIST_FILES=	lib/rsyslog/lmnsd_gtls.so
 
 GSSAPI_DESC=		GSS API input/output module for rsyslog
-GSSAPI_CONFIGURE_ENABLE=gssapi-krb5
+GSSAPI_USES=		gssapi
+GSSAPI_CONFIGURE_ON=	--enable-gssapi-krb5 ${GSSAPI_CONFIGURE_ARGS}
+GSSAPI_CONFIGURE_OFF=	--disable-gssapi-krb5
 GSSAPI_PLIST_FILES=	lib/rsyslog/imgssapi.so \
 			lib/rsyslog/lmgssutil.so \
 			lib/rsyslog/omgssapi.so

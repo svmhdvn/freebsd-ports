@@ -13,8 +13,7 @@ LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 BUILD_DEPENDS=	gdm>=3.0.0:x11/gdm \
-		gnome-autogen.sh:devel/gnome-common \
-		krb5>0:security/krb5
+		gnome-autogen.sh:devel/gnome-common
 LIB_DEPENDS=	libaccountsservice.so:sysutils/accountsservice \
 		libadwaita-1.so:x11-toolkits/libadwaita \
 		libgeocode-glib-2.so:net/geocode-glib2 \
@@ -24,10 +23,9 @@ LIB_DEPENDS=	libaccountsservice.so:sysutils/accountsservice \
 		libpwquality.so:security/libpwquality \
 		librest-1.0.so:net/librest1 \
 		libwebkit2gtk-5.0.so:www/webkit2-gtk4
-RUN_DEPENDS=	gdm>=3.0.0:x11/gdm \
-		krb5>0:security/krb5
+RUN_DEPENDS=	gdm>=3.0.0:x11/gdm
 
-USES=		compiler:c++11-lib gettext gnome meson pathfix pkgconfig tar:xz
+USES=		compiler:c++11-lib gettext gnome gssapi:mit meson pathfix pkgconfig tar:xz
 USE_GNOME=	gnomedesktop3 gtk30 intlhack
 
 MESON_ARGS=	-Dibus=disabled \

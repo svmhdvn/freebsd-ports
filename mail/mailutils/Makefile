@@ -49,8 +49,9 @@ GNUTLS_LIB_DEPENDS=	libgnutls.so:security/gnutls
 GNUTLS_CONFIGURE_WITH=	gnutls
 
 GSSAPI_RUN_DEPENDS=	cyrus-sasl-gssapi>0:security/cyrus-sasl2-gssapi
-GSSAPI_USES=		ssl
-GSSAPI_CONFIGURE_WITH=	gssapi
+GSSAPI_USES=		gssapi
+GSSAPI_CONFIGURE_ON=	--with-gssapi=${GSSAPIBASEDIR} ${GSSAPI_CONFIGURE_ARGS}
+GSSAPI_CONFIGURE_OFF=	--without-gssapi
 
 GUILE_USES=		guile:2.2,alias makeinfo pkgconfig
 GUILE_CONFIGURE_WITH=	guile

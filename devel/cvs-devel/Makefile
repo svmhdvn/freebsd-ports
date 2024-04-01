@@ -15,7 +15,7 @@ USES=		cpe makeinfo perl5 tar:bzip2
 CPE_VENDOR=	gnu
 GNU_CONFIGURE=	yes
 GNU_CONFIGURE_MANPREFIX=${PREFIX}/share
-CONFIGURE_ARGS=	--enable-ipv6 --without-gssapi \
+CONFIGURE_ARGS=	--enable-ipv6 \
 		--with-editor="vi" \
 		--with-tmpdir="/tmp"
 
@@ -24,14 +24,17 @@ INFO=		cvs cvsclient
 CVS_SITE?=	:pserver:anoncvs@anoncvs.jp.FreeBSD.org:/home/ncvs
 CVS_VER?=	v${PORTVERSION:S//_/g}
 
-OPTIONS_DEFINE=	PAM
+OPTIONS_DEFINE=	GSSAPI PAM
+GSSAPI_DESC=	GSSAPI support
 PAM_DESC=	PAM support
 
 .include <bsd.port.pre.mk>
 
-.if ${PORT_OPTIONS:MPAM}
-CONFIGURE_ARGS+=--enable-pam
-.endif
+PAM_CONFIGURE_ENABLE=	pam
+
+GSSAPI_USES=		gssapi
+GSSAPI_CONFIGURE_ON=	--with-gssapi=${GSSAPIBASEDIR} ${GSSAPI_CONFIGURE_ARGS}
+GSSAPI_CONFIGURE_OFF=	--without-gssapi
 
 post-patch:
 	@${REINPLACE_CMD} 's/${PORTVERSION:S/./\./g}/&-devel/g' \

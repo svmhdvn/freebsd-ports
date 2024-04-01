@@ -48,7 +48,9 @@ GNUTLS_DESC=		Use GnuTLS instead of OpenSSL (experimental)
 GNUTLS_LIB_DEPENDS=	libgnutls.so:security/gnutls
 GNUTLS_CONFIGURE_WITH=	gnutls
 
-GSSAPI_CONFIGURE_WITH=	gssapi
+GSSAPI_USES=		gssapi
+GSSAPI_CONFIGURE_ON=	--with-gssapi="${GSSAPIBASEDIR}" ${GSSAPI_CONFIGURE_ARGS}
+GSSAPI_CONFIGURE_OFF=	--without-gssapi
 
 P11_DESC=		PKCS \#11 support via libp11
 P11_LIB_DEPENDS=	libp11.so:security/libp11

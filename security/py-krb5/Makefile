@@ -1,4 +1,4 @@
-PORTNAME=	krb5
+portname=	krb5
 PORTVERSION=	0.5.1
 PORTREVISION=	1
 CATEGORIES=	security python
@@ -15,18 +15,10 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}setuptools>=42.0.0:devel/py-setuptools@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}wheel>=0:devel/py-wheel@${PY_FLAVOR}
 
-USES=		python
+USES=		python gssapi
 USE_PYTHON=	autoplist concurrent cython pep517
 
 MAKE_ENV=	KRB5_KRB5CONFIG=${KRB5CONFIG}
-
-OPTIONS_SINGLE=	GSSAPI
-OPTIONS_SINGLE_GSSAPI=	GSSAPI_BASE GSSAPI_HEIMDAL GSSAPI_MIT
-OPTIONS_DEFAULT=GSSAPI_BASE
-
-GSSAPI_BASE_USES=	gssapi
-GSSAPI_HEIMDAL_USES=	gssapi:heimdal
-GSSAPI_MIT_USES=	gssapi:mit
 
 post-install:
 	${FIND} ${STAGEDIR}${PYTHON_SITELIBDIR} -name '*.so' -exec ${STRIP_CMD} {} +

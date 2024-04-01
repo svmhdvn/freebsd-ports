@@ -11,8 +11,9 @@ WWW=		http://www.webdav.org/neon/litmus/
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-LIB_DEPENDS=	libneon.so:www/neon \
-		libk5crypto.so:security/krb5
+LIB_DEPENDS=	libneon.so:www/neon
+
+USES=		gssapi:mit
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--with-ssl --with-neon=${LOCALBASE}
