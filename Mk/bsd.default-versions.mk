@@ -65,6 +65,8 @@ GHOSTSCRIPT_DEFAULT?=	10
 GL_DEFAULT?=		mesa-libs
 # Possible values: 1.20, 1.21, 1.22, 1.23, 1.24-devel
 GO_DEFAULT?=		1.21
+# Possible values: base, heimdal, heimdal-devel, mit, mit-devel
+GSSAPI_DEFAULT?=	base
 # Possible values: 1.8, 2.2, 3.0
 GUILE_DEFAULT?=		2.2
 # Possible versions: 6, 7
