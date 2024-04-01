@@ -13,25 +13,15 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS=	cyrus-sasl-gssapi>0:security/cyrus-sasl2-gssapi
 
-USES=		autoreconf ldap ssl
+USES=		autoreconf ldap gssapi ssl
 USE_GITHUB=	yes
 GNU_CONFIGURE=	yes
 GNU_CONFIGURE_MANPREFIX=	${PREFIX}/share
-CONFIGURE_ARGS+=--with-sasldir=${LOCALBASE} --with-ldapdir=${LOCALBASE}
-
-OPTIONS_SINGLE=	GSSAPI
-OPTIONS_SINGLE_GSSAPI=	GSSAPI_BASE GSSAPI_HEIMDAL GSSAPI_MIT
-
-OPTIONS_DEFAULT=GSSAPI_BASE
-
-GSSAPI_BASE_USES=	gssapi
-GSSAPI_HEIMDAL_USES=	gssapi:heimdal
-GSSAPI_MIT_USES=	gssapi:mit
-
-GSSAPI_BASE_CONFIGURE_ON=	--with-krb5=heimdal
-GSSAPI_HEIMDAL_CONFIGURE_ON=	--with-krb5=heimdal
-GSSAPI_MIT_CONFIGURE_ON=	--with-krb5=mit
-CONFIGURE_ARGS+=		--with-krb5-config=${KRB5CONFIG}
+CONFIGURE_ARGS+=	--with-sasldir=${LOCALBASE} \
+			--with-ldapdir=${LOCALBASE} \
+			--with-krb5="${GSSAPI_VENDOR}" \
+			--with-krb5-config=${KRB5CONFIG} \
+			${GSSAPI_CONFIGURE_ARGS}
 
 PLIST_FILES=	sbin/msktutil share/man/man1/msktutil.1.gz
 

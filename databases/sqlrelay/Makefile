@@ -11,7 +11,6 @@ WWW=		https://sqlrelay.sourceforge.net/
 LICENSE=	LGPL20
 
 LIB_DEPENDS=	librudiments.so:devel/rudiments \
-		libkrb5.so:security/krb5 \
 		libcurl.so:ftp/curl \
 		libiconv.so:converters/libiconv
 

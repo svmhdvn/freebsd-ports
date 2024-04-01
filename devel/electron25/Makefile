@@ -1,9 +1,9 @@
 PORTNAME=	electron
 DISTVERSIONPREFIX=	v
 DISTVERSION=	${ELECTRON_VER:S/-beta./.b/}
-PORTREVISION=	1
+PORTREVISION=	3
 CATEGORIES=	devel
-MASTER_SITES=	https://github.com/tagattie/FreeBSD-Electron/releases/download/v30.1.1/:chromium \
+MASTER_SITES=	https://github.com/tagattie/FreeBSD-Electron/releases/download/v25.5.0/:chromium \
 		https://commondatastorage.googleapis.com/chromium-nodejs/:chromium_node \
 		https://commondatastorage.googleapis.com/chromium-fonts/:chromium_testfonts
 PKGNAMESUFFIX=	${ELECTRON_VER_MAJOR}
@@ -21,21 +21,23 @@ LICENSE=	BSD3CLAUSE LGPL21 MPL11 MIT
 LICENSE_COMB=	multi
 LICENSE_FILE=	${WRKSRC}/electron/LICENSE
 
+DEPRECATED=	EOLed upstream, switch to newer version
+EXPIRATION_DATE=	2024-02-29
+
 ONLY_FOR_ARCHS=	aarch64 amd64 i386
 
-FETCH_DEPENDS=	yarn${NODEJS_SUFFIX}>0:www/yarn${NODEJS_SUFFIX}
-EXTRACT_DEPENDS=yarn${NODEJS_SUFFIX}>0:www/yarn${NODEJS_SUFFIX}
-PATCH_DEPENDS=	git:devel/git \
-		jq:textproc/jq
+FETCH_DEPENDS=	yarn-node18>0:www/yarn-node18
+EXTRACT_DEPENDS=yarn-node18>0:www/yarn-node18
+PATCH_DEPENDS=	git:devel/git
 BUILD_DEPENDS=	gperf:devel/gperf \
 		yasm:devel/yasm \
 		${LOCALBASE}/libdata/pkgconfig/dri.pc:graphics/mesa-dri \
-		rustc:lang/rust \
 		${LOCALBASE}/include/linux/videodev2.h:multimedia/v4l_compat \
-		node${NODEJS_VERSION}>0:www/node${NODEJS_VERSION} \
-		npm${NODEJS_SUFFIX}>0:www/npm${NODEJS_SUFFIX}
+		node18>0:www/node18 \
+		npm-node18>0:www/npm-node18
 LIB_DEPENDS=	libatk-bridge-2.0.so:accessibility/at-spi2-core \
 		libatspi.so:accessibility/at-spi2-core \
+		libsnappy.so:archivers/snappy \
 		libFLAC.so:audio/flac \
 		libopus.so:audio/opus \
 		libdbus-1.so:devel/dbus \
@@ -65,11 +67,11 @@ LIB_DEPENDS=	libatk-bridge-2.0.so:accessibility/at-spi2-core \
 RUN_DEPENDS=	xdg-open:devel/xdg-utils
 TEST_DEPENDS=	git:devel/git \
 		${PYTHON_PKGNAMEPREFIX}python-dbusmock>0:devel/py-python-dbusmock@${PY_FLAVOR} \
-		npm${NODEJS_SUFFIX}>0:www/npm${NODEJS_SUFFIX}
+		npm-node18>0:www/npm-node18
 
 USES=		bison compiler:c++17-lang cpe gettext-tools gl gmake gnome \
-		iconv:wchar_t jpeg localbase:ldflags ninja nodejs:20,build \
-		pkgconfig python:build,test shebangfix tar:xz xorg
+		iconv:wchar_t jpeg localbase:ldflags ninja pkgconfig \
+		python:build,test shebangfix tar:xz xorg
 
 CPE_VENDOR=	electronjs
 USE_GITHUB=	yes
@@ -78,8 +80,7 @@ GH_TUPLE=	nodejs:node:v${NODE_VER}:node \
 		nodejs:nan:${NAN_VER}:nan \
 		Squirrel:Squirrel.Mac:${SQUIRREL_MAC_VER}:squirrel_mac \
 		ReactiveCocoa:ReactiveObjC:${REACTIVEOBJC_VER}:reactiveobjc \
-		Mantle:Mantle:${MANTLE_VER}:mantle \
-		EngFlow:reclient-configs:${ENGFLOW_RECLIENT_CONFIGS_VER}:reclient_configs
+		Mantle:Mantle:${MANTLE_VER}:mantle
 USE_GL=		gbm gl glesv2
 USE_GNOME=	atk cairo gdkpixbuf2 gtk30 libxml2 libxslt pango
 USE_LDCONFIG=	${DATADIR}
@@ -91,7 +92,7 @@ SHEBANG_FILES=	chrome/tools/build/linux/chrome-wrapper buildtools/linux64/clang-
 MAKE_ARGS=	-C out/${BUILDTYPE}
 MAKE_ENV+=	C_INCLUDE_PATH=${LOCALBASE}/include \
 		CPLUS_INCLUDE_PATH=${LOCALBASE}/include
-ALL_TARGET=	electron electron:node_headers
+ALL_TARGET=	electron third_party/electron_node:headers
 POST_BUILD_TARGETS=	licenses version
 POST_BUILD_DIST_TARGETS=electron_dist_zip electron_chromedriver_zip \
 			electron_mksnapshot_zip
@@ -105,7 +106,6 @@ WRKSRC_SUBDIR=	src
 GN_ARGS+=	clang_use_chrome_plugins=false \
 		enable_backup_ref_ptr_support=false \
 		enable_hangout_services_extension=true \
-		enable_log_error_not_reached=true \
 		enable_nacl=false \
 		enable_remoting=false \
 		fatal_linker_warnings=false \
@@ -116,8 +116,8 @@ GN_ARGS+=	clang_use_chrome_plugins=false \
 		treat_warnings_as_errors=false \
 		use_allocator_shim=false \
 		use_aura=true \
-		use_custom_libcxx=true \
-		use_custom_libunwind=true \
+		use_custom_libcxx=false \
+		use_gnome_keyring=false \
 		use_lld=true \
 		use_partition_alloc=true \
 		use_partition_alloc_as_malloc=false \
@@ -128,11 +128,9 @@ GN_ARGS+=	clang_use_chrome_plugins=false \
 		use_system_libjpeg=true \
 		use_udev=false \
 		chrome_pgo_phase=0 \
-		extra_cflags="${CFLAGS}" \
 		extra_cxxflags="${CXXFLAGS}" \
 		extra_ldflags="${LDFLAGS}" \
-		ffmpeg_branding="${FFMPEG_BRAND}" \
-		override_electron_version="${ELECTRON_VER}"
+		ffmpeg_branding="${FFMPEG_BRAND}"
 
 # TODO: investigate building with these options:
 # use_system_minigbm
@@ -141,8 +139,8 @@ GN_BOOTSTRAP_FLAGS=	--no-clean --no-rebuild --skip-generate-buildfiles
 PLIST_SUB=	ELECTRON_VER=${ELECTRON_VER} \
 		ELECTRON_VER_MAJOR=${ELECTRON_VER_MAJOR}
 
-OPTIONS_DEFINE=		CODECS CUPS DEBUG DIST DRIVER GSSAPI LTO PIPEWIRE
-OPTIONS_DEFAULT=	CODECS CUPS DRIVER GSSAPI PIPEWIRE SNDIO
+OPTIONS_DEFINE=		CODECS CUPS DEBUG DIST DRIVER GSSAPI LTO
+OPTIONS_DEFAULT=	CODECS CUPS DRIVER GSSAPI SNDIO
 OPTIONS_EXCLUDE_aarch64=LTO
 OPTIONS_GROUP=		AUDIO
 OPTIONS_GROUP_AUDIO=	ALSA PULSEAUDIO SNDIO
@@ -151,7 +149,6 @@ CODECS_DESC=		Compile and enable patented codecs like H.264
 DIST_DESC=		Build distribution zip files
 DRIVER_DESC=		Install chromedriver
 GSSAPI_DESC=		GSSAPI support
-PIPEWIRE_DESC=		Screen capture via PipeWire
 
 ALSA_LIB_DEPENDS=	libasound.so:audio/alsa-lib
 ALSA_RUN_DEPENDS=	${LOCALBASE}/lib/alsa-lib/libasound_module_pcm_oss.so:audio/alsa-plugins \
@@ -187,6 +184,7 @@ DEBUG_VARS_OFF=		BUILDTYPE=Release \
 DIST_IMPLIES=		DRIVER
 DRIVER_MAKE_ARGS=	chromedriver
 
+GSSAPI_USES=		gssapi
 GSSAPI_VARS_ON=		GN_ARGS+=use_kerberos=true
 GSSAPI_VARS_OFF=	GN_ARGS+=use_kerberos=false
 
@@ -194,12 +192,6 @@ LTO_VARS=		GN_ARGS+=use_thin_lto=true \
 			GN_ARGS+=thin_lto_enable_optimizations=true \
 			WANTSPACE="14 GB"
 LTO_VARS_OFF=		GN_ARGS+=use_thin_lto=false
-
-PIPEWIRE_LIB_DEPENDS=	libpipewire-0.3.so:multimedia/pipewire
-PIPEWIRE_VARS=		GN_ARGS+=rtc_use_pipewire=true \
-			GN_ARGS+=rtc_link_pipewire=true
-PIPEWIRE_VARS_OFF=	GN_ARGS+=rtc_use_pipewire=false \
-			GN_ARGS+=rtc_link_pipewire=false
 
 PULSEAUDIO_LIB_DEPENDS=	libpulse.so:audio/pulseaudio
 PULSEAUDIO_VARS=	GN_ARGS+=use_pulseaudio=true
@@ -214,38 +206,29 @@ SNDIO_VARS=		GN_ARGS+=use_sndio=true
 SNDIO_VARS_OFF=		GN_ARGS+=use_sndio=false
 
 # See ${WRKSRC}/electron/DEPS for CHROMIUM_VER
-CHROMIUM_VER=			124.0.6367.243
+CHROMIUM_VER=			114.0.5735.289
 # See ${WRKSRC}/third_party/node/node_modules.tar.gz.sha1 for CHROMIUM_NODE_MODULES_HASH
-CHROMIUM_NODE_MODULES_HASH=	97a0b3c4c39cf05de1eafb6ffdec0fddd643f0a2
+CHROMIUM_NODE_MODULES_HASH=	de0af8ec3401004cd1a420ab25892880330464c8
 # See ${WRKSRC}/third_party/test_fonts/test_fonts.tar.gz.sha1 for CHROMIUM_TEST_FONTS_HASH
 CHROMIUM_TEST_FONTS_HASH=	336e775eec536b2d785cc80eff6ac39051931286
 # See ${WRKSRC}/electron/DEPS for NODE_VER
-NODE_VER=			20.14.0
+NODE_VER=			18.15.0
 # See ${WRKSRC}/electron/DEPS for NAN_VER
-NAN_VER=			e14bdcd1f72d62bca1d541b66da43130384ec213
+NAN_VER=			16fa32231e2ccd89d2804b3f765319128b20c4ac
 # See ${WRKSRC}/electron/DEPS for SQUIRREL_MAC_VER
 SQUIRREL_MAC_VER=		0e5d146ba13101a1302d59ea6e6e0b3cace4ae38
 # See ${WRKSRC}/electron/DEPS for REACTIVEOBJC_VER
 REACTIVEOBJC_VER=		74ab5baccc6f7202c8ac69a8d1e152c29dc1ea76
 # See ${WRKSRC}/electron/DEPS for MANTLE_VER
 MANTLE_VER=			78d3966b3c331292ea29ec38661b25df0a245948
-# See ${WRKSRC}/electron/DEPS for ENGFLOW_RECLIENT_CONFIGS_VER
-ENGFLOW_RECLIENT_CONFIGS_VER=	955335c30a752e9ef7bff375baab5e0819b6c00d
 
-YARN_TIMESTAMP=	61171200
+YARN_TIMESTAMP=	1701939428
 
 .include "Makefile.version"
 .include <bsd.port.pre.mk>
 
-# libc++ < 16 needs these extra patches
-.if ${OPSYS} == FreeBSD && ${OSVERSION} < 1302507
-EXTRA_PATCHES=	${PATCHDIR}/extra-patch-electron_shell_browser_electron__browser__context.h \
-		${PATCHDIR}/extra-patch-electron_shell_browser_ui_gtk_menu__gtk.h \
-		${PATCHDIR}/extra-patch-electron_shell_browser_ui_status__icon__gtk.h
-.endif
-
-.if ${COMPILER_VERSION} < 170
-LLVM_DEFAULT=		17
+.if ${COMPILER_VERSION} < 150
+LLVM_DEFAULT=		15
 BUILD_DEPENDS+=		clang${LLVM_DEFAULT}:devel/llvm${LLVM_DEFAULT}
 BINARY_ALIAS+=		cpp=${LOCALBASE}/bin/clang-cpp${LLVM_DEFAULT} \
 			cc=${LOCALBASE}/bin/clang${LLVM_DEFAULT} \
@@ -257,7 +240,6 @@ BINARY_ALIAS+=		cpp=${LOCALBASE}/bin/clang-cpp${LLVM_DEFAULT} \
 BINARY_ALIAS+=		ar=/usr/bin/llvm-ar \
 			nm=/usr/bin/llvm-nm
 .endif
-CFLAGS+=		-Wno-error=implicit-function-declaration
 
 .if ${ARCH} == "aarch64"
 PLIST_SUB+=	AARCH64="" \
@@ -281,7 +263,7 @@ PLIST_SUB+=	AARCH64="@comment " \
 FFMPEG_TARGET=	ia32
 .endif
 
-FFMPEG_BDIR=	${WRKSRC}/build.${FFMPEG_TARGET}.freebsd/${FFMPEG_BRAND}
+FFMPEG_BDIR=	${WRKSRC}/third_party/ffmpeg/build.${FFMPEG_TARGET}.freebsd/${FFMPEG_BRAND}
 FFMPEG_CDIR=	${WRKSRC}/third_party/ffmpeg/chromium/config/${FFMPEG_BRAND}/freebsd/${FFMPEG_TARGET}
 
 # Allow relocations against read-only segments (override lld default)
@@ -291,13 +273,6 @@ LDFLAGS_i386=	-Wl,-znotext
 # build would fail without C_INCLUDE_PATH/CPLUS_INCLUDE_PATH env var set.
 MAKE_ENV+=	C_INCLUDE_PATH=${LOCALBASE}/include \
 		CPLUS_INCLUDE_PATH=${LOCALBASE}/include
-
-# rust
-RUSTC_VERSION!=	rustc -V 2>/dev/null || true
-MAKE_ENV+=	RUSTC_BOOTSTRAP=1
-GN_ARGS+=	enable_rust=true \
-		rust_sysroot_absolute="${LOCALBASE}" \
-		rustc_version="${RUSTC_VERSION}"
 
 pre-everything::
 	@${ECHO_MSG}
@@ -341,8 +316,6 @@ post-extract:
 		${WRKSRC}/third_party/squirrel.mac/vendor/ReactiveObjC
 	${MV} ${WRKDIR}/${PORTNAME}-${ELECTRON_VER}/${GH_PROJECT_mantle}-${MANTLE_VER} \
 		${WRKSRC}/third_party/squirrel.mac/vendor/Mantle
-	${MV} ${WRKDIR}/${PORTNAME}-${ELECTRON_VER}/${GH_PROJECT_reclient_configs}-${ENGFLOW_RECLIENT_CONFIGS_VER} \
-		${WRKSRC}/third_party/engflow-reclient-configs
 	${MV} ${WRKDIR}/${PORTNAME}-${ELECTRON_VER}/node_modules ${WRKSRC}/third_party/node
 	${MV} ${WRKDIR}/${PORTNAME}-${ELECTRON_VER}/test_fonts ${WRKSRC}/third_party/test_fonts
 # Install node modules for electron
@@ -366,7 +339,7 @@ pre-configure:
 	cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} ${PYTHON_CMD} \
 		./build/linux/unbundle/replace_gn_files.py --system-libraries \
 		dav1d flac fontconfig freetype harfbuzz-ng icu libdrm libevent \
-		libpng libusb libwebp libxml libxslt openh264 opus || ${FALSE}
+		libpng libusb libwebp libxml libxslt openh264 opus snappy || ${FALSE}
 	# Chromium uses an unreleased version of FFmpeg, so configure it
 	cd ${WRKSRC}/third_party/ffmpeg && \
 		${PYTHON_CMD} chromium/scripts/build_ffmpeg.py freebsd ${FFMPEG_TARGET} \
