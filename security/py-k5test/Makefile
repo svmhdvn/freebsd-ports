@@ -1,6 +1,5 @@
 PORTNAME=	k5test
 PORTVERSION=	0.10.4
-PORTREVISION=	1
 CATEGORIES=	security python
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
@@ -15,7 +14,6 @@ COMMENT=	A library for setting up self-contained Kerberos 5 environments
 WWW=		https://github.com/pythongssapi/k5test
 
 LICENSE=	MIT
-LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
 USES=		gssapi python
 USE_PYTHON=	autoplist concurrent pep517
