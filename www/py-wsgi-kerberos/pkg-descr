@@ -1,0 +1,4 @@
+WSGI Kerberos Authentication Middleware
+
+WSGI-Kerberos is WSGI Middleware which implements Kerberos authentication. It
+makes it easy to add Kerberos authentication to any WSGI application.
