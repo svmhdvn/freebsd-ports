@@ -2,6 +2,7 @@
 
 # PROVIDE: ngircd
 # REQUIRE: DAEMON
+# KEYWORD: shutdown
 #
 # Add the following lines to /etc/rc.conf to run ngircd:
 #
@@ -21,10 +22,21 @@ rcvar="ngircd_enable"
 load_rc_config $name
 
 : ${ngircd_enable="NO"}
-: ${ngircd_conf="%%PREFIX%%/etc/ngircd.conf"}
+: ${ngircd_conf="%%ETCDIR%%/ngircd.conf"}
+: ${ngircd_user=%%USERS%%}
+: ${ngircd_group=%%GROUPS%%}
 
 required_files="${ngircd_conf}"
 command=%%PREFIX%%/sbin/ngircd
-command_args="-f ${ngircd_conf}"
+command_args="--config ${ngircd_conf}"
+start_precmd=do_precmd
+
+do_precmd()
+{
+	if ! ${command} ${command_args} --configtest > /dev/null; then
+    		echo "ERROR: '${ngircd_conf}' incorrectly configured" >&2
+    		exit 78 # EX_CONFIG
+    	fi
+}
 
 run_rc_command "$1"
