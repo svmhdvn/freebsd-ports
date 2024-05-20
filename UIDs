@@ -334,7 +334,7 @@ _tlsrpt:*:382:382::0:0:TLSRPT Daemon:/nonexistent:/usr/sbin/nologin
 # free: 385
 # free: 386
 # free: 387
-# free: 388
+tlstunnel:*:388:388::0:0:tlstunnel Daemon:/nonexistent:/usr/sbin/nologin
 ldap:*:389:389::0:0:OpenLDAP Server:/nonexistent:/usr/sbin/nologin
 # free: 390
 # free: 391
