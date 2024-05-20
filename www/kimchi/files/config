@@ -1,0 +1,7 @@
+site example.org {
+	file_server /srv/http
+}
+
+site example.com {
+	reverse_proxy http://localhost:8080
+}

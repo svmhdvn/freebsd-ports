@@ -1,0 +1,37 @@
+#!/bin/sh
+#
+
+# PROVIDE: kimchi
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+#
+# Add these lines to /etc/rc.conf.local or /etc/rc.conf
+# to enable this service:
+#
+# kimchi_enable (bool):	Set to NO by default.
+#			Set it to YES to enable kimchi.
+# kimchi_config (path):	Set to %%ETCDIR%%/config
+#			by default.
+# kimchi_user (user):	Set to 'kimchi' by default
+# kimchi_group (group):	Set to 'kimchi' by default
+
+. /etc/rc.subr
+
+name=kimchi
+rcvar="${name}_enable"
+desc='bare-bones HTTP server'
+
+load_rc_config "${name}"
+: ${kimchi_enable:=NO}
+: ${kimchi_config:=%%ETCDIR%%/config}
+: ${kimchi_user:=%%DAEMON_USER%%}
+: ${kimchi_group:=%%DAEMON_GROUP%%}
+
+command=/usr/sbin/daemon
+procname="%%PREFIX%%/bin/${name}"
+rundir="/var/run/${name}"
+pidfile="${rundir}/${name}.pid"
+command_args="-cfHS -p ${pidfile} -P ${rundir}/daemon_${name}.pid ${procname} -config ${kimchi_config}"
+start_precmd="install -d -o ${kimchi_user} -g ${kimchi_group} -m 0700 ${rundir}"
+
+run_rc_command "$1"

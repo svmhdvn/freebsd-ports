@@ -365,7 +365,7 @@ uhub:*:411:411::0:0:uHub ADC Daemon:/nonexistent:/usr/sbin/nologin
 # free: 416
 # free: 417
 # free: 418
-# free: 419
+kimchi:*:419:419::0:0:kimchi Daemon:/nonexistent:/usr/sbin/nologin
 oxidized:*:420:420::0:0:Oxidized Owner:/var/db/oxidized:/usr/sbin/nologin
 # free: 421
 # free: 422
