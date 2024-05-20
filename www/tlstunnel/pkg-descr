@@ -1,0 +1,4 @@
+A TLS reverse proxy supporting:
+* Automatic TLS with Let's Encrypt
+* Route incoming connections to backends using Server Name Indication
+* Support for the PROXY protocol
