@@ -1,0 +1,5 @@
+bin/tlstunnel
+@sample %%ETCDIR%%/config.sample
+etc/rc.d/tlstunnel
+share/man/man1/tlstunnel.1.gz
+@dir /var/db/tlstunnel
