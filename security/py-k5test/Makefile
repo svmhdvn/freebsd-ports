@@ -10,7 +10,7 @@ GH_TAGNAME=		krb5config
 DISTVERSIONPREFIX=	v
 
 MAINTAINER=	me@svmhdvn.name
-COMMENT=	A library for setting up self-contained Kerberos 5 environments
+COMMENT=	Library for setting up self-contained Kerberos 5 environments
 WWW=		https://github.com/pythongssapi/k5test
 
 LICENSE=	MIT
