@@ -1,0 +1,4 @@
+bin/kimchi
+etc/rc.d/kimchi
+@sample %%ETCDIR%%/config.sample
+share/man/man1/kimchi.1.gz
