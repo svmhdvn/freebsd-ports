@@ -1,0 +1,11 @@
+TIMESTAMP = 1716175789
+SHA256 (emersion-kimchi-4b663f91b4bc7bb1a7d8257a436ef4c552f7875b_SRHT0.tar.gz) = f9f17e83f76dfc39ca29810a77c367b456ec070821fa06d5bc9263dce3fe6369
+SIZE (emersion-kimchi-4b663f91b4bc7bb1a7d8257a436ef4c552f7875b_SRHT0.tar.gz) = 9866
+SHA256 (emersion-go-scfg-2ae16e782082_SRHT0.tar.gz) = 51164ede5496f16a640a92b75b9cf9ab011f8691953a6f13e585bcf7f821fd4d
+SIZE (emersion-go-scfg-2ae16e782082_SRHT0.tar.gz) = 9158
+SHA256 (golang-net-v0.22.0_GH0.tar.gz) = 01a7906b265d4c562e210926780f7698e8307da296e91c55711066bce453845e
+SIZE (golang-net-v0.22.0_GH0.tar.gz) = 1501049
+SHA256 (golang-text-v0.14.0_GH0.tar.gz) = c80295e75bda599d17ccf74038139b0957b9915fae4e60d8b46f89454ef171a0
+SIZE (golang-text-v0.14.0_GH0.tar.gz) = 8974094
+SHA256 (pires-go-proxyproto-v0.7.0_GH0.tar.gz) = e56a59ecbdfe5ca2f76df4c10efd6c19d0b9984ddafd8416854f4412ae855a2f
+SIZE (pires-go-proxyproto-v0.7.0_GH0.tar.gz) = 39678
