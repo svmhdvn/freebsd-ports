@@ -1,0 +1,22 @@
+bin/soju
+bin/soju-migrate-db
+bin/soju-migrate-logs
+bin/soju-znc-import
+bin/sojuctl
+bin/sojudb
+etc/rc.d/soju
+@sample %%ETCDIR%%/config.sample
+%%PORTDOCS%%%%DOCSDIR%%/README.md
+%%PORTDOCS%%%%DOCSDIR%%/account-required.md
+%%PORTDOCS%%%%DOCSDIR%%/architecture.md
+%%PORTDOCS%%%%DOCSDIR%%/bouncer-networks.md
+%%PORTDOCS%%%%DOCSDIR%%/filehost.md
+%%PORTDOCS%%%%DOCSDIR%%/getting-started.md
+%%PORTDOCS%%%%DOCSDIR%%/no-implicit-names.md
+%%PORTDOCS%%%%DOCSDIR%%/packaging.md
+%%PORTDOCS%%%%DOCSDIR%%/per-user-ip.md
+%%PORTDOCS%%%%DOCSDIR%%/read.md
+%%PORTDOCS%%%%DOCSDIR%%/search.md
+%%PORTDOCS%%%%DOCSDIR%%/webpush.md
+share/man/man1/soju.1.gz
+share/man/man1/sojuctl.1.gz
