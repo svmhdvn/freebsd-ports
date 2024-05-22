@@ -12,21 +12,26 @@
 #			Set it to YES to enable soju.
 # soju_config (path):	Set to %%PREFIX%%/etc/soju/config
 #			by default.
+# soju_user (user):	Set to 'soju' by default.
+# soju_group (group):	Set to 'soju' by default.
 
 . /etc/rc.subr
 
-name="soju"
-rcvar=soju_enable
+name=soju
+rcvar="${name}_enable"
 desc="Soju IRC bouncer"
 
+load_rc_config "${name}"
 : ${soju_enable:=NO}
-: ${soju_config:=%%PREFIX%%/etc/soju/config}
+: ${soju_config:=%%ETCDIR%%/config}
+: ${soju_user:=%%USER%%}
+: ${soju_group:=%%GROUP%%}
 
 command=/usr/sbin/daemon
-procname="%%PREFIX%%/bin/soju"
-pidfile=/var/run/${name}.pid
-command_args="-P /var/run/daemon_${name}.pid -p $pidfile -u %%USER%% -H -c -f $procname -config ${soju_config}"
-start_precmd="mkdir -p /var/run/soju && chown %%USER%%: /var/run/soju"
+procname="%%PREFIX%%/bin/${name}"
+rundir="/var/run/${name}"
+pidfile="${rundir}/${name}.pid"
+command_args="-cfHS -P ${rundir}/daemon_${name}.pid -p ${pidfile} ${procname} -config ${soju_config}"
+start_precmd="install -d -o ${soju_user} -g ${soju_group} -m 0700 ${rundir}"
 
-load_rc_config $name
 run_rc_command "$1"
