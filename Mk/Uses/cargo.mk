@@ -322,6 +322,7 @@ cargo-configure:
 		${ECHO_CMD} "[profile.release]" >> ${CARGO_CARGOTOML}; \
 		${ECHO_CMD} "opt-level = 2" >> ${CARGO_CARGOTOML}; \
 		${ECHO_CMD} "debug = false" >> ${CARGO_CARGOTOML}; \
+		${ECHO_CMD} 'strip = "symbols"' >> ${CARGO_CARGOTOML}; \
 	fi
 	@${ECHO_MSG} "===>   Updating Cargo.lock"
 	@${CARGO_CARGO_RUN} update \
