@@ -1,0 +1,4 @@
+HTTP authentication WSGI middleware
+
+wsgi-auth-middleware provides WSGI middleware to perform HTTP authentication
+(RFC7235) using a variety of schemes.
