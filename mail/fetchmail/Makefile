@@ -34,7 +34,7 @@ CONFIGURE_ARGS=	--enable-fallback=no \
 		PYTHON=:
 
 # -Wl,--as-needed suppresses unneeded library references,
-# for instance, libcom_err.so on GSSAPI_NONE builds:
+# for instance, libcom_err.so on builds without GSSAPI support:
 LDFLAGS+=	-L${LOCALBASE}/lib -Wl,--as-needed
 
 PATCH_STRIP=	-p1
@@ -46,24 +46,16 @@ PORTDOCS=	FAQ FEATURES NEWS NOTES OLDNEWS README README.SSL \
 		README.SSL-SERVER design-notes.html esrs-design-notes.html \
 		fetchmail-FAQ.html fetchmail-features.html todo.html
 
-OPTIONS_DEFINE=		DOCS NLS
-OPTIONS_DEFAULT=	GSSAPI_BASE OPENSSL
-OPTIONS_SINGLE=		GSSAPI TLS
-OPTIONS_SINGLE_GSSAPI=	GSSAPI_BASE GSSAPI_HEIMDAL GSSAPI_MIT GSSAPI_NONE
+OPTIONS_DEFINE=		DOCS GSSAPI NLS
+OPTIONS_DEFAULT=	OPENSSL
+OPTIONS_SINGLE=		TLS
 OPTIONS_SINGLE_TLS=	OPENSSL WOLFSSL
 
 OPTIONS_SUB=	yes
 
-GSSAPI_BASE_USES=		gssapi
-GSSAPI_BASE_CONFIGURE_ON=	${GSSAPI_CONFIGURE_ARGS} \
-				--with-gssapi=${GSSAPIBASEDIR}
-GSSAPI_HEIMDAL_USES=		gssapi:heimdal
-GSSAPI_HEIMDAL_CONFIGURE_ON=	${GSSAPI_CONFIGURE_ARGS} \
-				--with-gssapi=${GSSAPIBASEDIR}
-GSSAPI_MIT_USES=		gssapi:mit
-GSSAPI_MIT_CONFIGURE_ON=	${GSSAPI_CONFIGURE_ARGS} \
-				--with-kerberos5=${GSSAPIBASEDIR}
-GSSAPI_NONE_CONFIGURE_ON=	--without-gssapi
+GSSAPI_USES=		gssapi
+GSSAPI_CONFIGURE_ON=	--with-gssapi=${GSSAPIBASEDIR} ${GSSAPI_CONFIGURE_ARGS}
+GSSAPI_CONFIGURE_OFF=	--without-gssapi
 
 NLS_USES=		gettext
 NLS_CONFIGURE_ENABLE=	nls

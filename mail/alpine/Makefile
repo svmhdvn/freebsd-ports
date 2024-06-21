@@ -20,7 +20,6 @@ GNU_CONFIGURE_MANPREFIX=${PREFIX}/share
 MAKE_JOBS_UNSAFE=	yes
 CONFIGURE_ARGS+=	--with-debug-level=2 \
 			--enable-background-post \
-			--without-krb5 \
 			--without-tcl \
 			--with-system-pinerc=${PREFIX}/etc/alpine.conf \
 			--with-system-fixed-pinerc=${PREFIX}/etc/alpine.conf.fixed \
@@ -37,12 +36,13 @@ GIT_COMMIT=		9726c098a739edfdca6218bc5dee104c310957e9
 GIT_COMMIT_SHORT=	${GIT_COMMIT:C/^(.......).*/\1/}
 WRKSRC=			${WRKDIR}/alpine-${GIT_COMMIT_SHORT}
 
-OPTIONS_DEFINE=		ASPELL CONS25 DOCS IPV6 LDAP MAILDIR MOUSE NLS NTLM PASSFILE THREADS
+OPTIONS_DEFINE=		ASPELL CONS25 DOCS GSSAPI IPV6 LDAP MAILDIR MOUSE NLS NTLM PASSFILE THREADS
 OPTIONS_DEFAULT=	ASPELL MOUSE THREADS
 .if defined(PICO_ALPINE_SLAVE)
 OPTIONS_EXCLUDE=	CONS25 IPV6 LDAP PASSFILE
 .endif
 
+GSSAPI_DESC=	GSSAPI Support
 CONS25_DESC=	Add a patch to support color for default console
 MAILDIR_DESC=	Add a patch to support maildir
 NTLM_DESC=	Support for Windows NT Lan Manager authentication
@@ -56,6 +56,10 @@ ASPELL_RUN_DEPENDS=		aspell:textproc/aspell
 
 # Option CONS25
 CONS25_EXTRA_PATCHES=		${FILESDIR}/cons25-alpine_keymenu.c
+
+GSSAPI_USES=		gssapi
+GSSAPI_CONFIGURE_ON=	--with-krb5=${GSSAPIBASEDIR} ${GSSAPI_CONFIGURE_ARGS}
+GSSAPI_CONFIGURE_OFF=	--without-krb5
 
 # Option IPV6
 IPV6_CONFIGURE_WITH=		ipv6

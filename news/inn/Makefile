@@ -22,14 +22,14 @@ CPE_VENDOR=	isc
 
 CONFLICTS?=	inn-current
 
-OPTIONS_DEFINE=		BERKELEYDB BLACKLISTD GNUPG KERBEROS PYTHON SASL \
+OPTIONS_DEFINE=		BERKELEYDB BLACKLISTD GNUPG GSSAPI PYTHON SASL \
 			SQLITE KEYWORDS LARGE_FILES OPENSSL SETGID_INEWS \
 			TAGGED_HASH UUCP_RNEWS DOCS EXAMPLES
 OPTIONS_DEFAULT=	BERKELEYDB BLACKLISTD GNUPG PYTHON SQLITE KEYWORDS \
 			OPENSSL LARGE_FILES SETGID_INEWS UUCP_RNEWS
 OPTIONS_SUB=		yes
 
-KERBEROS_DESC=		Enable Kerberos v5 (for auth_krb5)
+GSSAPI_DESC=		Enable GSSAPI support (for auth_krb5)
 PYTHON_DESC=		Enable support for embedded Python
 SASL_DESC=		Enable SASL (for imapfeed authentication)
 SQLITE_DESC=		Enable SQLite (for ovsqlite overview method)
@@ -99,18 +99,9 @@ CONFIGURE_ARGS+=	--with-bdb=${LOCALBASE} \
 			--with-bdb-include=${BDB_INCLUDE_DIR}
 .endif
 
-.if ${PORT_OPTIONS:MKERBEROS}
-.    if exists(${LOCALBASE}/bin/krb5-config)
-LIB_DEPENDS+=		libgssapi_krb5.so:security/krb5
-CONFIGURE_ARGS+=	--with-krb5=${LOCALBASE}
-.    else
-CONFIGURE_ARGS+=	--with-krb5=/usr
-.    endif
-CONFIGURE_ENV+=		ac_cv_search_krb5_parse_name="-lcrypt -lcrypto -lkrb5 -lasn1 -lroken -lhx509"
-CONFIGURE_ENV+=		ac_cv_func_krb5_init_ets=yes
-.else
-CONFIGURE_ARGS+=	--without-krb5
-.endif
+GSSAPI_USES=		gssapi
+GSSAPI_CONFIGURE_ON=	--with-krb5=${GSSAPIBASEDIR} ${GSSAPI_CONFIGURE_ARGS}
+GSSAPI_CONFIGURE_OFF=	--without-krb5
 
 .if ${PORT_OPTIONS:MKEYWORDS}
 CONFIGURE_ARGS+=	--enable-keywords

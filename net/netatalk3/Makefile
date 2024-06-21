@@ -33,8 +33,8 @@ MESON_ARGS=		-Dwith-libgcrypt-dir=${LOCALBASE} \
 			--localstatedir=/var \
 			--infodir=${PREFIX}/share/info
 
-OPTIONS_DEFINE=PAM KERBEROS5 LDAP SENDFILE KERBEROS DBUS MYSQL ACL LIBWRAP SPOTLIGHT
-OPTIONS_DEFAULT=AVAHI DBUS KERBEROS LIBWRAP SENDFILE
+OPTIONS_DEFINE=PAM LDAP SENDFILE GSSAPI DBUS MYSQL ACL LIBWRAP SPOTLIGHT
+OPTIONS_DEFAULT=AVAHI DBUS GSSAPI LIBWRAP SENDFILE
 OPTIONS_RADIO=ZEROCONF
 OPTIONS_RADIO_ZEROCONF=AVAHI MDNSRESPONDER
 ZEROCONF_DESC=	Zeroconf(Bonjour) support
@@ -43,11 +43,12 @@ SENDFILE_DESC=	Enable Sendfile support
 ACL_DESC=	Enable ACL support
 SPOTLIGHT_DESC=	Enable Spotlight search support
 OPTIONS_SUB=	yes
-KERBEROS5_MESON_ON=	-Denable-krbV-uam=enabled \
+GSSAPI_USES=		gssapi
+GSSAPI_MESON_ON=	-Denable-krbV-uam=enabled \
 			-Dwith-kerberos=enabled
-KERBEROS5_MESON_OFF=	-Denable-krbV-uam=disabled \
+GSSAPI_MESON_OFF=	-Denable-krbV-uam=disabled \
 			-Dwith-kerberos=disabled
-KERBEROS_LIB_DEPENDS=libgpg-error.so:security/libgpg-error
+GSSAPI_LIB_DEPENDS=libgpg-error.so:security/libgpg-error
 PAM_MESON_ON=		-Dwith-pam=${LOCALBASE}
 PAM_MESON_OFF=		-Dwithout-pam=true
 AVAHI_CFLAGS=		-I${LOCALBASE}/include -L${LOCALBASE}/lib
