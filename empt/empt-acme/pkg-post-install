@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set -eu
+
+mkdir -p "${PKG_ROOTDIR}/var/db/acme"
+
+# TODO replace with production once working
+acme.sh --home "${PKG_ROOTDIR}/var/db/acme" \
+    --set-default-ca --server letsencrypt_test
+
+# TODO ensure that --reloadcmd is set in the
+#      TLS renewal periodic script
+# =============================================
+#acme.sh --home "${PKG_ROOTDIR}/var/db/acme" \
+#    --install-cert -d example.com \
+#    --key-file       /path/to/keyfile/in/nginx/key.pem  \
+#    --fullchain-file /path/to/fullchain/nginx/cert.pem \
+#    --reloadcmd     "service nginx force-reload"
+# =============================================

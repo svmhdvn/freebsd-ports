@@ -1,0 +1,43 @@
+#!/bin/sh
+
+set -eu
+
+org_domain="$(hostname -d)"
+
+j="${PKG_ROOTDIR}/empt/jails/irc"
+mkdir -p "${j}"
+pkg -r "${j}" install -y -r jail_pkgbase -g 'FreeBSD-*'
+
+zfs create -p \
+    -o mountpoint="${j}/var/db/soju" \
+    zroot/empt/synced/rw/soju
+
+# Generate krb5 keytab
+# ==========================
+chroot "${PKG_ROOTDIR}/empt/jails/kerberos" \
+    kadmin -l add --random-key --use-defaults \
+    "host/irc.${org_domain}"
+
+chroot "${PKG_ROOTDIR}/empt/jails/kerberos" \
+    kadmin -l ext_keytab --keytab=/tmp/irc.keytab "*/irc.${org_domain}"
+mv "${PKG_ROOTDIR}/empt/jails/kerberos/tmp/irc.keytab" \
+    "${j}/etc/krb5.keytab"
+# ==========================
+
+# Request TLS cert from ACME
+# ==========================
+acme.sh --home "${PKG_ROOTDIR}/var/db/acme" \
+    --issue -d "irc.${org_domain}" \
+    --standalone
+certdest="/usr/local/etc/ssl/certs"
+mkdir -p "${j}/${certdest}"
+acme.sh --home "${PKG_ROOTDIR}/var/db/acme" \
+    --install-cert -d "irc.${org_domain}" \
+    --fullchain-file "${j}/${certdest}/irc.${org_domain}.crt.pem" \
+    --key-file       "${j}/${certdest}/irc.${org_domain}.key.pem"  \
+    --reloadcmd      "service jail onerestart irc"
+# ==========================
+
+sysrc -R "${PKG_ROOTDIR}" syslogd_flags+="-l /empt/jails/irc/var/run/log"
+
+pkg -r "${j}" install -y empt-jail-irc

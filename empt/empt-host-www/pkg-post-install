@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -eu
+
+j="${PKG_ROOTDIR}/empt/jails/www"
+mkdir -p "${j}"
+pkg -r "${j}" install -y -r jail_pkgbase -g 'FreeBSD-*'
+
+sysrc -R "${PKG_ROOTDIR}" syslogd_flags+="-l /empt/jails/www/var/run/log"
+
+pkg -r "${j}" install -y empt-jail-www

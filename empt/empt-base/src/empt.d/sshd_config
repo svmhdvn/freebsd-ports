@@ -1,0 +1,9 @@
+HostKey /etc/ssh/ssh_host_ed25519_key
+AuthorizedKeysFile .ssh/authorized_keys
+PrintMotd no
+Subsystem sftp /usr/libexec/sftp-server
+# TODO disable PasswordAuthentication once everything is figured out
+PasswordAuthentication yes
+# TODO disable PermitRootLogin just figuring out mutual
+# trust for ZFS replication right now
+PermitRootLogin yes

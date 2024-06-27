@@ -1,0 +1,76 @@
+#!/bin/sh
+
+set -eu
+
+empt_root="${PKG_ROOTDIR}${PREFIX}/empt"
+
+# TODO do this in empt.sh
+zfs create -p -o mountpoint="${empt_root}" zroot/empt
+zfs create -p zroot/empt/synced
+zfs create -p \
+    -o exec=off \
+    -o setuid=off \
+    -o compression=zstd \
+    zroot/empt/synced/rw
+
+mkdir -p \
+    "${empt_root}/jails" \
+    "${empt_root}/synced/rw/fstab.d" \
+    "${empt_root}/synced/rw/groups" \
+    "${empt_root}/synced/rw/humans" \
+    "${empt_root}/synced/rw/logs"
+
+# TODO check if we need any of these
+# * cron_flags="-j 15 -J 15"
+# TODO set this up at FreeBSD fresh OS install image creation time itself
+cp -f "${PKG_ROOTDIR}/etc/rc.conf" "${PKG_ROOTDIR}/var/backups/rc.conf.bak"
+sysrc -R "${PKG_ROOTDIR}" -f "/etc/rc.conf.local" \
+    dhcpcd_enable=YES \
+    dumpdev=NO \
+    firewall_enable=YES \
+    firewall_nat_enable=YES \
+    firewall_script=/usr/local/etc/empt.d/ipfw/ipfw.rules \
+    gateway_enable=YES \
+    microcode_update_enable=YES \
+    ntpd_enable=YES \
+    ntpdate_enable=YES \
+    powerd_enable=YES \
+    sshd_enable=YES \
+    zfs_enable=YES \
+    syslogd_enable=YES \
+    syslogd_flags="-8HNnss -O rfc5424" \
+
+# TODO programmatically query CPU vendor for microcode update
+cp -f "${PKG_ROOTDIR}/boot/loader.conf" "${PKG_ROOTDIR}/var/backups/loader.conf.bak"
+sysrc -R "${PKG_ROOTDIR}" -f /boot/loader.conf \
+    cpu_microcode_load=YES \
+    cpu_microcode_name=/boot/firmware/amd-ucode.bin
+
+cp -f "${PKG_ROOTDIR}/etc/sysctl.conf" "${PKG_ROOTDIR}/var/backups/sysctl.conf.bak"
+sysrc -R "${PKG_ROOTDIR}" -f /etc/sysctl.conf \
+    kern.ipc.tls.enable=1 \
+    net.inet.tcp.functions_default=rack
+
+# TODO monitor the spool to ensure that mails (probably
+# sent by cron) don't keep piling up
+cp -f "${PKG_ROOTDIR}/etc/dma/dma.conf" "${PKG_ROOTDIR}/var/backups/dma.conf.bak"
+cat > "${PKG_ROOTDIR}/etc/dma/dma.conf" <<EOF
+SMARTHOST mail.home.arpa
+INSECURE
+NULLCLIENT
+EOF
+
+cp -f "${PKG_ROOTDIR}/etc/ssh/sshd_config" "${PKG_ROOTDIR}/var/backups/sshd_config.bak"
+echo "Include /usr/local/etc/empt.d/sshd_config" > "${PKG_ROOTDIR}/etc/ssh/sshd_config"
+
+cp -f "${PKG_ROOTDIR}/etc/syslog.conf" "${PKG_ROOTDIR}/var/backups/syslog.conf"
+echo "include /usr/local/etc/empt.d/syslog.conf" > "${PKG_ROOTDIR}/etc/syslog.conf"
+
+cp -f "${PKG_ROOTDIR}/etc/newsyslog.conf" "${PKG_ROOTDIR}/var/backups/newsyslog.conf"
+echo "<include> /usr/local/etc/empt.d/newsyslog.conf" > "${PKG_ROOTDIR}/etc/newsyslog.conf"
+
+# prepend the localhost IPv4 and IPv6 addresses in /etc/hosts
+hosts_ipv6='::1 localhost'
+grep -qxF "${hosts_ipv6}" || printf '1i\n%s\n.\nxit\n' "${hosts_ipv6}" | ex -s "${PKG_ROOTDIR}/etc/hosts"
+hosts_ipv4='127.0.0.1 localhost'
+grep -qxF "${hosts_ipv4}" || printf '1i\n%s\n.\nxit\n' "${hosts_ipv4}" | ex -s "${PKG_ROOTDIR}/etc/hosts"

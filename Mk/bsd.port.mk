@@ -2554,7 +2554,7 @@ check-categories:
 VALID_CATEGORIES+= accessibility afterstep arabic archivers astro audio \
 	benchmarks biology budgie cad chinese comms converters \
 	databases deskutils devel dns docs \
-	editors education elisp emulators enlightenment \
+	editors education elisp empt emulators enlightenment \
 	filesystems finance french ftp \
 	games geography german gnome gnustep graphics \
 	hamradio haskell hebrew hungarian irc japanese java \

@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -eu
+
+acme_renew() {
+    acme.sh --home /var/db/acme --renew || exit 3
+}
+
+if test -r /etc/defaults/periodic.conf; then
+    . /etc/defaults/periodic.conf
+    source_periodic_confs
+fi
+
+case "${daily_empt_acme_renew_enable:-NO}" in
+    [Yy][Ee][Ss]) acme_renew ;;
+    *) ;;
+esac

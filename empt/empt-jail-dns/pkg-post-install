@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -eu
+
+sysrc -R "${PKG_ROOTDIR}" unbound_enable=YES

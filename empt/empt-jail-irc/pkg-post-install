@@ -1,0 +1,25 @@
+#!/bin/sh
+
+set -eu
+
+org_domain="$(hostname -d)"
+realm="$(echo ${org_domain} | tr 'a-z' 'A-Z')"
+sed -i '' \
+    -e "s,%%ORG_DOMAIN%%,${org_domain},g" \
+    -e "s,%%REALM%%,${realm},g" \
+    "${PKG_ROOTDIR}${PREFIX}/etc/ngircd/ngircd.conf" \
+    "${PKG_ROOTDIR}${PREFIX}/etc/soju/config"
+
+# TODO upstream this patch https://lists.sr.ht/~emersion/soju-dev/patches/52362
+cat > "${PKG_ROOTDIR}/etc/pam.d/login" <<EOF
+auth required pam_krb5.so no_user_check
+account sufficient pam_permit.so
+EOF
+
+chroot "${PKG_ROOTDIR}" chown -R soju:soju \
+    /var/db/soju \
+    /etc/krb5.keytab
+
+sysrc -R "${PKG_ROOTDIR}" \
+    ngircd_enable=YES \
+    soju_enable=YES

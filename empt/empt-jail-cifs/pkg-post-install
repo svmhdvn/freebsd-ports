@@ -1,0 +1,10 @@
+#!/bin/sh
+
+set -eu
+
+realm="$(hostname -d | tr 'a-z' 'A-Z')"
+sed -i '' -e "s,%%REALM%%,${realm},g" "${PKG_ROOTDIR}${PREFIX}/etc/smb4.conf"
+
+install -d -o root -g wheel -m 1755 /empt/jails/cifs/groups
+
+sysrc -R "${PKG_ROOTDIR}" nmbd_enable=NO samba_server_enable=YES

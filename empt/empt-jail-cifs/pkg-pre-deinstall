@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -eu
+
+sysrc -R "${PKG_ROOTDIR}" -x nmbd_enable samba_server_enable
