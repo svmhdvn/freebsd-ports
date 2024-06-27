@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# TODO move everything to CDB
+chroot "${PKG_ROOTDIR}" sh <<EOF
+postmap /usr/local/etc/postfix/mlmmj_aliases
+postmap /usr/local/etc/postfix/mlmmj_transport
+postalias cdb:/etc/mail/aliases
+postfix set-permissions
+chown postfix:postfix /etc/krb5.keytab
+chown postfix:postfix /etc/krb5.keytab
+EOF

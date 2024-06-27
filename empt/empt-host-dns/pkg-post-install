@@ -1,0 +1,6 @@
+#!/bin/sh
+
+j="${PKG_ROOTDIR}/empt/jails/dns"
+mkdir -p "${j}"
+pkg -r "${j}" install -y -r jail_pkgbase -g 'FreeBSD-*'
+pkg -r "${j}" install -y empt-jail-dns

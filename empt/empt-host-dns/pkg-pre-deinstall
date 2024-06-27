@@ -1,0 +1,3 @@
+#!/bin/sh
+
+rm -rf "${PKG_ROOTDIR}/empt/jails/dns"

@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# NOTE:
+# * assumes that the EMPT pkg repos are configured correctly
+#
+# TODO:
+# * add periodic minutely and hourly tasks to /var/cron/tabs/root
+
+sysrc -R "${PKG_ROOTDIR}" -f /boot/loader.conf \
+    cpu_microcode_load=YES \
+    cpu_microcode_name=/boot/firmware/amd-ucode.bin
+
+chroot "${PKG_ROOTDIR}" zfs create -o mountpoint=/empt zroot/empt
+chroot "${PKG_ROOTDIR}" zfs create zroot/empt/synced
+chroot "${PKG_ROOTDIR}" zfs create \
+    -o exec=off \
+    -o setuid=off \
+    -o compression=zstd \
+    zroot/empt/synced/rw
+
+mkdir -p
+    "${PKG_ROOTDIR}/empt/jails" \
+    "${PKG_ROOTDIR}/empt/synced/rw/fstab.d" \
+    "${PKG_ROOTDIR}/empt/synced/rw/groups" \
+    "${PKG_ROOTDIR}/empt/synced/rw/humans" \
+    "${PKG_ROOTDIR}/empt/synced/rw/logs" \
+    "${PKG_ROOTDIR}/empt/synced/rw/acme"

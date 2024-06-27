@@ -1,0 +1,43 @@
+#!/bin/sh
+
+set -eu
+
+# NOTE:
+# * assumes EMPT base package is installed correctly
+
+# Create a user in the mail jail to receive mail
+# TODO do we need the actual unix user account? Since cyrus mail handles the
+# mailbox.
+empthelper_uid="$(pw usershow empthelper | cut -d: -f3)"
+pw -R /empt/jails/mail useradd empthelper -u "${empthelper_uid}" -c 'EMPT helpdesk agent' -d /nonexistent -s /usr/sbin/nologin -h -
+
+# Create a kerberos principal to handle authentication
+# TODO secure
+jexec -l kerberos kadmin -l add --use-defaults --password=empthelper empthelper
+
+# Create a mailbox for the empthelper
+# TODO secure
+echo cm INBOX | jexec -l mail cyradm \
+    --server mail.home.arpa \
+    --port 143 \
+    --user empthelper \
+    --auth PLAIN \
+    --password empthelper
+
+# Create a mailing list for the helpdesk queue
+echo "it@${ORG_DOMAIN}" > /empt/jails/mail/var/spool/mlmmj/helpdesk/control/moderators
+touch \
+    /empt/jails/mail/var/spool/mlmmj/helpdesk/control/closedlist \
+    /empt/jails/mail/var/spool/mlmmj/helpdesk/control/noget \
+    /empt/jails/mail/var/spool/mlmmj/helpdesk/control/notifymod \
+    /empt/jails/mail/var/spool/mlmmj/helpdesk/control/notmetoo
+# TODO move this to a separate file that gets installed
+cat > /empt/jails/mail/var/spool/mlmmj/helpdesk/control/access <<EOF
+allow ^subject:[ \t]*(list|show)[ \t]*group
+allow ^subject:[ \t]*(show|display|my)[ \t]*(dashboard|summary)
+moderate
+EOF
+
+# Subscribe the IT staff to the helpdesk queue
+jexec -l -U mlmmj mail \
+    /usr/local/bin/mlmmj-sub -L /var/spool/mlmmj/helpdesk -a "empthelper@${ORG_DOMAIN}" -fqs

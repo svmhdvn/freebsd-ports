@@ -1,0 +1,40 @@
+#!/bin/sh
+
+j="${PKG_ROOTDIR}/empt/jails/mail"
+mkdir -p "${j}"
+pkg -r "${j}" install -y -r jail_pkgbase -g 'FreeBSD-*'
+
+zfs create \
+    -o mountpoint="${j}/var/spool/postfix" \
+    zroot/empt/synced/postfix_spool
+
+# TODO fix postfix permissions
+
+zfs create \
+    -o mountpoint="${j}/var/spool/mlmmj" \
+    zroot/empt/synced/rw/mlmmj_spool
+
+# TODO set mlmmj permissions
+
+zfs create \
+    -o mountpoint="${j}/var/db/cyrusimap" \
+    zroot/empt/synced/rw/cyrusimap_db
+
+zfs create \
+    -o mountpoint="${j}/var/spool/cyrusimap" \
+    zroot/empt/synced/rw/cyrusimap_spool
+
+org_domain="$(hostname -d)"
+chroot "${PKG_ROOTDIR}/empt/jails/kerberos" \
+    kadmin -l add --random-key --use-defaults \
+    "smtp/mail.${org_domain}" \
+    "imap/mail.${org_domain}" \
+    "HTTP/mail.${org_domain}" \
+
+chroot "${PKG_ROOTDIR}/empt/jails/kerberos" \
+    kadmin -l ext_keytab --keytab=/tmp/mail.keytab "*/mail.${org_domain}"
+mv \
+    "${PKG_ROOTDIR}/empt/jails/kerberos/tmp/mail.keytab" \
+    "${j}/etc/krb5.keytab"
+
+pkg -r "${j}" install -y empt-jail-mail

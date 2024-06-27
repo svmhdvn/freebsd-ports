@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# TODO figure out TLS cert situation
+
+org_domain="$(hostname -d)"
+sed -i '' \
+    -e "s,%%ORG_DOMAIN%%,${org_domain},g" \
+    "${PKG_ROOTDIR}${PREFIX}/etc/nginx/nginx.conf"
+
+sysrc -R "${PKG_ROOTDIR}" nginx_enable=YES

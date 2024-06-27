@@ -14,6 +14,7 @@ SUBDIR += deskutils
 SUBDIR += devel
 SUBDIR += dns
 SUBDIR += editors
+SUBDIR += empt
 SUBDIR += emulators
 SUBDIR += finance
 SUBDIR += french

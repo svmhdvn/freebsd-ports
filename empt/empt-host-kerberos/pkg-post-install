@@ -1,0 +1,11 @@
+#!/bin/sh
+
+j="${PKG_ROOTDIR}/empt/jails/kerberos"
+mkdir -p "${j}"
+pkg -r "${j}" install -y -r jail_pkgbase -g 'FreeBSD-*'
+
+zfs create \
+    -o "mountpoint=${j}/var/heimdal" \
+    zroot/empt/synced/rw/krb5data
+
+pkg -r "${j}" install -y empt-jail-kerberos

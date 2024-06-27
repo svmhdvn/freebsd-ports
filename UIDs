@@ -946,5 +946,8 @@ tarantool:*:996:996::0:0:Tarantool Daemon:/nonexistent:/usr/sbin/nologin
 bareos:*:997:997::0:0:Bareos Daemon:/var/db/bareos:/usr/sbin/nologin
 _rmilter:*:998:998::0:0:Rmilter daemon:/nonexistent:/usr/sbin/nologin
 ebnetd:*:999:999::0:0:EBNETD:/nonexistent:/usr/sbin/nologin
+# EMPT reserved UIDs
+empthelper:*:2001:2001::0:0:EMPT helpdesk agent:/empt/synced/rw/helpdesk:/usr/sbin/nologin
+mlmmj:*:2002:2002::0:0:mlmmj manager:/var/spool/mlmmj:/usr/sbin/nologin
 # DO NOT USE: 1000-65533
 nobody:*:65534:65534::0:0:Unprivileged user:/nonexistent:/usr/sbin/nologin

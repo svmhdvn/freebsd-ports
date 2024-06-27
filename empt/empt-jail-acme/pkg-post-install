@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# TODO do this in the host
+#_truncate_dirs /empt/jails/www/var/db/acme
+#_append_if_missing \
+#    "/empt/synced/rw/acme /empt/jails/acme/var/db/acme nullfs rw,noatime 0 0" \
+#    /empt/synced/rw/fstab.d/acme.fstab
+#mount -aF /empt/synced/rw/fstab.d/acme.fstab
+
+# TODO replace with production once working
+acme.sh --home /var/db/acme --set-default-ca --server letsencrypt_test
+acme.sh --home /var/db/acme --issue --standalone \
+    -d "${ORG_DOMAIN}" \
+    -d "mail.${ORG_DOMAIN}" \
+    -d "www.${ORG_DOMAIN}" \
+    -d "irc.${ORG_DOMAIN}"
+chmod 0644 "/empt/synced/rw/acme/${ORG_DOMAIN}_ecc/${ORG_DOMAIN}.key"
+
+_append_if_missing \
+    '35 4 * * * root -n -q acme.sh --home /var/db/acme --renew' \
+    /etc/crontab
+
+service -j acme cron enable
+service -j acme cron start
