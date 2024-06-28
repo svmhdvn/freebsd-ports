@@ -206,7 +206,7 @@ READMEDIR=	no
 DAEMONDIR=		${PREFIX}/libexec/postfix
 SHLIB_DIRECTORY=	${PREFIX}/lib/postfix
 # new proposed location is ETCDIR (see README_FILES/INSTALL)
-# keep compatiblity with Postfix 2.6 .. 2.11 and use DAEMOMDIR
+# keep compatiblity with Postfix 2.6 .. 2.11 and use DAEMONDIR
 META_DIRECTORY=		${DAEMONDIR}
 
 SUB_LIST+=	REQUIRE="${_REQUIRE}"

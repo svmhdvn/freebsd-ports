@@ -136,4 +136,4 @@ else
 		show_not_activated_msg ${MC_BASE}
 	fi
 fi # -f "${MC_BASE}"
-fi # "$2" = "POST-INSTALL" -a -z "${PACKAGE_BUILDING}" 
+fi # "$2" = "POST-INSTALL" -a -z "${PACKAGE_BUILDING}"
