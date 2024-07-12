@@ -1,5 +1,6 @@
 PORTNAME=	Image_Barcode2
 PORTVERSION=	0.2.3
+PORTREVISION=	1
 CATEGORIES=	graphics www pear
 
 MAINTAINER=	bofh@FreeBSD.org

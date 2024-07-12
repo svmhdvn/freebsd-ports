@@ -1,5 +1,6 @@
 PORTNAME=	eio
 DISTVERSION=	3.0.0RC4
+PORTREVISION=	1
 CATEGORIES=	devel
 
 PATCH_SITES=	https://github.com/rosmanov/pecl-eio/commit/

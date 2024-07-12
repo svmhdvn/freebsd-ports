@@ -1,5 +1,6 @@
 PORTNAME=	stomp
 PORTVERSION=	2.0.3
+PORTREVISION=	1
 CATEGORIES=	net-im pear
 
 MAINTAINER=	dbaio@FreeBSD.org

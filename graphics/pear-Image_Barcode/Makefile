@@ -1,5 +1,6 @@
 PORTNAME=	Image_Barcode
 PORTVERSION=	1.1.3
+PORTREVISION=	1
 CATEGORIES=	graphics www pear
 
 MAINTAINER=	sunpoet@FreeBSD.org

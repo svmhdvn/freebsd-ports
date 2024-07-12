@@ -1,6 +1,6 @@
 PORTNAME=	nagios
 PORTVERSION=	4.5.1
-PORTREVISION=	0
+PORTREVISION=	1
 PORTEPOCH=	1
 CATEGORIES=	net-mgmt
 MASTER_SITES=	https://assets.nagios.com/downloads/nagioscore/releases/ \

@@ -1,5 +1,6 @@
 PORTNAME=	phpgroupware
 PORTVERSION=	0.9.16.017
+PORTREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	SF/phpgroupware/phpgroupware/${PORTVERSION}
 

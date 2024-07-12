@@ -1,5 +1,6 @@
 PORTNAME=	zephir
 DISTVERSION=	0.17.0
+PORTREVISION=	1
 CATEGORIES=	lang
 MASTER_SITES=	https://github.com/zephir-lang/${PORTNAME}/releases/download/${DISTVERSION}/
 PKGNAMEPREFIX=	${PHP_PKGNAMEPREFIX}

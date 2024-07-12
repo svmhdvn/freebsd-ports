@@ -1,5 +1,6 @@
 PORTNAME=	template_
 PORTVERSION=	2.2.3
+PORTREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	http://www.xtac.net/download/?file=
 DISTNAME=	Template_.2.2.3

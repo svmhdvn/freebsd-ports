@@ -1,5 +1,6 @@
 PORTNAME=	Math_BigInteger
 PORTVERSION=	1.0.3
+PORTREVISION=	1
 CATEGORIES=	math pear
 
 MAINTAINER=	meritus@innervision.pl

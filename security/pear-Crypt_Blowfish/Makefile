@@ -1,5 +1,6 @@
 PORTNAME=	Crypt_Blowfish
 DISTVERSION=	1.1.0RC2
+PORTREVISION=	1
 CATEGORIES=	security www pear
 
 MAINTAINER=	sunpoet@FreeBSD.org

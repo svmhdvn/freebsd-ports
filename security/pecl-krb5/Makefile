@@ -1,5 +1,6 @@
 PORTNAME=	krb5
 PORTVERSION=	1.1.4
+PORTREVISION=	1
 CATEGORIES=	security pear
 
 MAINTAINER=	girgen@FreeBSD.org

@@ -1,5 +1,6 @@
 PORTNAME=	Image_Transform
 PORTVERSION=	0.9.5
+PORTREVISION=	1
 CATEGORIES=	graphics www pear
 
 MAINTAINER=	sunpoet@FreeBSD.org

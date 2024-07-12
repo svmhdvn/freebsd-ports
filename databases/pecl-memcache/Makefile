@@ -1,5 +1,6 @@
 PORTNAME=	memcache
 PORTVERSION=	8.2
+PORTREVISION=	1
 CATEGORIES=	databases
 
 MAINTAINER=	sunpoet@FreeBSD.org

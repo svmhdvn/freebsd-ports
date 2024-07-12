@@ -1,5 +1,6 @@
 PORTNAME=	runkit7
 PORTVERSION=	4.0.0a6
+PORTREVISION=	1
 CATEGORIES=	devel
 
 MAINTAINER=	vikashb@where-ever.za.net

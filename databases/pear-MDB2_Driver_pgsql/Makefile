@@ -1,6 +1,6 @@
 PORTNAME=	MDB2_Driver_pgsql
 DISTVERSION=	1.5.0b4
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	databases www pear
 
 MAINTAINER=	sunpoet@FreeBSD.org

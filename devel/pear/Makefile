@@ -1,5 +1,6 @@
 PORTNAME=	pear
 PORTVERSION=	1.10.13
+PORTREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	http://build.dimapanov.com/~fluffy/distfiles/ \
 		LOCAL/fluffy \

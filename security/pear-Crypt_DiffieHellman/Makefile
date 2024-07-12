@@ -1,5 +1,6 @@
 PORTNAME=	Crypt_DiffieHellman
 PORTVERSION=	0.2.6
+PORTREVISION=	1
 CATEGORIES=	security www pear
 
 MAINTAINER=	sunpoet@FreeBSD.org

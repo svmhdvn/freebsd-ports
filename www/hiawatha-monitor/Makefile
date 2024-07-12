@@ -1,6 +1,6 @@
 PORTNAME=	hiawatha-monitor
 PORTVERSION=	1.6
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	www
 MASTER_SITES=	https://www.hiawatha-webserver.org/files/
 PKGNAMESUFFIX=	${PHP_PKGNAMESUFFIX}

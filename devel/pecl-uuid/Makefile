@@ -1,5 +1,6 @@
 PORTNAME=	uuid
 PORTVERSION=	1.2.0
+PORTREVISION=	1
 CATEGORIES=	devel pear
 
 MAINTAINER=	gasol.wu@gmail.com

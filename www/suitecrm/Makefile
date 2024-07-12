@@ -1,5 +1,6 @@
 PORTNAME=	suitecrm
 PORTVERSION=	7.14.3
+PORTREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	https://suitecrm.com/download/141/suite714/563700/
 

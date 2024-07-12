@@ -1,5 +1,6 @@
 PORTNAME=	squirrelmail-translations
 PORTVERSION=	20200422
+PORTREVISION=	1
 CATEGORIES=	mail www
 MASTER_SITES=	http://snapshots.squirrelmail.org/ \
 	http://freebsd.uzsolt.hu/src/

@@ -1,5 +1,6 @@
 PORTNAME=	calendar
 PORTVERSION=	3.5.11
+PORTREVISION=	1
 CATEGORIES=	mail
 MASTER_SITES=	https://cgit.kolab.org/roundcubemail-plugins-kolab/snapshot/
 PKGNAMEPREFIX=	roundcube-

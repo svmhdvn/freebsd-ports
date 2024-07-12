@@ -1,5 +1,6 @@
 PORTNAME=	Services_Facebook
 PORTVERSION=	0.2.14
+PORTREVISION=	1
 CATEGORIES=	www pear
 
 MAINTAINER=	sunpoet@FreeBSD.org

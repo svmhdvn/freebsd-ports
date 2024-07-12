@@ -1,5 +1,6 @@
 PORTNAME=	ioncube
 DISTVERSION=	13.0.2
+PORTREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	http://downloads.ioncube.com/loader_downloads/ \
 		http://downloads2.ioncube.com/loader_downloads/ \

@@ -1,5 +1,6 @@
 PORTNAME=	XML_Feed_Parser
 PORTVERSION=	1.0.5
+PORTREVISION=	1
 CATEGORIES=	textproc devel pear
 
 MAINTAINER=	sunpoet@FreeBSD.org

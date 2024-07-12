@@ -35,7 +35,7 @@ PGSQL_USE=	PHP=pgsql
 
 .include "${.CURDIR}/../pandorafms_server/bsd.pandora.mk"
 
-PORTREVISION=	3
+PORTREVISION=	4
 
 PANDORA_INSTALLER_ARGS+=	--destdir ${STAGEDIR}
 

@@ -1,5 +1,6 @@
 PORTNAME=	rdkafka
 PORTVERSION=	6.0.0
+PORTREVISION=	1
 CATEGORIES=	net pear
 
 MAINTAINER=	sergey@akhmatov.ru

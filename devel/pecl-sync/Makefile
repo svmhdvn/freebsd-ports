@@ -1,5 +1,6 @@
 PORTNAME=	sync
 PORTVERSION=	1.1.2
+PORTREVISION=	1
 CATEGORIES=	devel
 
 MAINTAINER=	gasol.wu@gmail.com

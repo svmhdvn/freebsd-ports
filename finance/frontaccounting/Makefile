@@ -1,5 +1,6 @@
 PORTNAME=	frontaccounting
 DISTVERSION=	2.3.25
+PORTREVISION=	1
 CATEGORIES=	finance www
 MASTER_SITES=	SF/${PORTNAME}/FrontAccounting-2.3/${PORTVERSION}
 

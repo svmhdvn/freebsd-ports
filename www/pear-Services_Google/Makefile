@@ -1,5 +1,6 @@
 PORTNAME=	Services_Google
 PORTVERSION=	0.2.0
+PORTREVISION=	1
 CATEGORIES=	www pear
 
 MAINTAINER=	sunpoet@FreeBSD.org

@@ -1,5 +1,6 @@
 PORTNAME=	uploadprogress
 DISTVERSION=	2.0.2
+PORTREVISION=	1
 CATEGORIES=	devel pear
 
 MAINTAINER=	daniel@morante.net

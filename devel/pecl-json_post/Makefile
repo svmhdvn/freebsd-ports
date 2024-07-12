@@ -1,5 +1,6 @@
 PORTNAME=	json_post
 PORTVERSION=	1.1.0
+PORTREVISION=	1
 CATEGORIES=	devel
 
 MAINTAINER=	gasol.wu@gmail.com

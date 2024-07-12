@@ -1,5 +1,6 @@
 PORTNAME=	limesurvey
 PORTVERSION=	6.5.2
+PORTREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	http://download.limesurvey.org/latest-master/ \
 		LOCAL/flo

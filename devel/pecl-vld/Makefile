@@ -1,5 +1,6 @@
 PORTNAME=	vld
 PORTVERSION=	0.18.0
+PORTREVISION=	1
 CATEGORIES=	devel pear
 
 MAINTAINER=	sunpoet@FreeBSD.org

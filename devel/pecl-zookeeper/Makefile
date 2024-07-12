@@ -1,5 +1,6 @@
 PORTNAME=	zookeeper
 PORTVERSION=	1.2.1
+PORTREVISION=	1
 CATEGORIES=	devel
 
 MAINTAINER=	sunpoet@FreeBSD.org

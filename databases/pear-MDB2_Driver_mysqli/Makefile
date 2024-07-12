@@ -1,5 +1,6 @@
 PORTNAME=	MDB2_Driver_mysqli
 DISTVERSION=	1.5.0b4
+PORTREVISION=	1
 CATEGORIES=	databases www pear
 
 MAINTAINER=	sunpoet@FreeBSD.org

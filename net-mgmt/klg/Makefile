@@ -1,6 +1,6 @@
 PORTNAME=	klg
 PORTVERSION=	1.5
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	net-mgmt www
 MASTER_SITES=	SF \
 		ftp://ftpmirror.uk/freebsd-ports/klg/

@@ -1,6 +1,6 @@
 PORTNAME=	sgwi
 PORTVERSION=	1.1.8
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	mail www
 MASTER_SITES=	http://www.vanheusden.com/sgwi/ \
 		https://www.freebsd.systems/files/

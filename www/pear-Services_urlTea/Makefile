@@ -1,5 +1,6 @@
 PORTNAME=	Services_urlTea
 PORTVERSION=	0.1.0
+PORTREVISION=	1
 CATEGORIES=	www pear
 
 MAINTAINER=	sunpoet@FreeBSD.org

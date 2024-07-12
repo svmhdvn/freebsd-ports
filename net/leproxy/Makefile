@@ -1,5 +1,6 @@
 PORTNAME=	leproxy
 PORTVERSION=	0.2.2
+PORTREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	https://github.com/${PORTNAME}/${PORTNAME}/releases/download/v${PORTVERSION}/
 EXTRACT_SUFX=	.php

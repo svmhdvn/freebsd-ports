@@ -1,5 +1,6 @@
 PORTNAME=	Net_Server
 PORTVERSION=	1.0.3
+PORTREVISION=	1
 CATEGORIES=	net pear
 
 MAINTAINER=	sunpoet@FreeBSD.org

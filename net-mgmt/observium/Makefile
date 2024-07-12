@@ -2,7 +2,7 @@
 
 PORTNAME=	observium
 PORTVERSION=	0.19.8
-PORTREVISION=	3
+PORTREVISION=	4
 CATEGORIES=	net-mgmt
 MASTER_SITES=	http://www.observium.org/
 DISTNAME=	${PORTNAME}-community-latest

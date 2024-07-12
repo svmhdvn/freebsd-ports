@@ -1,6 +1,6 @@
 PORTNAME=	sqstat
 PORTVERSION=	1.20
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	www
 MASTER_SITES=	http://samm.kiev.ua/sqstat/ \
 		SF/sqstat/sqstat/sqstat-${PORTVERSION}

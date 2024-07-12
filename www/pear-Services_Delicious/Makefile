@@ -1,5 +1,6 @@
 PORTNAME=	Services_Delicious
 PORTVERSION=	0.6.0
+PORTREVISION=	1
 CATEGORIES=	www pear
 
 MAINTAINER=	sunpoet@FreeBSD.org

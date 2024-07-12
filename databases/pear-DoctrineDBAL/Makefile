@@ -1,5 +1,6 @@
 PORTNAME=	DoctrineDBAL
 PORTVERSION=	2.3.4
+PORTREVISION=	1
 CATEGORIES=	databases pear
 MASTER_SITES=	http://pear.doctrine-project.org/get/
 

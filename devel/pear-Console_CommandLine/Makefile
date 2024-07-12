@@ -1,5 +1,6 @@
 PORTNAME=	Console_CommandLine
 PORTVERSION=	1.2.2
+PORTREVISION=	1
 CATEGORIES=	devel www pear
 
 MAINTAINER=	bofh@FreeBSD.org

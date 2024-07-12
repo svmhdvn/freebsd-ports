@@ -1,5 +1,6 @@
 PORTNAME=	amqp
 PORTVERSION=	2.1.1
+PORTREVISION=	1
 CATEGORIES=	net pear
 
 MAINTAINER=	jnlin@freebsd.cs.nctu.edu.tw

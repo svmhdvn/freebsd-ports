@@ -1,5 +1,6 @@
 PORTNAME=	n98-magerun
 PORTVERSION=	1.98.0
+PORTREVISION=	1
 CATEGORIES=	sysutils www
 MASTER_SITES=	https://files.magerun.net/ \
 		https://www.freebsd.systems/files/

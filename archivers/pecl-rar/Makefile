@@ -1,6 +1,6 @@
 PORTNAME=	rar
 PORTVERSION=	4.2.0
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	archivers pear
 
 PATCH_SITES=	https://github.com/cataphract/php-rar/commit/

@@ -1,5 +1,6 @@
 PORTNAME=	adminer
 PORTVERSION=	4.8.1
+PORTREVISION=	1
 CATEGORIES=	databases www
 MASTER_SITES=	https://github.com/vrana/adminer/releases/download/v${PORTVERSION}/
 EXTRACT_SUFX=	.php

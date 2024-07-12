@@ -1,6 +1,6 @@
 PORTNAME=	thundercache
 PORTVERSION=	6.1
-PORTREVISION=	16
+PORTREVISION=	17
 CATEGORIES=	www
 MASTER_SITES=	http://www.thundercache.com.br/dist/ \
 		http://www.bmsoftware.org/packs/ \

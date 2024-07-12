@@ -1,5 +1,6 @@
 PORTNAME=	leveldb
 PORTVERSION=	0.3.0
+PORTREVISION=	1
 CATEGORIES=	databases
 
 MAINTAINER=	sunpoet@FreeBSD.org

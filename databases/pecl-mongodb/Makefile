@@ -1,5 +1,6 @@
 PORTNAME=	mongodb
 PORTVERSION=	1.19.0
+PORTREVISION=	1
 CATEGORIES=	databases pear
 
 MAINTAINER=	pi@FreeBSD.org

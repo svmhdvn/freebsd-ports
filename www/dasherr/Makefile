@@ -1,5 +1,6 @@
 PORTNAME=	dasherr
 DISTVERSION=	1.05.01
+PORTREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	https://github.com/erohtar/Dasherr/releases/download/v${DISTVERSION}/
 DISTNAME=	${PORTNAME}.${DISTVERSION}

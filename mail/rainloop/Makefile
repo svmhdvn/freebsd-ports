@@ -1,6 +1,7 @@
 PORTNAME=	rainloop
 DISTVERSIONPREFIX=	legacy-
 DISTVERSION=	1.17.0
+PORTREVISION=	1
 CATEGORIES=	mail www
 MASTER_SITES=	https://github.com/RainLoop/rainloop-webmail/releases/download/v${PORTVERSION}/
 PKGNAMESUFFIX=	${PHP_PKGNAMESUFFIX}

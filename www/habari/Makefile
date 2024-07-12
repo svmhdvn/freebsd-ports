@@ -1,5 +1,6 @@
 PORTNAME=	habari
 PORTVERSION=	0.8
+PORTREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	http://habariproject.org/dist/ \
 		http://launchpadlibrarian.net/60087200/

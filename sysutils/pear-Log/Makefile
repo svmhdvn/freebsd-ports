@@ -1,5 +1,6 @@
 PORTNAME=	Log
 PORTVERSION=	1.14.4
+PORTREVISION=	1
 CATEGORIES=	sysutils www pear
 
 MAINTAINER=	sunpoet@FreeBSD.org
