@@ -47,19 +47,16 @@ GNU_CONFIGURE=		yes
 GNU_CONFIGURE_MANPREFIX=${PREFIX}/share
 
 PORTREVISION_CLIENT=	0
-PORTREVISION_SERVER=	0
+PORTREVISION_SERVER=	1
 OPENLDAP_SHLIB_MAJOR=	2
 OPENLDAP_SHLIB_MINOR=	0.200
 
-OPTIONS_DEFINE=		DEBUG FETCH GSSAPI
+OPTIONS_DEFINE=		DEBUG FETCH
 OPTIONS_DEFAULT+=	DEBUG
 
 FETCH_DESC=		Enable fetch(3) support
-GSSAPI_DESC=		With GSSAPI support
 
 FETCH_CONFIGURE_WITH=	fetch
-
-GSSAPI_RUN_DEPENDS=		cyrus-sasl-gssapi>0:security/cyrus-sasl2-gssapi
 
 .if defined(CLIENT_ONLY)
 OPTIONS_DEFINE+=	DOCS
@@ -312,7 +309,7 @@ CONFIGURE_ARGS+=	--with-threads=posix \
 			--with-tls=openssl \
 			--enable-dynamic
 
-LIB_DEPENDS+=		libsasl2.so:security/cyrus-sasl2
+LIB_DEPENDS+=		libsasl2.so:security/cyrus-sasl@noldap
 CONFIGURE_ARGS+=	--with-cyrus-sasl --enable-spasswd
 MAKE_ENV+=		STRIP=${STRIP}
 

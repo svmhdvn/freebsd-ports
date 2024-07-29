@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# PROVIDE: saslauthd
+# REQUIRE: DAEMON
+# BEFORE: mail imap
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name="saslauthd"
+rcvar=saslauthd_enable
+command="%%PREFIX%%/sbin/${name}"
+pidfile="%%SASLAUTHD_RUNPATH%%/${name}.pid"
+
+load_rc_config $name
+
+# Define these saslauthd_* variables in one of these files:
+#	/etc/rc.conf
+#	/etc/rc.conf.local
+#	/etc/rc.conf.d/saslauthd
+#
+# DO NOT CHANGE THESE DEFAULT VALUES HERE
+#
+: ${saslauthd_enable:="NO"}	# Enable saslauthd
+: ${saslauthd_flags:="-a pam"}	# Flags to saslauthd program
+
+run_rc_command "$1"
