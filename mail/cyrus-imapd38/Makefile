@@ -1,6 +1,6 @@
 PORTNAME=	cyrus-imapd
 PORTVERSION=	3.8.4
-PORTREVISION=	0
+PORTREVISION=	1
 CATEGORIES=	mail
 MASTER_SITES=	https://github.com/cyrusimap/cyrus-imapd/releases/download/${PORTNAME}-${DISTVERSION}/
 PKGNAMESUFFIX=	${CYRUS_IMAPD_VER}
@@ -35,7 +35,7 @@ GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--libexecdir=${CYRUS_PREFIX}/libexec \
 		--sbindir=${CYRUS_PREFIX}/sbin \
 		--sysconfdir=${PREFIX}/etc \
-		--with-cyrus-user=${CYRUS_USER} \
+		--with-cyrus-user=${USERS} \
 		--with-sasl=${LOCALBASE} \
 		--with-com_err \
 		--with-openssl=${OPENSSLBASE} \
@@ -143,12 +143,10 @@ MANDIRS=	${CYRUS_PREFIX}/man
 
 PORTDOCS=	*
 
-SUB_FILES=	pkg-message pkg-install pkg-deinstall cyrus-imapd-man.conf
+SUB_FILES=	pkg-message cyrus-imapd-man.conf
 
-SUB_LIST=	CYRUS_USER=${CYRUS_USER} CYRUS_GROUP=${CYRUS_GROUP}
-
-CYRUS_USER?=	cyrus
-CYRUS_GROUP?=	cyrus
+USERS=		cyrus
+GROUPS=		cyrus
 
 MAN_MAN1=	httptest imtest installsieve lmtptest mupdatetest nntptest \
 		pop3test sieveshell sivtest smtptest synctest
