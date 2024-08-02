@@ -1,6 +1,6 @@
 PORTNAME=	gnupg
 DISTVERSION=	2.4.5
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	security
 MASTER_SITES=	GNUPG
 
@@ -20,7 +20,7 @@ LIB_DEPENDS=	libassuan.so:security/libassuan \
 		libnpth.so:devel/npth
 RUN_DEPENDS=	pinentry:security/pinentry
 
-USES=		compiler:c11 cpe gmake iconv makeinfo pkgconfig readline sqlite tar:bzip2
+USES=		compiler:c11 cpe gmake iconv pkgconfig readline sqlite tar:bzip2
 
 CONFLICTS=	dirmngr
 CPE_VENDOR=	gnupg
@@ -28,14 +28,15 @@ CPE_VENDOR=	gnupg
 CONFIGURE_ARGS=	--disable-ntbtls --enable-gpg-is-gpg2
 GNU_CONFIGURE=	yes
 GNU_CONFIGURE_MANPREFIX=${PREFIX}/share
-INFO=		gnupg
 TEST_TARGET=	check
 TEST_ARGS=	TESTARGS=--parallel
 
-OPTIONS_DEFINE=	DOCS GNUTLS LARGE_RSA LDAP NLS SCDAEMON SUID_GPG WKS_SERVER
+OPTIONS_DEFINE=	DOCS GNUTLS INFO LARGE_RSA LDAP NLS SCDAEMON SUID_GPG WKS_SERVER
 OPTIONS_DEFAULT=GNUTLS SCDAEMON WKS_SERVER
 OPTIONS_SUB=	yes
 
+INFO_USES=	makeinfo
+INFO_INFO=	gnupg
 LARGE_RSA_DESC=	Enable support for 8192-bit RSA keys
 LDAP_DESC=	LDAP keyserver interface
 SCDAEMON_DESC=	Enable Smartcard daemon (with libusb)
@@ -68,7 +69,7 @@ PLIST_SUB+=	DIRMNGRLDAP="@comment "
 
 # Touch the texinfo files to force makeinfo to run.  This fixes Linuxisms in
 # the paths in the man pages.
-pre-build:
+pre-build-INFO-on:
 	${TOUCH} ${WRKSRC}/doc/*.texi
 
 post-install:
