@@ -17,7 +17,7 @@ LIB_DEPENDS=	libgmp.so:math/gmp \
 		libtasn1.so:security/libtasn1 \
 		libunistring.so:devel/libunistring
 
-USES=		compiler:c11 cpe gmake iconv libtool localbase makeinfo \
+USES=		compiler:c11 cpe gmake iconv libtool localbase \
 		pkgconfig tar:xz
 CPE_VENDOR=	gnu
 USE_LDCONFIG=	yes
@@ -34,7 +34,6 @@ CONFIGURE_ARGS=	--disable-rpath \
 		--without-tpm2 \
 		--without-zstd
 
-MAKE_ENV=	MAKEINFOFLAGS=--no-split
 INSTALL_TARGET=	install-strip
 TEST_TARGET=	check
 
@@ -44,7 +43,7 @@ WRKSRC=		${WRKDIR}/${PORTNAME}-${DISTVERSION:C/(\.[^.]*\.[^.]*).*/\1/}
 
 INFO=		gnutls
 
-OPTIONS_DEFINE=		DANE EXAMPLES IDN KTLS MAN3 NLS P11KIT SRP
+OPTIONS_DEFINE=		DANE EXAMPLES IDN INFO KTLS MAN3 NLS P11KIT SRP
 OPTIONS_DEFAULT=	IDN KTLS MAN3 P11KIT
 OPTIONS_SUB=		yes
 
@@ -59,6 +58,11 @@ DANE_CONFIGURE_ENABLE=	libdane
 
 IDN_LIB_DEPENDS=	libidn2.so:dns/libidn2
 IDN_CONFIGURE_WITH=	idn
+
+INFO_USES=		makeinfo
+INFO_INFO=		gnutls
+INFO_CONFIGURE_OFF=	MAKEINFO=true
+INFO_CONFIGURE_ON=	MAKEINFOFLAGS=--no-split
 
 KTLS_CONFIGURE_ENABLE=	ktls
 
