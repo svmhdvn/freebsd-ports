@@ -1,5 +1,6 @@
 PORTNAME=	msmtp
 PORTVERSION=	1.8.30
+PORTREVISION=	1
 CATEGORIES=	mail
 MASTER_SITES=	https://marlam.de/msmtp/releases/
 
@@ -13,10 +14,9 @@ LICENSE=	GPLv3
 
 GNU_CONFIGURE=	yes
 GNU_CONFIGURE_MANPREFIX=	${PREFIX}/share
-USES=		cpe gmake makeinfo pkgconfig tar:xz
+USES=		cpe gmake pkgconfig tar:xz
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
-INFO=		msmtp
 CPE_VENDOR=	marlam
 
 OPTIONS_DEFINE=	DOCS GSASL NLS IDN LIBSECRET MSMTPD MSMTPQ
@@ -25,6 +25,8 @@ OPTIONS_RADIO_TLS=	GNUTLS OPENSSL
 OPTIONS_DEFAULT=	GNUTLS MSMTPD MSMTPQ
 OPTIONS_SUB=	yes
 
+INFO_USES=	makeinfo
+INFO_INFO=	msmtp
 GSASL_DESC=	GSASL support
 LIBSECRET_DESC=	GNOME password management
 MSMTPD_DESC=	Include minimal SMTP server that pipes mails to msmtp
