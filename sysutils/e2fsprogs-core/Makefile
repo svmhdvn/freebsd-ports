@@ -14,7 +14,7 @@ LICENSE_FILE?=	${WRKSRC}/NOTICE
 .endif
 LICENSE_DISTFILES_GPLv2+ =	${DISTNAME}${EXTRACT_SUFX}
 
-USES=		cpe gmake makeinfo pkgconfig tar:xz
+USES=		cpe gmake pkgconfig tar:xz
 CPE_VENDOR=	e2fsprogs_project
 USE_CSTD=	gnu99
 # this seems a bit redundant to the --rpath below, but
