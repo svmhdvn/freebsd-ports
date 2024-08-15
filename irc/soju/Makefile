@@ -19,7 +19,7 @@ OPTIONS_DEFINE=		DOCS
 
 USERS=			soju
 GROUPS=			soju
-SUB_LIST=		USER=${USERS}
+SUB_LIST=		USER=${USERS} GROUP=${GROUPS}
 USE_RC_SUBR=		${PORTNAME}
 CGO_LDFLAGS+=		-lsqlite3
 GO_MODULE=		codeberg.org/emersion/soju
