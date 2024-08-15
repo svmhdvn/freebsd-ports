@@ -21,12 +21,15 @@ desc="Soju IRC bouncer"
 
 : ${soju_enable:=NO}
 : ${soju_config:=%%PREFIX%%/etc/soju/config}
+: ${soju_user:=%%USER%%}
+: ${soju_group:=%%GROUP%%}
 
 command=/usr/sbin/daemon
 procname="%%PREFIX%%/bin/soju"
-pidfile=/var/run/${name}.pid
-command_args="-P /var/run/daemon_${name}.pid -p $pidfile -u %%USER%% -H -c -f $procname -config ${soju_config}"
-start_precmd="mkdir -p /var/run/soju && chown %%USER%%: /var/run/soju"
+soju_rundir="/var/run/${name}"
+pidfile="${soju_rundir}/${name}.pid"
+command_args="-P ${soju_rundir}/daemon_${name}.pid -p $pidfile -H -c -f -S $procname -config ${soju_config}"
+start_precmd="install -d -o %%USER%% -g %%GROUP%% ${soju_rundir}"
 
 load_rc_config $name
 run_rc_command "$1"
