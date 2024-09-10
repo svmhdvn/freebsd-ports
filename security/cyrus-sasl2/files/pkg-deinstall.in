@@ -14,15 +14,15 @@ CYRUS_GROUP=${CYRUS_GROUP:=%%CYRUS_GROUP%%}
 
 # delete sasldb database
 delete_sasldb() {
-	if [ -f ${SASLDB_NAME} ] ; then
-		result=$(${PKG_PREFIX}/sbin/sasldblistusers2)
+	if [ -f "${PKG_ROOTDIR}${SASLDB_NAME}" ] ; then
+		result=$(chroot "${PKG_ROOTDIR}" ${PKG_PREFIX}/sbin/sasldblistusers2)
 		if [ $? -eq 0 -a -z "${result}" ]; then
-			rm ${SASLDB_NAME}
-			if [ -f ${SASLDB_NAME}-lock ] ; then
-				rm ${SASLDB_NAME}-lock
+			rm "${PKG_ROOTDIR}${SASLDB_NAME}"
+			if [ -f "${PKG_ROOTDIR}${SASLDB_NAME}-lock" ] ; then
+				rm "${PKG_ROOTDIR}${SASLDB_NAME}-lock"
 			fi
 			if [ ${SASLDB_DIR} = '/var/db/sasl2' ]; then
-				rmdir ${SASLDB_DIR}
+				rmdir "${PKG_ROOTDIR}${SASLDB_DIR}"
 			fi
 		else
 			echo "WARNING: Users SASL passwords are in ${SASLDB_NAME}, keeping this file"
@@ -31,10 +31,10 @@ delete_sasldb() {
 }
 
 delete_user() {
-	if pw usershow ${CYRUS_USER} 2>/dev/null 1>&2; then
+	if pw -R "${PKG_ROOTDIR}" usershow ${CYRUS_USER} 2>/dev/null 1>&2; then
 		echo "To delete Cyrus user permanently, use 'pw userdel ${CYRUS_USER}'"
 	fi
-	if pw groupshow ${CYRUS_GROUP} 2>/dev/null 1>&2; then
+	if pw -R "${PKG_ROOTDIR}" groupshow ${CYRUS_GROUP} 2>/dev/null 1>&2; then
 		echo "To delete Cyrus group permanently, use 'pw groupdel ${CYRUS_GROUP}'"
 	fi
 
