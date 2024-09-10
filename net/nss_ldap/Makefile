@@ -20,8 +20,8 @@ GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
 CPE_VENDOR=	padl
 
-OPTIONS_DEFINE=	LCLASS KERBEROS
-OPTIONS_DEFAULT=LCLASS KERBEROS
+OPTIONS_DEFINE=	LCLASS GSSAPI
+OPTIONS_DEFAULT=LCLASS GSSAPI
 
 LCLASS_DESC=	Enable login classes via the loginClass attribute
 
@@ -37,10 +37,9 @@ SUB_FILES=	pkg-message
 
 .include <bsd.port.options.mk>
 
-.if ${PORT_OPTIONS:MKERBEROS}
-CONFIGURE_ARGS+=--enable-configurable-krb5-ccname-gssapi \
-		--enable-configurable-krb5-keytab
-.endif
+GSSAPI_CONFIGURE_ON=	--enable-configurable-krb5-ccname-gssapi \
+			--enable-configurable-krb5-keytab \
+			${GSSAPI_CONFIGURE_ARGS}
 
 .if ${PORT_OPTIONS:MLCLASS}
 CFLAGS+="-DHAVE_LOGIN_CLASSES"

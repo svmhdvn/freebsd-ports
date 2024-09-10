@@ -32,7 +32,6 @@ BUILD_DEPENDS=	xmlcatalog:textproc/libxml2 \
 		docbook-xsl>=1:textproc/docbook-xsl \
 		xsltproc:textproc/libxslt \
 		xmlcatmgr:textproc/xmlcatmgr \
-		krb5>=1.10:security/krb5 \
 		nsupdate:dns/bind-tools
 
 GNU_CONFIGURE=	yes
@@ -64,7 +63,7 @@ SUB_FILES=	pkg-message
 TEST_TARGET=	check
 
 USES=		autoreconf cpe gettext gmake iconv ldap libtool pathfix pkgconfig \
-		python shebangfix gssapi:mit
+		python shebangfix gssapi
 USE_LDCONFIG=	yes
 INSTALL_TARGET=	install-strip
 CPE_VENDOR=	fedoraproject

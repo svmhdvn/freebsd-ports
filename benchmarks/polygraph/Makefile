@@ -27,14 +27,16 @@ USE_CXXSTD=	gnu++98
 CONFLICTS=	ltrace-0*
 
 OPTIONS_DEFINE=		DOCS GNUPLOT GSSAPI LDNS PERL SSL ZLIB
+
 OPTIONS_DEFAULT=	SSL ZLIB
 OPTIONS_EXCLUDE_i386=	SSL
 
 GNUPLOT_DESC=		GNUPlot for full reporting functionality
 GNUPLOT_RUN_DEPENDS=	gnuplot:math/gnuplot
-GSSAPI_USES=		gssapi:mit
-GSSAPI_CONFIGURE_ON=	--with-kerberos=${KRB5CONFIG} ${GSSAPI_CONFIGURE_ARGS}
+GSSAPI_DESC=		GSSAPI support
+GSSAPI_USES=		gssapi
 GSSAPI_CONFIGURE_OFF=	--without-kerberos
+GSSAPI_CONFIGURE_ON=	--with-kerberos ${GSSAPI_CONFIGURE_ARGS}
 LDNS_DESC=		DNS zone file support via libldns
 LDNS_LIB_DEPENDS=	libldns.so:dns/ldns
 LDNS_CONFIGURE_ON=	--with-ldns=${LOCALBASE}/bin/ldns-config

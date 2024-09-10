@@ -141,20 +141,16 @@ GN_BOOTSTRAP_FLAGS=	--no-clean --no-rebuild --skip-generate-buildfiles
 PLIST_SUB=	ELECTRON_VER=${ELECTRON_VER} \
 		ELECTRON_VER_MAJOR=${ELECTRON_VER_MAJOR}
 
-OPTIONS_DEFINE=		CODECS CUPS DEBUG DIST DRIVER KERBEROS LTO PIPEWIRE
-OPTIONS_DEFAULT=	CODECS CUPS DRIVER KERBEROS PIPEWIRE SNDIO
+OPTIONS_DEFINE=		CODECS CUPS DEBUG DIST DRIVER GSSAPI LTO PIPEWIRE
+OPTIONS_DEFAULT=	CODECS CUPS DRIVER GSSAPI PIPEWIRE SNDIO
 OPTIONS_EXCLUDE_aarch64=LTO
 OPTIONS_GROUP=		AUDIO
 OPTIONS_GROUP_AUDIO=	ALSA PULSEAUDIO SNDIO
-OPTIONS_RADIO=		KERBEROS
-OPTIONS_RADIO_KERBEROS=	HEIMDAL HEIMDAL_BASE MIT
 OPTIONS_SUB=		yes
 CODECS_DESC=		Compile and enable patented codecs like H.264
 DIST_DESC=		Build distribution zip files
 DRIVER_DESC=		Install chromedriver
-HEIMDAL_BASE_DESC=	Heimdal Kerberos (base)
-HEIMDAL_DESC=		Heimdal Kerberos (security/heimdal)
-MIT_DESC=		MIT Kerberos (security/krb5)
+GSSAPI_DESC=		GSSAPI support
 PIPEWIRE_DESC=		Screen capture via PipeWire
 
 ALSA_LIB_DEPENDS=	libasound.so:audio/alsa-lib
@@ -191,16 +187,13 @@ DEBUG_VARS_OFF=		BUILDTYPE=Release \
 DIST_IMPLIES=		DRIVER
 DRIVER_MAKE_ARGS=	chromedriver
 
-HEIMDAL_LIB_DEPENDS=	libkrb5.so.26:security/heimdal
-KERBEROS_VARS=		GN_ARGS+=use_kerberos=true
-KERBEROS_VARS_OFF=	GN_ARGS+=use_kerberos=false
+GSSAPI_VARS_ON=		GN_ARGS+=use_kerberos=true
+GSSAPI_VARS_OFF=	GN_ARGS+=use_kerberos=false
 
 LTO_VARS=		GN_ARGS+=use_thin_lto=true \
 			GN_ARGS+=thin_lto_enable_optimizations=true \
 			WANTSPACE="14 GB"
 LTO_VARS_OFF=		GN_ARGS+=use_thin_lto=false
-
-MIT_LIB_DEPENDS=	libkrb5.so.3:security/krb5
 
 PIPEWIRE_LIB_DEPENDS=	libpipewire-0.3.so:multimedia/pipewire
 PIPEWIRE_VARS=		GN_ARGS+=rtc_use_pipewire=true \
@@ -243,10 +236,6 @@ YARN_TIMESTAMP=	61171200
 
 .include "Makefile.version"
 .include <bsd.port.pre.mk>
-
-.if ${PORT_OPTIONS:MHEIMDAL_BASE} && !exists(/usr/lib/libkrb5.so)
-IGNORE=		you have selected HEIMDAL_BASE but do not have Heimdal installed in base
-.endif
 
 .if ${COMPILER_VERSION} < 170
 LLVM_DEFAULT=		17

@@ -3,20 +3,12 @@ PKGNAMESUFFIX=	-gssapi
 COMMENT=	SASL GSSAPI authentication plugin
 WWW=		https://www.cyrusimap.org/sasl/
 
-OPTIONS_SINGLE=			GSSAPI
-OPTIONS_SINGLE_GSSAPI=		GSSAPI_BASE GSSAPI_HEIMDAL GSSAPI_MIT
-OPTIONS_DEFAULT=		GSSAPI_BASE
-GSSAPI_BASE_USES=		gssapi:base
-GSSAPI_BASE_CONFIGURE_ON=	--enable-gssapi="${GSSAPIBASEDIR}" \
-				--with-gss_impl=heimdal
-GSSAPI_HEIMDAL_USES=		gssapi:heimdal,flags
-GSSAPI_HEIMDAL_CONFIGURE_ON=	--enable-gssapi="${GSSAPIBASEDIR}" \
-				--with-gss_impl=heimdal
-GSSAPI_HEIMDAL_PLIST_FILES=	${LIBGS2_PLIST_FILES}
-GSSAPI_MIT_USES=		gssapi:mit
-GSSAPI_MIT_CONFIGURE_ON=	--enable-gssapi="${GSSAPIBASEDIR}" \
-				--with-gss_impl=mit
-GSSAPI_MIT_PLIST_FILES=		${LIBGS2_PLIST_FILES}
+OPTIONS_DEFINE=			GSSAPI
+OPTIONS_DEFAULT=		GSSAPI
+GSSAPI_USES=			gssapi:flags
+GSSAPI_CONFIGURE_ON=		--enable-gssapi="${GSSAPIBASEDIR}" --with-gss_impl="${GSSAPI_PROVIDER}" ${GSSAPI_CONFIGURE_ARGS}
+GSSAPI_CONFIGURE_OFF=		--disable-gssapi
+GSSAPI_PLIST_FILES=		${LIBGS2_PLIST_FILES}
 
 LIBGS2_PLIST_FILES=		lib/sasl2/libgs2.a \
 				lib/sasl2/libgs2.so \

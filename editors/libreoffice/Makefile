@@ -254,7 +254,7 @@ PDFIUM_LIB_DEPENDS=	libabsl_strings.so:devel/abseil \
 
 PGSQL_CONFIGURE_ENABLE=	postgresql-sdbc
 PGSQL_CONFIGURE_WITH=	gssapi krb5
-PGSQL_USES=	pgsql
+PGSQL_USES=	gssapi pgsql
 
 MARIADB_CONFIGURE_ENABLE=	mariadb-sdbc
 MARIADB_USES=	mysql:client

@@ -1,6 +1,6 @@
 PORTNAME=	conserver
 DISTVERSION=	8.2.7
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	comms
 MASTER_SITES=	https://github.com/bstansell/conserver/releases/download/v${DISTVERSION}/
 PKGNAMESUFFIX=	-com
@@ -34,7 +34,9 @@ UDS_DESC=		Use Unix domain sockets for client/server
 
 FREEIPMI_CONFIGURE_ON=		--with-freeipmi=${LOCALBASE}
 FREEIPMI_LIB_DEPENDS=		libfreeipmi.so:sysutils/freeipmi
-GSSAPI_CONFIGURE_WITH=		gssapi
+GSSAPI_USES=			gssapi
+GSSAPI_CONFIGURE_ON=		--with-gssapi=${GSSAPIBASEDIR} ${GSSAPI_CONFIGURE_ARGS}
+GSSAPI_CONFIGURE_OFF=		--without-gssapi
 GSSAPIONLY_EXTRA_PATCHES=	${FILESDIR}/extra-patch-conserver__master.c
 STRIPREALM_CONFIGURE_WITH=	striprealm
 UDS_CONFIGURE_WITH=		uds

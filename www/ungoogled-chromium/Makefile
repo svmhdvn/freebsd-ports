@@ -159,19 +159,15 @@ GN_BOOTSTRAP_FLAGS=	--no-clean --no-rebuild --skip-generate-buildfiles
 SUB_FILES=	ungoogled-chromium.desktop ungoogled-chromium
 SUB_LIST+=	COMMENT="${COMMENT}"
 
-OPTIONS_DEFINE=		CODECS CUPS DEBUG DRIVER KERBEROS LTO PIPEWIRE TEST WIDEVINE
-OPTIONS_DEFAULT=	CODECS CUPS DRIVER KERBEROS PIPEWIRE SNDIO ALSA PULSEAUDIO
+OPTIONS_DEFINE=		CODECS CUPS DEBUG DRIVER GSSAPI LTO PIPEWIRE TEST WIDEVINE
+OPTIONS_DEFAULT=	CODECS CUPS DRIVER GSSAPI PIPEWIRE SNDIO ALSA PULSEAUDIO
 OPTIONS_EXCLUDE_aarch64=LTO
 OPTIONS_GROUP=		AUDIO
 OPTIONS_GROUP_AUDIO=	ALSA PULSEAUDIO SNDIO
-OPTIONS_RADIO=		KERBEROS
-OPTIONS_RADIO_KERBEROS=	HEIMDAL HEIMDAL_BASE MIT
 OPTIONS_SUB=		yes
 CODECS_DESC=		Compile and enable patented codecs like H.264
 DRIVER_DESC=		Install chromedriver
-HEIMDAL_BASE_DESC=	Heimdal Kerberos (base)
-HEIMDAL_DESC=		Heimdal Kerberos (security/heimdal)
-MIT_DESC=		MIT Kerberos (security/krb5)
+GSSAPI_DESC=		GSSAPI support
 
 ALSA_LIB_DEPENDS=	libasound.so:audio/alsa-lib
 ALSA_RUN_DEPENDS=	${LOCALBASE}/lib/alsa-lib/libasound_module_pcm_oss.so:audio/alsa-plugins \
@@ -204,16 +200,14 @@ DEBUG_VARS_OFF=		BUILDTYPE=Release \
 
 DRIVER_MAKE_ARGS=	chromedriver
 
-HEIMDAL_LIB_DEPENDS=	libkrb.so.26:security/heimdal
-KERBEROS_VARS=		GN_ARGS+=use_kerberos=true
+GSSAPI_USES=		gssapi
+GSSAPI_VARS_ON=		GN_ARGS+=use_kerberos=true
 KERBEROS_VARS_OFF=	GN_ARGS+=use_kerberos=false
 
 LTO_VARS=		GN_ARGS+=use_thin_lto=true \
 			GN_ARGS+=thin_lto_enable_optimizations=true \
 			WANTSPACE="14 GB"
 LTO_VARS_OFF=		GN_ARGS+=use_thin_lto=false
-
-MIT_LIB_DEPENDS=	libkrb.so.3:security/krb5
 
 PIPEWIRE_DESC=		Screen capture via PipeWire
 PIPEWIRE_LIB_DEPENDS=	libpipewire-0.3.so:multimedia/pipewire
@@ -239,10 +233,6 @@ TEST_ALL_TARGET=	${TEST_TARGETS}
 
 .include <bsd.port.options.mk>
 .include <bsd.port.pre.mk> # for COMPILER_VERSION
-
-.if ${PORT_OPTIONS:MHEIMDAL_BASE} && !exists(/usr/lib/libkrb5.so)
-IGNORE=		you have selected HEIMDAL_BASE but do not have Heimdal installed in base
-.endif
 
 LLVM_DEFAULT=		18
 BUILD_DEPENDS+=		clang${LLVM_DEFAULT}:devel/llvm${LLVM_DEFAULT}

@@ -20,16 +20,11 @@ USE_LDCONFIG=	yes
 INSTALL_TARGET=	install --install-sandbox=${STAGEDIR}
 TEST_TARGET=	check  # some tests fail
 
-OPTIONS_DEFINE=		DOCS
-OPTIONS_RADIO=		KERBEROS
-OPTIONS_RADIO_KERBEROS=	GSSAPI_BASE GSSAPI_HEIMDAL GSSAPI_MIT
+OPTIONS_DEFINE=		DOCS GSSAPI
 
-GSSAPI_BASE_DESC=		Heimdal Kerberos (base)
-GSSAPI_HEIMDAL_DESC=		Heimdal Kerberos (security/heimdal)
-GSSAPI_MIT_DESC=		MIT Kerberos (security/krb5)
+GSSAPI_DESC=		GSSAPI support
+GSSAPI_USES=		gssapi
 
-GSSAPI_HEIMDAL_LIB_DEPENDS=	libkrb5.so.26:security/heimdal
-GSSAPI_MIT_LIB_DEPENDS=		libkrb5.so.3:security/krb5
 SCONS_ARGS=	APR=${LOCALBASE}/bin/apr-1-config
 SCONS_ARGS+=	APU=${LOCALBASE}/bin/apu-1-config
 SCONS_ARGS+=	OPENSSL=${OPENSSLBASE}
@@ -39,11 +34,8 @@ SCONS_ARGS+=	CFLAGS="${CFLAGS}"
 
 .include <bsd.port.options.mk>
 
-.if ${PORT_OPTIONS:MGSSAPI_BASE}
-SCONS_ARGS+=	GSSAPI="/usr"
-.endif
-.if ${PORT_OPTIONS:MGSSAPI_MIT} || ${PORT_OPTIONS:MGSSAPI_HEIMDAL}
-SCONS_ARGS+=	GSSAPI="${LOCALBASE}"
+.if ${PORT_OPTIONS:MGSSAPI}
+SCONS_ARGS+=	GSSAPI="${KRB5CONFIG}"
 .endif
 
 post-patch:

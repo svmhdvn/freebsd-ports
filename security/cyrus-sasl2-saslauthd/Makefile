@@ -13,8 +13,8 @@ USE_RC_SUBR=	saslauthd
 CYRUS_CONFIGURE_ARGS=	--with-saslauthd=${SASLAUTHD_RUNPATH}
 CONFIGURE_ENV+=		andrew_cv_runpath_switch=none
 
-OPTIONS_DEFINE=		DOCS HTTPFORM OPENLDAP SASLDB_IN_VAR
-OPTIONS_RADIO=		GSSAPI SASLDB
+OPTIONS_DEFINE=		DOCS GSSAPI HTTPFORM OPENLDAP SASLDB_IN_VAR
+OPTIONS_RADIO=		SASLDB
 OPTIONS_RADIO_SASLDB=	BDB1 BDB GDBM LMDB
 OPTIONS_DEFAULT=	BDB1
 
@@ -46,21 +46,11 @@ LMDB_LDFLAGS=		-L${LOCALBASE}/lib
 # LMDB_IMPLIES=		SASLDB_IN_VAR
 SASLDB_IN_VAR_DESC=	sasldb in /var/db/sasl2
 
-.if exists(/usr/lib/libkrb5.a)
-OPTIONS_RADIO_GSSAPI+=	GSSAPI_BASE
-OPTIONS_DEFAULT+=	GSSAPI_BASE
-.endif
-OPTIONS_RADIO_GSSAPI+=	GSSAPI_HEIMDAL GSSAPI_MIT
-GSSAPI_BASE_USES=		gssapi:base
-GSSAPI_BASE_CONFIGURE_ON=	--enable-gssapi="${GSSAPIBASEDIR}" \
-				--with-gss_impl=heimdal
-GSSAPI_HEIMDAL_USES=		gssapi:heimdal,flags
-GSSAPI_HEIMDAL_CONFIGURE_ON=	--enable-gssapi="${GSSAPIBASEDIR}" \
-				--with-gss_impl=heimdal
-GSSAPI_MIT_USES=		gssapi:mit
-GSSAPI_MIT_CONFIGURE_ON=	--enable-gssapi="${GSSAPIBASEDIR}" \
-				--with-gss_impl=mit
+GSSAPI_USES=		gssapi:flags
+GSSAPI_CONFIGURE_ON=	--enable-gssapi="${GSSAPIBASEDIR}" \
+			--with-gss_impl="${GSSAPI_PROVIDER}"
+GSSAPI_CONFIGURE_OFF=	--disable-gssapi
 
-DOCS=		COPYING ChangeLog LDAP_SASLAUTHD
+DOCS=			COPYING ChangeLog LDAP_SASLAUTHD
 
 .include "${.CURDIR}/../../security/cyrus-sasl2/Makefile.common"

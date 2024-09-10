@@ -363,12 +363,12 @@ NO_BUILD=	yes
 USERS=	git
 GROUPS=	git
 
-OPTIONS_DEFINE=			KERBEROS
-OPTIONS_DEFAULT=		KERBEROS
+OPTIONS_DEFINE=			GSSAPI
+OPTIONS_DEFAULT=		GSSAPI
 
-KERBEROS_BUILD_DEPENDS=		rubygem-timfel-krb5-auth>=0.8<1:security/rubygem-timfel-krb5
-KERBEROS_RUN_DEPENDS=		rubygem-timfel-krb5-auth>=0.8<1:security/rubygem-timfel-krb5
-KERBEROS_EXTRA_PATCHES_OFF=	${FILESDIR}/extra-patch-Gemfile-kerberos-off
+GSSAPI_BUILD_DEPENDS=		rubygem-timfel-krb5-auth>=0.8<1:security/rubygem-timfel-krb5
+GSSAPI_RUN_DEPENDS=		rubygem-timfel-krb5-auth>=0.8<1:security/rubygem-timfel-krb5
+GSSAPI_EXTRA_PATCHES_OFF=	${FILESDIR}/extra-patch-Gemfile-kerberos-off
 
 post-patch:
 	${REINPLACE_CMD} -e "s|%%PREFIX%%|${PREFIX}|" -e "s|%%WWWDIR%%|${WWWDIR}|" ${WRKSRC}/config/gitlab.yml.example \

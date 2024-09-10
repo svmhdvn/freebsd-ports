@@ -48,7 +48,6 @@ LIB_DEPENDS=	libatk-bridge-2.0.so:accessibility/at-spi2-core \
 		libcups.so:print/cups \
 		libfreetype.so:print/freetype2 \
 		libharfbuzz.so:print/harfbuzz \
-		libkrb5.so.3:security/krb5 \
 		libsecret-1.so:security/libsecret \
 		libnss3.so:security/nss \
 		libexpat.so:textproc/expat2 \
@@ -60,7 +59,7 @@ RUN_DEPENDS=	xdg-open:devel/xdg-utils \
 TEST_DEPENDS=	electron${ELECTRON_VER_MAJOR}:devel/electron${ELECTRON_VER_MAJOR} \
 		bash:shells/bash
 
-USES=		desktop-file-utils gl gmake gnome iconv:wchar_t jpeg \
+USES=		desktop-file-utils gl gmake gnome gssapi:mit iconv:wchar_t jpeg \
 		localbase:ldflags nodejs:20,build pkgconfig python:build \
 		shebangfix xorg
 

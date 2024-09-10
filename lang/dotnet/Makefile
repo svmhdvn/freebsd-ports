@@ -28,7 +28,7 @@ LIB_DEPENDS=	libicuuc.so:devel/icu \
 		libunwind.so:devel/libunwind
 RUN_DEPENDS=	terminfo-db>0:misc/terminfo-db
 
-USES=		autoreconf:build gssapi:mit llvm:noexport nodejs pkgconfig \
+USES=		autoreconf:build gssapi llvm:noexport nodejs pkgconfig \
 		python:build,3.9+ shebangfix ssl
 
 USE_GITHUB=	yes

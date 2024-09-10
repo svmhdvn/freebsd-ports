@@ -95,11 +95,9 @@ CONFLICTS_INSTALL=	courier-0.* opensmtpd opensmtpd-devel \
 USERS=		postfix
 GROUPS=		mail maildrop postfix
 
-OPTIONS_DEFINE=		BDB BLACKLISTD CDB DOCS EAI INST_BASE LDAP LMDB MONGO \
+OPTIONS_DEFINE=		BDB BLACKLISTD CDB DOCS EAI GSSAPI INST_BASE LDAP LMDB MONGO \
 			MYSQL NIS PCRE2 PGSQL SASL SQLITE TEST TLS
 OPTIONS_DEFAULT?=	BLACKLISTD EAI PCRE2 TLS
-OPTIONS_RADIO=		RG1
-OPTIONS_RADIO_RG1=	SASLKMIT SASLKRB5
 .if ${FLAVOR:U} == ldap
 OPTIONS_SLAVE=		LDAP
 .elif ${FLAVOR:U} == mysql
@@ -124,8 +122,7 @@ LDAP_DESC=		LDAP maps (uses WITH_OPENLDAP_VER)
 LMDB_DESC=		LMDB maps
 PCRE2_DESC=		Use Perl Compatible Regular Expressions, version 2
 RG1_DESC=		Kerberos network authentication protocol type
-SASLKMIT_DESC=		If your SASL req. MIT Kerberos5, select this
-SASLKRB5_DESC=		If your SASL req. Kerberos5, select this
+GSSAPI_DESC=		GSSAPI support
 SASL_DESC=		Cyrus SASL support (Dovecot SASL is always built in)
 TEST_DESC=		SMTP/LMTP test server and generator
 
@@ -133,6 +130,7 @@ BDB_USES=			bdb
 BLACKLISTD_EXTRA_PATCHES=	${FILESDIR}/extra-patch-blacklistd
 CDB_LIB_DEPENDS=		libcdb.so:databases/tinycdb
 EAI_LIB_DEPENDS=		libicuuc.so:devel/icu
+GSSAPI_USES=			gssapi
 LDAP_USES=			ldap
 LMDB_LIB_DEPENDS=		liblmdb.so:databases/lmdb
 MONGO_LIB_DEPENDS=		libbson-1.0.so:devel/libbson \
@@ -140,7 +138,6 @@ MONGO_LIB_DEPENDS=		libbson-1.0.so:devel/libbson \
 MYSQL_USES?=			mysql
 PCRE2_LIB_DEPENDS=		libpcre2-8.so:devel/pcre2
 PGSQL_USES=			pgsql
-SASLKMIT_LIB_DEPENDS=		libkrb5.so:security/krb5
 SASL_LIB_DEPENDS=		libsasl2.so:security/cyrus-sasl2
 SQLITE_USES=			sqlite
 
@@ -258,16 +255,6 @@ POSTFIX_CCARGS+=	-DUSE_CYRUS_SASL -I${LOCALBASE}/include \
 POSTFIX_AUXLIBS+=	-L${LOCALBASE}/lib -lsasl2 -lpam -lcrypt
 .else
 POSTFIX_CCARGS+=	-DDEF_SERVER_SASL_TYPE=\\\"dovecot\\\"
-.endif
-
-.if ${PORT_OPTIONS:MSASLKRB5}
-POSTFIX_AUXLIBS+=	-lkrb5 -lhx509 -lcrypto -lcrypt -lcom_err -lasn1 \
-			-lroken
-.endif
-
-.if ${PORT_OPTIONS:MSASLKMIT}
-POSTFIX_AUXLIBS+=	-Wl,--rpath,$${KRB5_HOME:-${LOCALBASE}}/lib -lkrb5 \
-			-lcrypto -lcrypt -lcom_err
 .endif
 
 .if ${PORT_OPTIONS:MTLS}

@@ -54,7 +54,6 @@ LIB_DEPENDS=	libaribb24.so:multimedia/aribb24 \
 
 RUN_DEPENDS=	dotnet>0:lang/dotnet \
 		icu>0:devel/icu \
-		krb5>0:security/krb5 \
 		libexif>0:graphics/libexif \
 		libheif>0:graphics/libheif \
 		libimagequant>0:graphics/libimagequant \
@@ -67,7 +66,7 @@ RUN_DEPENDS=	dotnet>0:lang/dotnet \
 		pango>0:x11-toolkits/pango \
 		tiff>0:graphics/tiff
 
-USES=		compiler:c11 gmake iconv localbase:ldflags magick:6 pkgconfig sqlite ssl:run
+USES=		compiler:c11 gmake gssapi:mit iconv localbase:ldflags magick:6 pkgconfig sqlite ssl:run
 USE_RC_SUBR=	${PORTNAME}
 
 HAS_CONFIGURE=	yes

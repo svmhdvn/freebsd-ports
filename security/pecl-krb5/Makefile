@@ -10,8 +10,8 @@ LICENSE=	BSD3CLAUSE
 
 LIB_DEPENDS=	libkrb5support.so:security/krb5
 
-USES=		php:pecl
+USES=		gssapi php:pecl
 
-CONFIGURE_ARGS=	--with-krb5config=${LOCALBASE}/bin/krb5-config
+CONFIGURE_ARGS=	--with-krb5config=${KRB5CONFIG}
 
 .include <bsd.port.mk>
