@@ -15,9 +15,9 @@ remove_file()
 
 # This should really be uninstalled by Sendmail
 sendmail_conf() {
-	if [ -f ${PKG_PREFIX}/lib/sasl2/Sendmail.conf ]; then
-		echo "pwcheck_method: saslauthd" > ${PKG_PREFIX}/lib/sasl2/Sendmail.conf.tmp
-		remove_file ${PKG_PREFIX}/lib/sasl2/Sendmail.conf
+	if [ -f "${PKG_ROOTDIR}${PKG_PREFIX}/lib/sasl2/Sendmail.conf" ]; then
+		echo "pwcheck_method: saslauthd" > "${PKG_ROOTDIR}${PKG_PREFIX}/lib/sasl2/Sendmail.conf.tmp"
+		remove_file "${PKG_ROOTDIR}${PKG_PREFIX}/lib/sasl2/Sendmail.conf"
 	fi
 }
 
