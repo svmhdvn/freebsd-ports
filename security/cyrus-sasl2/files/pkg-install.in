@@ -19,11 +19,11 @@ CYRUS_GROUP=${CYRUS_GROUP:=%%CYRUS_GROUP%%}
 create_user() {
 	USER=${CYRUS_USER}
 	GROUP=${CYRUS_GROUP}
-	PW=/usr/sbin/pw
+	PW="/usr/sbin/pw -R ${PKG_ROOTDIR}"
 
-	if [ -x /usr/sbin/nologin ]; then
+	if [ -x "${PKG_ROOTDIR}/usr/sbin/nologin" ]; then
 		shell=/usr/sbin/nologin
-	elif [ -x /sbin/nologin ]; then
+	elif [ -x "${PKG_ROOTDIR}/sbin/nologin" ]; then
 		shell=/sbin/nologin
 	else
 		shell=/nonexistent
@@ -69,22 +69,20 @@ create_user() {
 }
 
 create_sasldb() {
-	if [ ! -f ${SASLDB_NAME} ]; then
-		if [ ${SASLDB_DIR} = '/var/db/sasl2' -a ! -d ${SASLDB_DIR} ]; then
-			mkdir ${SASLDB_DIR}
-			chown ${CYRUS_USER}:mail ${SASLDB_DIR}
-			chmod 750 ${SASLDB_DIR}
+	if [ ! -f "${PKG_ROOTDIR}${SASLDB_NAME}" ]; then
+		if [ ${SASLDB_DIR} = '/var/db/sasl2' -a ! -d "${PKG_ROOTDIR}${SASLDB_DIR}" ]; then
+    			chroot "${PKG_ROOTDIR}" install -d -o "${CYRUS_USER}" -g mail -m 750 "${SASLDB_DIR}"
 		fi
-		echo "test" | ${PKG_PREFIX}/sbin/saslpasswd2 -p -c ${CYRUS_USER}
-		if [ `${PKG_PREFIX}/sbin/sasldblistusers2 | wc -l` -eq 0 ] ; then
+		echo "test" | chroot "${PKG_ROOTDIR}" ${PKG_PREFIX}/sbin/saslpasswd2 -p -c ${CYRUS_USER}
+		if [ `chroot "${PKG_ROOTDIR}" ${PKG_PREFIX}/sbin/sasldblistusers2 | wc -l` -eq 0 ] ; then
                         echo "WARNING: Failed to create ${SASLDB_NAME}"
                 else
-			${PKG_PREFIX}/sbin/saslpasswd2 -d ${CYRUS_USER}
-			chown ${CYRUS_USER}:mail ${SASLDB_NAME}
-			chmod 640 ${SASLDB_NAME}
-			if [ -f ${SASLDB_NAME}-lock ]; then
-				chown ${CYRUS_USER}:mail ${SASLDB_NAME}-lock
-				chmod 660 ${SASLDB_NAME}-lock
+			chroot "${PKG_ROOTDIR}" ${PKG_PREFIX}/sbin/saslpasswd2 -d ${CYRUS_USER}
+			chroot "${PKG_ROOTDIR}" chown ${CYRUS_USER}:mail ${SASLDB_NAME}
+			chmod 640 "${PKG_ROOTDIR}${SASLDB_NAME}"
+			if [ -f "${PKG_ROOTDIR}${SASLDB_NAME}-lock" ]; then
+				chroot "${PKG_ROOTDIR}" chown ${CYRUS_USER}:mail ${SASLDB_NAME}-lock
+				chmod 660 "${PKG_ROOTDIR}${SASLDB_NAME}-lock"
 			fi
 		fi
 	fi
@@ -99,7 +97,7 @@ case $2 in
 			if [ -n "${SASLDB_NAME}" ]; then
 				create_sasldb
 			fi
-		elif [ -n "${SASLDB_NAME}" -a ! -f ${SASLDB_NAME} ]; then
+		elif [ -n "${SASLDB_NAME}" -a ! -f "${PKG_ROOTDIR}${SASLDB_NAME}" ]; then
 			echo "*** We do not create ${SASLDB_NAME} automatically in"
 			echo "*** BATCH mode.  Please create it by yourself.  It should be"
 			echo "*** owner: ${CYRUS_USER}, group: mail, mode: 0640."
