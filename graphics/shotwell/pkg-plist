@@ -21,8 +21,6 @@ share/applications/org.gnome.Shotwell.Auth.desktop
 share/applications/org.gnome.Shotwell.desktop
 share/apport/package-hooks/shotwell.py
 %%FACED%%share/dbus-1/services/org.gnome.Shotwell.Faces1.service
-share/glib-2.0/schemas/org.gnome.shotwell-extras.gschema.xml
-share/glib-2.0/schemas/org.gnome.shotwell.gschema.xml
 share/help/C/shotwell/figures/Shotwell.svg
 share/help/C/shotwell/figures/trash_process.svg
 share/help/C/shotwell/edit-adjustments.page

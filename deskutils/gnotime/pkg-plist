@@ -61,7 +61,6 @@ share/gnome/help/gnotime/C/gnotime.xml
 %%DATADIR%%/ui/project_properties.ui
 %%DATADIR%%/ui/task_popup.ui
 %%DATADIR%%/ui/task_properties.ui
-share/glib-2.0/schemas/org.gnotime.app.gschema.xml
 share/locale/az/LC_MESSAGES/gnotime.mo
 share/locale/bg/LC_MESSAGES/gnotime.mo
 share/locale/ca/LC_MESSAGES/gnotime.mo
