@@ -263,8 +263,6 @@ libdata/pkgconfig/muffin-cogl-path-0.pc
 libexec/muffin-restart-helper
 share/man/man1/muffin.1.gz
 share/applications/muffin.desktop
-share/glib-2.0/schemas/org.cinnamon.muffin.wayland.gschema.xml
-share/glib-2.0/schemas/org.cinnamon.muffin.x11.gschema.xml
 share/locale/am/LC_MESSAGES/muffin.mo
 share/locale/ar/LC_MESSAGES/muffin.mo
 share/locale/as/LC_MESSAGES/muffin.mo

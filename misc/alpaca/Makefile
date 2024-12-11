@@ -1,5 +1,6 @@
 PORTNAME=	alpaca
 DISTVERSION=	2.8.0
+PORTREVISION=	1
 CATEGORIES=	misc
 
 MAINTAINER=	nivit@FreeBSD.org
@@ -24,7 +25,8 @@ USES=		desktop-file-utils gettext-runtime gettext-tools gnome meson \
 USE_GITHUB=	yes
 GH_ACCOUNT=	Jeffser
 GH_PROJECT=	Alpaca
-USE_GNOME=	pygobject3:run vte3
+USE_GNOME=	glib20 pygobject3:run vte3
+GLIB_SCHEMAS=	com.jeffser.Alpaca.gschema.xml
 
 SHEBANG_FILES=	src/alpaca_search_provider.py.in
 

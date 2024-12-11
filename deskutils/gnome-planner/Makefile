@@ -1,6 +1,6 @@
 PORTNAME=	gnome-planner
 PORTVERSION=	0.14.6.20220531
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	deskutils gnome
 DIST_SUBDIR=	gnome
 
@@ -35,6 +35,6 @@ INSTALL_TARGET=	install-strip
 CPPFLAGS+=	-I${LOCALBASE}/include -DGLIB_COMPILATION
 LIBS+=		-L${LOCALBASE}/lib
 
-GLIB_SCHEMAS=	planner.gschema
+GLIB_SCHEMAS=	org.gnome.Planner.gschema.xml
 
 .include <bsd.port.mk>

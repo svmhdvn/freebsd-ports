@@ -1,6 +1,6 @@
 PORTNAME=	gnotime
 DISTVERSION=	g20231022
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	deskutils gnome
 
 MAINTAINER=	truckman@FreeBSD.org
@@ -37,6 +37,7 @@ CPPFLAGS+=	-I${LOCALBASE}/include
 LIBS+=		-L${LOCALBASE}/lib
 
 GCONF_SCHEMAS=	gnotime.schemas
+GLIB_SCHEMAS=	org.gnotime.app.gschema.xml
 
 #post-patch:
 #	@${REINPLACE_CMD} -e \

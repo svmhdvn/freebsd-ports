@@ -1,4 +1,3 @@
-share/glib-2.0/schemas/org.gnome.shell.extensions.apps-menu.gschema.xml
 share/gnome-shell/extensions/apps-menu@gnome-shell-extensions.gcampax.github.com/extension.js
 share/gnome-shell/extensions/apps-menu@gnome-shell-extensions.gcampax.github.com/metadata.json
 share/gnome-shell/extensions/apps-menu@gnome-shell-extensions.gcampax.github.com/stylesheet.css

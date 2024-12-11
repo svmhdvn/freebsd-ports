@@ -1,6 +1,6 @@
 PORTNAME=	gnome-shell-extensions
 PORTVERSION=	42.3
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	x11 gnome
 MASTER_SITES=	GNOME/sources/${PORTNAME}/${PORTVERSION:C/^([0-9]+)\..*/\1/}
 DIST_SUBDIR=	gnome
@@ -27,6 +27,7 @@ MESON_ARGS=	-Dextension_set=all \
 BINARY_ALIAS=	python3=${PYTHON_CMD}
 
 GLIB_SCHEMAS=	00_org.gnome.shell.extensions.classic.gschema.override \
+		org.gnome.shell.extensions.apps-menu.gschema.xml \
 		org.gnome.shell.extensions.auto-move-windows.gschema.xml \
 		org.gnome.shell.extensions.native-window-placement.gschema.xml \
 		org.gnome.shell.extensions.screenshot-window-sizer.gschema.xml \
