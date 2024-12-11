@@ -27,6 +27,7 @@ MESON_ARGS=	-Dextension_set=all \
 BINARY_ALIAS=	python3=${PYTHON_CMD}
 
 GLIB_SCHEMAS=	00_org.gnome.shell.extensions.classic.gschema.override \
+		org.gnome.shell.extensions.apps-menu.gschema.xml \
 		org.gnome.shell.extensions.auto-move-windows.gschema.xml \
 		org.gnome.shell.extensions.native-window-placement.gschema.xml \
 		org.gnome.shell.extensions.screenshot-window-sizer.gschema.xml \
