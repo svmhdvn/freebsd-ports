@@ -21,7 +21,6 @@ share/Alpaca/alpaca/window.py
 share/applications/com.jeffser.Alpaca.SearchProvider.desktop
 share/applications/com.jeffser.Alpaca.desktop
 share/dbus-1/services/com.jeffser.Alpaca.SearchProvider.service
-share/glib-2.0/schemas/com.jeffser.Alpaca.gschema.xml
 share/gnome-shell/search-providers/com.jeffser.Alpaca.search-provider.ini
 share/icons/hicolor/512x512/apps/com.jeffser.Alpaca.png
 share/icons/hicolor/scalable/apps/com.jeffser.Alpaca.svg
