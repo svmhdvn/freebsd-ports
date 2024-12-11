@@ -23,7 +23,8 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	mikhailnov
 GH_TAGNAME=	e43334e
 USE_CXXSTD=	c++11
-USE_GNOME=	gconfmm26 gtkmm24 intltool libglade2
+USE_GNOME=	gconfmm26 glib20 gtkmm24 intltool libglade2
+GLIB_SCHEMAS=	org.gnu.aeskulap.gschema.xml
 USE_LDCONFIG=	${PREFIX}/lib/aeskulap
 
 GNU_CONFIGURE=	yes
