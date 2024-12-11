@@ -33,6 +33,7 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	Jeffser
 GH_PROJECT=	Alpaca
 USE_GNOME=	vte3 pygobject3:run
+GLIB_SCHEMAS=	com.jeffser.Alpaca.gschema.xml
 
 SHEBANG_FILES=	src/alpaca_search_provider.py.in
 
