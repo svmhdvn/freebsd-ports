@@ -1,6 +1,6 @@
 PORTNAME=	gnome-connections
 PORTVERSION=	42.1.2
-PORTREVISION=	3
+PORTREVISION=	4
 CATEGORIES=	net gnome
 MASTER_SITES=	GNOME/sources/${PORTNAME}/${PORTVERSION:C/^([0-9]+)\..*/\1/}
 DIST_SUBDIR=	gnome
@@ -21,6 +21,7 @@ LIB_DEPENDS=	libgtk-vnc-2.0.so:net/gtk-vnc \
 USES=		desktop-file-utils shared-mime-info gettext gnome meson \
 		python:env pkgconfig tar:xz vala:build
 USE_GNOME=	glib20 gtk30
+GLIB_SCHEMAS=	org.gnome.Connections.gschema.xml
 
 BINARY_ALIAS=	python3=${PYTHON_VERSION}
 
