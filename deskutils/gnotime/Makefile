@@ -37,6 +37,7 @@ CPPFLAGS+=	-I${LOCALBASE}/include
 LIBS+=		-L${LOCALBASE}/lib
 
 GCONF_SCHEMAS=	gnotime.schemas
+GLIB_SCHEMAS=	org.gnotime.app.gschema.xml
 
 #post-patch:
 #	@${REINPLACE_CMD} -e \

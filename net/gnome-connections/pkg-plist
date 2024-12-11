@@ -8,7 +8,6 @@ lib/gnome-connections/libgtk-frdp-0.2.so
 libdata/pkgconfig/gtk-frdp-0.2.pc
 share/applications/org.gnome.Connections.desktop
 share/dbus-1/services/org.gnome.Connections.service
-share/gir-1.0/GtkFrdp-0.2.gir
 share/help/C/gnome-connections/connect.page
 share/help/C/gnome-connections/figures/org.gnome.Connections.svg
 share/help/C/gnome-connections/index.page

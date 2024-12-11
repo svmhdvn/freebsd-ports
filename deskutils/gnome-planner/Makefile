@@ -35,6 +35,6 @@ INSTALL_TARGET=	install-strip
 CPPFLAGS+=	-I${LOCALBASE}/include -DGLIB_COMPILATION
 LIBS+=		-L${LOCALBASE}/lib
 
-GLIB_SCHEMAS=	planner.gschema
+GLIB_SCHEMAS=	org.gnome.Planner.gschema.xml
 
 .include <bsd.port.mk>

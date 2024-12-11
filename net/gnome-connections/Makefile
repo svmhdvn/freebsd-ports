@@ -22,6 +22,7 @@ USES=		desktop-file-utils fuse:3 gettext gnome meson pkgconfig \
 		shared-mime-info tar:xz vala:build
 USE_GNOME=	glib20 gtk30 introspection:build libxml2
 USE_LDCONFIG=	yes
+GLIB_SCHEMAS=	org.gnome.Connections.gschema.xml
 
 GLIB_SCHEMAS=	org.gnome.Connections.gschema.xml
 

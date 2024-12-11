@@ -1,5 +1,6 @@
 PORTNAME=	halftone
 DISTVERSION=	0.6.1
+PORTREVISION=	1
 CATEGORIES=	graphics
 
 MAINTAINER=	yuri@FreeBSD.org
@@ -15,6 +16,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}Wand>0:graphics/py-wand@${PY_FLAVOR}
 
 USES=		desktop-file-utils gettext-tools:build gnome meson pkgconfig python shebangfix
 USE_GNOME=	glib20 gtk40 libadwaita pygobject3
+GLIB_SCHEMAS=	io.github.tfuxu.Halftone.gschema.xml
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	tfuxu

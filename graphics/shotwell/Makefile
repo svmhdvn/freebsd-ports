@@ -50,6 +50,6 @@ FACED_LIB_DEPENDS=	libopencv_core.so:graphics/opencv
 
 PLIST_SUB=	DISTVERSION=${DISTVERSION}
 
-GLIB_SCHEMAS=	org.yorba.shotwell.gschema.xml org.yorba.shotwell-extras.gschema.xml
+GLIB_SCHEMAS=	org.gnome.shotwell.gschema.xml org.gnome.shotwell-extras.gschema.xml
 
 .include <bsd.port.mk>

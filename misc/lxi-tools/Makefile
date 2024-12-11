@@ -1,7 +1,7 @@
 PORTNAME=	lxi-tools
 DISTVERSIONPREFIX=	v
 DISTVERSION=	2.5
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	misc
 
 MAINTAINER=	ports@FreeBSD.org
@@ -29,6 +29,12 @@ GUI_USE=	gnome=cairo,gdkpixbuf,glib20,gtk40,gtksourceview5,libadwaita
 GUI_MESON_OFF=	-Dgui=false
 GUI_BINARY_ALIAS=	python3=${PYTHON_CMD}
 GUI_PLIST_FILES=	bin/lxi-gui
+
+.include <bsd.port.options.mk>
+
+.if ${PORT_OPTIONS:MGUI}
+GLIB_SCHEMAS=	io.github.lxi-tools.lxi-gui.gschema.xml
+.endif
 
 post-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
