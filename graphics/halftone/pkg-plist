@@ -1,6 +1,5 @@
 bin/halftone
 share/applications/io.github.tfuxu.Halftone.desktop
-share/glib-2.0/schemas/io.github.tfuxu.Halftone.gschema.xml
 %%DATADIR%%/halftone.gresource
 %%DATADIR%%/halftone/__init__.py
 %%DATADIR%%/halftone/backend/__init__.py

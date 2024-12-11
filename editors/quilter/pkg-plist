@@ -3,7 +3,6 @@ share/applications/io.github.lainsce.Quilter.desktop
 share/fonts/truetype/quilt/QuiltMono.ttf
 share/fonts/truetype/quilt/QuiltVier.ttf
 share/fonts/truetype/quilt/QuiltZwei.ttf
-share/glib-2.0/schemas/io.github.lainsce.Quilter.gschema.xml
 share/gtksourceview-4/styles/io.github.lainsce.Quilter-dark.xml
 share/gtksourceview-4/styles/io.github.lainsce.Quilter-sepia.xml
 share/gtksourceview-4/styles/io.github.lainsce.Quilter.xml

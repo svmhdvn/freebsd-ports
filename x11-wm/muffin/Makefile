@@ -1,6 +1,6 @@
 PORTNAME=	muffin
 PORTVERSION=	5.4.5
-PORTREVISION=	6
+PORTREVISION=	7
 CATEGORIES=	x11-wm gnome
 DIST_SUBDIR=	gnome
 
@@ -39,7 +39,9 @@ USE_GL=		egl gl glesv2
 USE_LDCONFIG=	yes
 MESON_ARGS=	-Dcore_tests=false
 
-GLIB_SCHEMAS=	org.cinnamon.muffin.gschema.xml
+GLIB_SCHEMAS=	org.cinnamon.muffin.gschema.xml \
+		org.cinnamon.muffin.x11.gschema.xml \
+		org.cinnamon.muffin.wayland.gschema.xml
 
 OPTIONS_DEFINE=	TEST UDEV WACOM
 OPTIONS_DEFAULT=	WACOM

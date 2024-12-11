@@ -1,6 +1,6 @@
 PORTNAME=	quilter
 DISTVERSION=	3.3.4
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	editors
 
 MAINTAINER=	yuri@FreeBSD.org
@@ -25,5 +25,7 @@ USE_GNOME=	glib20 gtk30 gtksourceview4
 LDFLAGS+=	${LOCALBASE}/lib/libmarkdown.a
 
 BINARY_ALIAS=	python3=${PYTHON_CMD}
+
+GLIB_SCHEMAS=	io.github.lainsce.Quilter.gschema.xml
 
 .include <bsd.port.mk>

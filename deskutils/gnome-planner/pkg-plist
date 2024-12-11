@@ -13,7 +13,6 @@ lib/planner/storage-modules/libstorage-sql.so
 share/man/man1/planner.1.gz
 share/GConf/gsettings/planner.convert
 share/applications/planner.desktop
-share/glib-2.0/schemas/org.gnome.Planner.gschema.xml
 share/icons/hicolor/48x48/apps/gnome-planner.png
 share/icons/hicolor/48x48/mimetypes/gnome-mime-application-x-planner.png
 share/icons/hicolor/scalable/apps/gnome-planner.svg
