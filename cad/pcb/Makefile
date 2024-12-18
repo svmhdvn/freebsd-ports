@@ -1,6 +1,5 @@
 PORTNAME=	pcb
-PORTVERSION=	4.2.0
-PORTREVISION=	4
+PORTVERSION=	4.3.0
 PORTEPOCH=	1
 CATEGORIES=	cad
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${PORTNAME}-${PORTVERSION}
@@ -20,7 +19,7 @@ LIB_DEPENDS=	libgd.so:graphics/gd \
 RUN_DEPENDS=	m4>=1.4.11:devel/m4 \
 		${LOCALBASE}/libdata/pkgconfig/dbus-1.pc:devel/dbus
 
-USES=		gl gmake gnome pkgconfig tk:run shared-mime-info \
+USES=		gettext gl gmake gnome pkgconfig tk:run shared-mime-info \
 		desktop-file-utils xorg
 USE_GL=		gl glu
 USE_GNOME=	intltool cairo pangox-compat
@@ -32,12 +31,8 @@ CONFIGURE_ENV+=	INSTALL_DATA="${BSD_INSTALL_DATA}"
 GNU_CONFIGURE_MANPREFIX=	${PREFIX}/share
 LDFLAGS+=	-lpthread
 
-PORTDOCS=	\
-	pcb.html pcb.pdf refcard.pdf pad.png puller.png thermal.png	\
-	examples tutorial gcode.png gcode_control_img.png		\
-	gcode_tool_path.png
-
 OPTIONS_DEFINE=	DOCS NLS
+OPTIONS_SUB=	yes
 OPTIONS_SINGLE=	GUI
 OPTIONS_SINGLE_GUI=MOTIF GTK NONE
 OPTIONS_DEFAULT=GTK
@@ -48,10 +43,7 @@ NLS_CONFIGURE_ON=	--with-libintl-prefix=${LOCALBASE} \
 			${ICONV_CONFIGURE_ARG}
 NLS_CONFIGURE_OFF=	--without-libintl \
 			--without-iconv
-NLS_USES=	gettext iconv
-.for L in fr nl ru pt_BR
-NLS_PLIST_FILES+=	share/locale/${L}/LC_MESSAGES/pcb.mo
-.endfor
+NLS_USES=	iconv
 MOTIF_DESC=	Motif widgets
 MOTIF_USES=	motif
 MOTIF_CONFIGURE_ON=	--with-gui=lesstif
