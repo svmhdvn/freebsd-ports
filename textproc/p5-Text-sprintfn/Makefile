@@ -8,8 +8,9 @@ MAINTAINER=	vvelox@vvelox.net
 COMMENT=	Drop-in replacement for sprintf(), with named parameter support
 WWW=		https://metacpan.org/release/Text-sprintfn
 
-BUILD_DEPENDS=	p5-Exporter>=5.57:devel/p5-Exporter
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	p5-Exporter>=5.57:devel/p5-Exporter
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		perl5
 USE_PERL5=	configure

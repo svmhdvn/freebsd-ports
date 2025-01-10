@@ -11,8 +11,9 @@ WWW=		https://www.hznet.de/dns/zkt/
 LICENSE=		BSD3CLAUSE
 LICENSE_FILE=		${WRKSRC}/LICENSE
 
-BUILD_DEPENDS=		dnssec-signzone:dns/bind-tools
-RUN_DEPENDS:=		${BUILD_DEPENDS}
+BR_DEPENDS=		dnssec-signzone:dns/bind-tools
+BUILD_DEPENDS=		${BR_DEPENDS}
+RUN_DEPENDS=		${BR_DEPENDS}
 
 DIR_NAMED_CONF?=	/etc/namedb
 GNU_CONFIGURE=		yes

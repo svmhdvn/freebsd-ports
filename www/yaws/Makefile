@@ -9,8 +9,9 @@ WWW=		https://erlyaws.github.io/
 
 LICENSE=	BSD3CLAUSE
 
-BUILD_DEPENDS=	erl:lang/erlang
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	erl:lang/erlang
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		autoreconf cpe gmake libtool pathfix shebangfix
 

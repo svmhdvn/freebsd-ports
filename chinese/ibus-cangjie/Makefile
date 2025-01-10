@@ -12,9 +12,10 @@ LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 LIB_DEPENDS=	libibus-1.0.so:textproc/ibus
-BUILD_DEPENDS=	${PYTHON_SITELIBDIR}/cangjie/_core.so:chinese/pycangjie \
+BR_DEPENDS=	${PYTHON_SITELIBDIR}/cangjie/_core.so:chinese/pycangjie \
 		${PYTHON_SITELIBDIR}/pycanberra/pycanberra.py:devel/pycanberra@${PY_FLAVOR}
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		autoreconf gmake gnome libtool pkgconfig python
 USE_GNOME=	introspection:run pygobject3 intltool

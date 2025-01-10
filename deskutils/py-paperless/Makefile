@@ -15,7 +15,7 @@ WWW=		https://paperless.readthedocs.io
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}dateparser>=1.1.0:devel/py-dateparser@${PY_FLAVOR} \
+BR_DEPENDS=	${PYTHON_PKGNAMEPREFIX}dateparser>=1.1.0:devel/py-dateparser@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}django-cors-headers>=2.4.0:www/py-django-cors-headers@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}django-crispy-forms>=1.7.2:www/py-django-crispy-forms@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}django-extensions>=2.1.6:www/py-django-extensions@${PY_FLAVOR} \
@@ -30,8 +30,9 @@ BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}dateparser>=1.1.0:devel/py-dateparser@${PY
 		${PYTHON_PKGNAMEPREFIX}python-gnupg>=0.4.3:security/py-python-gnupg@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}python-magic>=0.4.10:devel/py-python-magic@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}sqlite3>0:databases/py-sqlite3@${PY_FLAVOR}
-RUN_DEPENDS:=	${BUILD_DEPENDS}
-RUN_DEPENDS+=	gpg2:security/gnupg \
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS} \
+		gpg2:security/gnupg \
 		optipng:graphics/optipng \
 		tesseract:graphics/tesseract \
 		unpaper:graphics/unpaper

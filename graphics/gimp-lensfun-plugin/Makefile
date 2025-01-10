@@ -12,7 +12,7 @@ WWW=		https://seebk.github.io/GIMP-Lensfun/
 LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
-BUILD_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/exiv2.pc:graphics/exiv2 \
+BR_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/exiv2.pc:graphics/exiv2 \
 		${LOCALBASE}/libdata/pkgconfig/gimp-2.0.pc:graphics/gimp-app \
 		${LOCALBASE}/libdata/pkgconfig/lensfun.pc:graphics/lensfun
 
@@ -25,7 +25,8 @@ LIB_DEPENDS+=	libatk-1.0.so:accessibility/at-spi2-core \
 		libharfbuzz.so:print/harfbuzz \
 		libjson-glib-1.0.so:devel/json-glib
 
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		compiler:c++11-lang gettext-runtime gmake gnome pkgconfig
 

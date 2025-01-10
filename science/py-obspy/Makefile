@@ -11,7 +11,7 @@ WWW=		https://www.obspy.org/
 
 LICENSE=	LGPL3
 
-BUILD_DEPENDS=	${PYNUMPY} \
+BR_DEPENDS=	${PYNUMPY} \
 		${PYTHON_PKGNAMEPREFIX}scipy>=1.7.0:science/py-scipy@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}future>=0.12.4:devel/py-future@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}matplotlib>=3.3.0:math/py-matplotlib@${PY_FLAVOR} \
@@ -19,7 +19,8 @@ BUILD_DEPENDS=	${PYNUMPY} \
 		${PYTHON_PKGNAMEPREFIX}requests>=0:www/py-requests@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}decorator>=0:devel/py-decorator@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}sqlalchemy10>=0:databases/py-sqlalchemy10@${PY_FLAVOR}
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		fortran python shebangfix
 SHEBANG_FILES=	obspy/taup/tests/data/TauP_test_data/gendata.sh

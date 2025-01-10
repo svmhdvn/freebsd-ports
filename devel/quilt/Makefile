@@ -11,7 +11,7 @@ WWW=		https://savannah.nongnu.org/projects/quilt
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	bash:shells/bash \
+BR_DEPENDS=	bash:shells/bash \
 		gcp:sysutils/coreutils \
 		gsed:textproc/gsed \
 		gpatch:devel/patch \
@@ -19,7 +19,8 @@ BUILD_DEPENDS=	bash:shells/bash \
 		diffstat:textproc/diffstat \
 		gawk:lang/gawk \
 		${LOCALBASE}/bin/ggrep:textproc/gnugrep
-RUN_DEPENDS:=	${BUILD_DEPENDS} \
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS} \
 		formail:mail/procmail
 
 USES=		desthack gmake perl5

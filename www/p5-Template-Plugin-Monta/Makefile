@@ -9,8 +9,9 @@ MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Template-Toolkit plugin to Monta Method
 WWW=		https://metacpan.org/release/Template-Plugin-Monta
 
-BUILD_DEPENDS=	p5-Template-Toolkit>=0:www/p5-Template-Toolkit
-RUN_DEPENDS:=	${BUILD_DEPENDS} \
+BR_DEPENDS=	p5-Template-Toolkit>=0:www/p5-Template-Toolkit
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS} \
 		p5-Acme-Monta>=0:www/p5-Acme-Monta
 
 USES=		perl5

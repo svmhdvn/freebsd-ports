@@ -8,8 +8,9 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Create a Makefile for Your Java files, ready to compile
 WWW=		https://www.tildeslash.com/mmake/
 
-BUILD_DEPENDS=	jikes:java/jikes
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	jikes:java/jikes
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		perl5 gmake
 GNU_CONFIGURE=	yes
