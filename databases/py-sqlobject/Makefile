@@ -12,8 +12,9 @@ WWW=		http://www.sqlobject.org
 
 LICENSE=	LGPL21
 
-BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}formencode>=1.2.2:www/py-formencode@${PY_FLAVOR}
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	${PYTHON_PKGNAMEPREFIX}formencode>=1.2.2:www/py-formencode@${PY_FLAVOR}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 NO_ARCH=	yes
 USES=		dos2unix python

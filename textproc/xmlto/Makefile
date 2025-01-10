@@ -17,7 +17,7 @@ WWW=		https://pagure.io/xmlto/
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=	${BASH_CMD}:shells/bash \
+BR_DEPENDS=	${BASH_CMD}:shells/bash \
 		${GETOPT_CMD}:misc/getopt \
 		xmllint:textproc/libxml2 \
 		xsltproc:textproc/libxslt \
@@ -25,7 +25,8 @@ BUILD_DEPENDS=	${BASH_CMD}:shells/bash \
 		paperconf:print/libpaper \
 		w3m:www/w3m \
 		docbook-xml>0:textproc/docbook-xml
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 SUB_FILES=	pkg-message
 

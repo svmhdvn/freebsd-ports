@@ -11,7 +11,7 @@ WWW=		http://torrus.org
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	rrdtool>=0:databases/rrdtool \
+BR_DEPENDS=	rrdtool>=0:databases/rrdtool \
 		p5-XML-LibXML>=0:textproc/p5-XML-LibXML \
 		p5-BerkeleyDB>=0:databases/p5-BerkeleyDB \
 		p5-Template-Toolkit>=0:www/p5-Template-Toolkit \
@@ -22,7 +22,8 @@ BUILD_DEPENDS=	rrdtool>=0:databases/rrdtool \
 		p5-Apache-Session>=0:www/p5-Apache-Session \
 		p5-FCGI>=0:www/p5-FCGI \
 		p5-JSON>0:converters/p5-JSON
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USE_GNOME=	libxml2
 USES=		gnome perl5

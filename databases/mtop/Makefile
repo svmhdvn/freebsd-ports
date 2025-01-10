@@ -11,9 +11,10 @@ WWW=		https://mtop.sourceforge.net/
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	p5-Curses>=0:devel/p5-Curses \
+BR_DEPENDS=	p5-Curses>=0:devel/p5-Curses \
 		${DBD_MYSQL}
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 NO_ARCH=	yes
 USES=		mysql perl5

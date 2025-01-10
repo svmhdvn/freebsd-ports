@@ -10,9 +10,10 @@ WWW=		http://drivel.com/clamassassin/
 
 LICENSE=	BSD3CLAUSE
 
-BUILD_DEPENDS=	sigtool:security/clamav \
+BR_DEPENDS=	sigtool:security/clamav \
 		formail:mail/procmail
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 PLIST_FILES=	bin/clamassassin
 

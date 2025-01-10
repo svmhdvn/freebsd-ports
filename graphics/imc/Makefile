@@ -11,9 +11,10 @@ WWW=		http://users.skynet.be/Peter.Verthez/projects/imc/
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	p5-GD>=0:graphics/p5-GD \
+BR_DEPENDS=	p5-GD>=0:graphics/p5-GD \
 		p5-CGI>=0:www/p5-CGI
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		gmake perl5
 GNU_CONFIGURE=	yes

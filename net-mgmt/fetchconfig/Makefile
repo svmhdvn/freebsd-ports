@@ -9,8 +9,9 @@ WWW=		https://github.com/udhos/fetchconfig
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	p5-Net-Telnet>=0:net/p5-Net-Telnet
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	p5-Net-Telnet>=0:net/p5-Net-Telnet
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		perl5 shebangfix
 SHEBANG_FILES=	${PORTNAME}.pl

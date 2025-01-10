@@ -9,8 +9,9 @@ MAINTAINER=	ports@virtual-estates.net
 COMMENT=	Java package containing a decompiler and an optimizer for Java
 WWW=		https://jode.sourceforge.net/
 
-BUILD_DEPENDS=	${GETOPT_JAR}:java/java-getopt
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	${GETOPT_JAR}:java/java-getopt
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		gmake java perl5 shebangfix
 

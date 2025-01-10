@@ -10,14 +10,15 @@ WWW=		https://metacpan.org/release/Proc-ProcessTable-ncps
 
 LICENSE=	ART20
 
-BUILD_DEPENDS=	p5-Data-Unixish>=1.57:devel/p5-Data-Unixish \
+BR_DEPENDS=	p5-Data-Unixish>=1.57:devel/p5-Data-Unixish \
 		p5-Proc-ProcessTable-InfoString>0:sysutils/p5-Proc-ProcessTable-InfoString \
 		p5-Proc-ProcessTable-Match>0:sysutils/p5-Proc-ProcessTable-Match \
 		p5-Proc-ProcessTable>=0.59:devel/p5-Proc-ProcessTable \
 		p5-Statistics-Basic>=1.6611:math/p5-Statistics-Basic \
 		p5-Term-ANSIColor>0:devel/p5-Term-ANSIColor \
 		p5-Text-ANSITable>=0.501:textproc/p5-Text-ANSITable
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		perl5
 USE_PERL5=	configure

@@ -11,9 +11,10 @@ WWW=		https://www.python-excel.org/
 
 LICENSE=	MIT
 
-BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}xlrd>=0.7.2:textproc/py-xlrd@${PY_FLAVOR} \
+BR_DEPENDS=	${PYTHON_PKGNAMEPREFIX}xlrd>=0.7.2:textproc/py-xlrd@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}xlwt>=0.7.4:textproc/py-xlwt@${PY_FLAVOR}
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		python
 USE_PYTHON=	distutils autoplist

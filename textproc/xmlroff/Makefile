@@ -11,8 +11,9 @@ WWW=		http://xmlroff.org
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	libfo>=0.6.2:textproc/libfo
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	libfo>=0.6.2:textproc/libfo
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		autoreconf gmake gnome gettext localbase libtool pkgconfig
 USE_GITHUB=	yes

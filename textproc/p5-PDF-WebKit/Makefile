@@ -14,11 +14,12 @@ LICENSE_COMB=	dual
 DEPRECATED=	Depends on expired converters/wkhtmltopdf
 EXPIRATION_DATE=2025-03-31
 
-BUILD_DEPENDS=	p5-IPC-Run3>=0:devel/p5-IPC-Run3 \
+BR_DEPENDS=	p5-IPC-Run3>=0:devel/p5-IPC-Run3 \
 		p5-Moo>=0:devel/p5-Moo \
 		p5-XML-LibXML>=1.62:textproc/p5-XML-LibXML \
 		p5-namespace-clean>=0:devel/p5-namespace-clean
-RUN_DEPENDS:=	${BUILD_DEPENDS} \
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS} \
 		wkhtmltopdf:converters/wkhtmltopdf
 TEST_DEPENDS=	p5-Test-Spec:devel/p5-Test-Spec
 

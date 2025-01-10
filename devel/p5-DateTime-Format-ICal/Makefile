@@ -13,12 +13,13 @@ LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BUILD_DEPENDS=	p5-DateTime>=0:devel/p5-DateTime \
+BR_DEPENDS=	p5-DateTime>=0:devel/p5-DateTime \
 		p5-DateTime-TimeZone>=0:devel/p5-DateTime-TimeZone \
 		p5-DateTime-Event-ICal>=0:devel/p5-DateTime-Event-ICal \
 		p5-DateTime-Set>=0:devel/p5-DateTime-Set \
 		p5-Params-Validate>=0:devel/p5-Params-Validate
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		perl5
 USE_PERL5=	modbuild
