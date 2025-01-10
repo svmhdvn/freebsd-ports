@@ -9,10 +9,11 @@ WWW=		https://sourceforge.net/projects/razor/
 
 LICENSE=	ART20
 
-BUILD_DEPENDS=	p5-Net-DNS>=0:dns/p5-Net-DNS \
+BR_DEPENDS=	p5-Net-DNS>=0:dns/p5-Net-DNS \
 		p5-Digest-SHA1>=0:security/p5-Digest-SHA1 \
 		p5-URI>=0:net/p5-URI
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		perl5 shebangfix tar:bzip2
 USE_PERL5=	configure patch

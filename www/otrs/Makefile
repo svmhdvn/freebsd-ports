@@ -11,7 +11,7 @@ WWW=		https://www.otrs.com/
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	p5-Archive-Zip>=0:archivers/p5-Archive-Zip \
+BR_DEPENDS=	p5-Archive-Zip>=0:archivers/p5-Archive-Zip \
 		p5-DBI>=0:databases/p5-DBI \
 		p5-Crypt-Eksblowfish>=0:security/p5-Crypt-Eksblowfish \
 		p5-Crypt-PasswdMD5>=0:security/p5-Crypt-PasswdMD5 \
@@ -51,7 +51,8 @@ BUILD_DEPENDS=	p5-Archive-Zip>=0:archivers/p5-Archive-Zip \
 		p5-Locale-Codes>=0:misc/p5-Locale-Codes \
 		p5-Math-Random-Secure>=0:math/p5-Math-Random-Secure \
 		p5-Schedule-Cron-Events>=0:sysutils/p5-Schedule-Cron-Events
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		cpe shebangfix perl5 tar:bzip2
 

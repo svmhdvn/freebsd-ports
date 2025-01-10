@@ -8,8 +8,9 @@ MAINTAINER=	cy@FreeBSD.org
 COMMENT=	Collection of standard Unix utilities
 WWW=		https://heirloom.sourceforge.net/
 
-BUILD_DEPENDS=	ksh:shells/pdksh
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	ksh:shells/pdksh
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		gmake ncurses tar:bzip2
 LDFLAGS+=	-Wl,--allow-multiple-definition

@@ -9,8 +9,9 @@ WWW=		https://github.com/rebar/rebar
 
 LICENSE=	APACHE20
 
-BUILD_DEPENDS=	${LOCALBASE}/bin/escript:lang/erlang
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	${LOCALBASE}/bin/escript:lang/erlang
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 OPTIONS_DEFINE=	BASH ZSH EXAMPLES
 

@@ -11,13 +11,14 @@ WWW=		https://www.mimedefang.org/
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=	\
+BR_DEPENDS=	\
 	p5-IO-Stringy>=0:devel/p5-IO-Stringy \
 	p5-MIME-Tools>=5.417:mail/p5-MIME-Tools \
 	p5-Mail-Tools>=0:mail/p5-Mail-Tools \
 	p5-Digest-SHA1>=0:security/p5-Digest-SHA1 \
 	spamassassin>=3.0:mail/spamassassin
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		cpe perl5 shebangfix
 perl_OLD_CMD=	perl

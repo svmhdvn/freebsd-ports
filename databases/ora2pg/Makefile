@@ -10,10 +10,11 @@ WWW=		https://github.com/darold/ora2pg
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BUILD_DEPENDS=	p5-Class-DBI-Pg>=0:databases/p5-Class-DBI-Pg \
+BR_DEPENDS=	p5-Class-DBI-Pg>=0:databases/p5-Class-DBI-Pg \
 		p5-Class-DBI-mysql>=0:databases/p5-Class-DBI-mysql \
 		p5-Class-DBI-Oracle>=0:databases/p5-Class-DBI-Oracle
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		perl5
 USE_PERL5=	configure

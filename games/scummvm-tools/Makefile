@@ -10,10 +10,11 @@ WWW=		https://www.scummvm.org/
 LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	lame:audio/lame \
+BR_DEPENDS=	lame:audio/lame \
 		flac:audio/flac \
 		oggenc:audio/vorbis-tools
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 LIB_DEPENDS=	libboost_system.so:devel/boost-libs \
 		libpng.so:graphics/png \
 		libmad.so:audio/libmad \

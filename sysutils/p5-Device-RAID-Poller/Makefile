@@ -11,10 +11,11 @@ WWW=		https://metacpan.org/dist/Device-RAID-Poller
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual
 
-BUILD_DEPENDS=	p5-Error-Helper>=1.0.0:devel/p5-Error-Helper \
+BR_DEPENDS=	p5-Error-Helper>=1.0.0:devel/p5-Error-Helper \
 		p5-JSON>=2.97.001:converters/p5-JSON \
 		p5-Module-List>=0.004:devel/p5-Module-List
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		perl5
 USE_PERL5=	configure

@@ -10,8 +10,9 @@ WWW=		http://www.rosuda.org/R/GDD/
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=	libgd>=2.0.35_8,1:graphics/gd
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	libgd>=2.0.35_8,1:graphics/gd
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 WRKSRC=		${WRKDIR}/${PORTNAME}
 

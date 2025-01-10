@@ -11,9 +11,10 @@ WWW=		https://www.memoryhole.net/~kyle/extract_url/
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	p5-MIME-Tools>=0:mail/p5-MIME-Tools \
+BR_DEPENDS=	p5-MIME-Tools>=0:mail/p5-MIME-Tools \
 		p5-HTML-Parser>=0:www/p5-HTML-Parser
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		gmake perl5
 

@@ -11,10 +11,11 @@ WWW=		https://dkimproxy.sourceforge.net/
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	p5-Mail-DKIM>=0:mail/p5-Mail-DKIM \
+BR_DEPENDS=	p5-Mail-DKIM>=0:mail/p5-Mail-DKIM \
 		p5-Net-Server>=0:net/p5-Net-Server \
 		p5-Error>=0:lang/p5-Error
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		gmake perl5 shebangfix
 

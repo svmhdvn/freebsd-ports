@@ -11,8 +11,9 @@ WWW=		https://sourceforge.net/projects/gkrelltop/
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=	gkrellmd:sysutils/gkrellm2
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	gkrellmd:sysutils/gkrellm2
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 WRKSRC=		${WRKDIR}/${DISTNAME:S/_/-/}
 

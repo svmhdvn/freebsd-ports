@@ -8,8 +8,9 @@ MAINTAINER=	jmohacsi@bsd.hu
 COMMENT=	Apply Holt-Winters prediction parameters to RRD data
 WWW=		https://rrfw.sourceforge.net/rrdman/
 
-BUILD_DEPENDS=	rrdtool:databases/rrdtool
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	rrdtool:databases/rrdtool
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 GNU_CONFIGURE=	YES
 GNU_CONFIGURE_MANPREFIX=${PREFIX}/share

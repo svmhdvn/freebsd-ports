@@ -9,9 +9,10 @@ MAINTAINER=	chiba.masashi@gmail.com
 COMMENT=	Honoka plugin for romaji input
 WWW=		http://scim.freedesktop.org
 
-BUILD_DEPENDS=	scim:textproc/scim \
+BR_DEPENDS=	scim:textproc/scim \
 		${LOCALBASE}/lib/scim-1.0/1.4.0/IMEngine/honoka.so:japanese/scim-honoka
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 GNU_CONFIGURE=	yes
 USES=		gettext gmake iconv libtool:keepla pathfix pkgconfig

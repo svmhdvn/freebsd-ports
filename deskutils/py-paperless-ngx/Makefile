@@ -15,7 +15,7 @@ WWW=		https://docs.paperless-ngx.com
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}bleach>=6.1.0:www/py-bleach@${PY_FLAVOR} \
+BR_DEPENDS=	${PYTHON_PKGNAMEPREFIX}bleach>=6.1.0:www/py-bleach@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}concurrent-log-handler>=0.9.19:sysutils/py-concurrent-log-handler@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}dateparser>=1.1.4:devel/py-dateparser@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}channels-redis>=4.2.0:www/py-channels-redis@${PY_FLAVOR} \
@@ -65,8 +65,9 @@ BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}bleach>=6.1.0:www/py-bleach@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}whitenoise>=6.2.0:www/py-whitenoise@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}whoosh>=2.7.4:textproc/py-whoosh@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pyyaml>=6.0.1:devel/py-pyyaml@${PY_FLAVOR}
-RUN_DEPENDS:=	${BUILD_DEPENDS}
-RUN_DEPENDS+=	gpg2:security/gnupg \
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS} \
+		gpg2:security/gnupg \
 		liberation-fonts-ttf>=2.1.3:x11-fonts/liberation-fonts-ttf \
 		optipng:graphics/optipng \
 		tesseract:graphics/tesseract \

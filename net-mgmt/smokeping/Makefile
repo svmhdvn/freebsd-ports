@@ -10,7 +10,7 @@ WWW=		https://oss.oetiker.ch/smokeping/
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=	curl>=0:ftp/curl \
+BR_DEPENDS=	curl>=0:ftp/curl \
 		p5-CGI-Fast>=0:www/p5-CGI-Fast \
 		p5-CGI-Session>=0:www/p5-CGI-Session \
 		p5-CGI>=0:www/p5-CGI \
@@ -30,7 +30,8 @@ BUILD_DEPENDS=	curl>=0:ftp/curl \
 		p5-SNMP_Session>=0:net-mgmt/p5-SNMP_Session \
 		p5-Socket6>=0:net/p5-Socket6
 LIB_DEPENDS=	librrd.so:databases/rrdtool
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		autoreconf cpe gmake perl5
 USE_RC_SUBR=	smokeping

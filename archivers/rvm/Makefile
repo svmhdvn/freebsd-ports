@@ -12,8 +12,9 @@ WWW=		https://rvm.sourceforge.net/
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=	rsync:net/rsync
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	rsync:net/rsync
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
 

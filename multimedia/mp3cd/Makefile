@@ -11,8 +11,9 @@ WWW=		https://outflux.net
 
 LICENSE=	GPLv2+
 
-BUILD_DEPENDS=	p5-Config-Simple>=0:devel/p5-Config-Simple
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	p5-Config-Simple>=0:devel/p5-Config-Simple
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		perl5 shebangfix
 USE_PERL5=	configure

@@ -12,9 +12,10 @@ LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 LIB_DEPENDS=	libsoup-2.4.so:devel/libsoup
-BUILD_DEPENDS=	${LOCALBASE}/share/pciids/pci.ids:misc/pciids \
+BR_DEPENDS=	${LOCALBASE}/share/pciids/pci.ids:misc/pciids \
 		${LOCALBASE}/share/usbids/usb.ids:misc/usbids
-RUN_DEPENDS=	${BUILD_DEPENDS} \
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS} \
 		osinfo-db-import:sysutils/osinfo-db-tools \
 		${LOCALBASE}/share/osinfo/VERSION:misc/osinfo-db
 

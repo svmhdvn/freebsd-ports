@@ -9,8 +9,9 @@ WWW=		https://www.sql-ledger.org/
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=	p5-DBD-Pg>=0:databases/p5-DBD-Pg
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	p5-DBD-Pg>=0:databases/p5-DBD-Pg
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		apache:run perl5 pgsql shebangfix
 

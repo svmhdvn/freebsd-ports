@@ -10,8 +10,9 @@ WWW=		https://puszcza.gnu.org.ua/projects/renrot/
 
 LICENSE=	ART20
 
-BUILD_DEPENDS=	p5-Image-ExifTool>=0:graphics/p5-Image-ExifTool
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	p5-Image-ExifTool>=0:graphics/p5-Image-ExifTool
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		perl5 jpeg:run
 USE_PERL5=	configure

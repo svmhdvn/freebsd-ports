@@ -9,7 +9,7 @@ MAINTAINER=	vvelox@vvelox.net
 COMMENT=	Implementation for Unixish, a data transformation framework
 WWW=		https://metacpan.org/release/Data-Unixish
 
-BUILD_DEPENDS=	p5-Exporter>=5.57:devel/p5-Exporter \
+BR_DEPENDS=	p5-Exporter>=5.57:devel/p5-Exporter \
 		p5-File-Which>0:sysutils/p5-File-Which \
 		p5-IPC-Cmd>0.52:devel/p5-IPC-Cmd \
 		p5-JSON-MaybeXS>0:converters/p5-JSON-MaybeXS \
@@ -26,7 +26,8 @@ BUILD_DEPENDS=	p5-Exporter>=5.57:devel/p5-Exporter \
 		p5-Text-sprintfn>0:textproc/p5-Text-sprintfn \
 		p5-Tie-File>0:devel/p5-Tie-File \
 		p5-Tie-Simple>0:devel/p5-Tie-Simple
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		perl5 pkgconfig
 USE_PERL5=	configure

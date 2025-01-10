@@ -12,9 +12,10 @@ WWW=		https://pypi.org/project/scimath/
 LICENSE=	BSD3CLAUSE LGPL3
 LICENSE_COMB=	dual
 
-BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}traits>=0:devel/py-traits@${PY_FLAVOR} \
+BR_DEPENDS=	${PYTHON_PKGNAMEPREFIX}traits>=0:devel/py-traits@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}numpy>=0:math/py-numpy@${PY_FLAVOR}
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		python
 USE_PYTHON=	distutils autoplist

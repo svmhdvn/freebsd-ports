@@ -7,8 +7,9 @@ MAINTAINER=	danfe@FreeBSD.org
 COMMENT=	Quick playlist search bar plugin for DeaDBeeF audio player
 WWW=		https://github.com/cboxdoerfer/ddb_quick_search
 
-BUILD_DEPENDS=	${LOCALBASE}/include/deadbeef/deadbeef.h:audio/deadbeef
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	${LOCALBASE}/include/deadbeef/deadbeef.h:audio/deadbeef
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	cboxdoerfer

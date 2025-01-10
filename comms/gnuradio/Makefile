@@ -10,7 +10,7 @@ WWW=		https://www.gnuradio.org/
 
 LICENSE=	GPLv3
 
-BUILD_DEPENDS=	volk>0:devel/volk \
+BR_DEPENDS=	volk>0:devel/volk \
 		doxygen>0:devel/doxygen \
 		${PYTHON_PKGNAMEPREFIX}sphinx>=1.2.2,1:textproc/py-sphinx@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}lxml>0:devel/py-lxml@${PY_FLAVOR} \
@@ -44,7 +44,8 @@ LIB_DEPENDS=	libcodec2.so:audio/codec2 \
 		libboost_date_time.so:devel/boost-libs \
 		liborc-0.4.so:devel/orc \
 		libzmq.so:net/libzmq4
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		cmake compiler:c++11-lang desktop-file-utils fortran gnome \
 		iconv localbase:ldflags perl5 pkgconfig pyqt:5 python \

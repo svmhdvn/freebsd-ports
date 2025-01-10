@@ -8,8 +8,9 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	SCIM IMEngine module like SKK
 WWW=		https://sourceforge.jp/projects/scim-imengine/
 
-BUILD_DEPENDS=	scim:textproc/scim
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	scim:textproc/scim
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		gmake iconv libtool pkgconfig
 GNU_CONFIGURE=	yes

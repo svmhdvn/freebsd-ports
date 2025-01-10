@@ -9,12 +9,13 @@ MAINTAINER=	ivan@serezhkin.com
 COMMENT=	Non-blocking I/O in lambda style
 WWW=		https://metacpan.org/release/IO-Lambda
 
-BUILD_DEPENDS=	p5-Sub-Name>=0.04:devel/p5-Sub-Name \
+BR_DEPENDS=	p5-Sub-Name>=0.04:devel/p5-Sub-Name \
 		p5-Net-DNS>=0.64:dns/p5-Net-DNS \
 		p5-libwww>=5.822:www/p5-libwww \
 		p5-URI>=1.37:net/p5-URI
 
-RUN_DEPENDS:=	${BUILD_DEPENDS} \
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS} \
 		p5-IO-Socket-SSL>=1.19:security/p5-IO-Socket-SSL \
 		p5-AnyEvent>=4.33:devel/p5-AnyEvent \
 		p5-DBI>=1.60.4:databases/p5-DBI

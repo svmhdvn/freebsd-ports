@@ -11,7 +11,7 @@ WWW=		https://github.com/linuxmint/cinnamon-control-center
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	cinnamon-settings-daemon>=1.0.0:sysutils/cinnamon-settings-daemon \
+BR_DEPENDS=	cinnamon-settings-daemon>=1.0.0:sysutils/cinnamon-settings-daemon \
 		iso-codes>0:misc/iso-codes
 LIB_DEPENDS=	libcinnamon-desktop.so:x11/cinnamon-desktop \
 		libcinnamon-menu-3.so:x11/cinnamon-menus \
@@ -24,7 +24,8 @@ LIB_DEPENDS=	libcinnamon-desktop.so:x11/cinnamon-desktop \
 		libharfbuzz.so:print/harfbuzz \
 		libupower-glib.so:sysutils/upower \
 		libgudev-1.0.so:devel/libgudev
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		gettext gnome meson pkgconfig python:build shebangfix xorg
 USE_GNOME=	cairo gdkpixbuf2 glib20 gtk30 intltool libgnomekbd libxml2

@@ -14,8 +14,9 @@ LIB_DEPENDS=	libpng.so:graphics/png \
 		libtiff.so:graphics/tiff \
 		libfreetype.so:print/freetype2 \
 		liblcms.so:graphics/lcms
-BUILD_DEPENDS=	scanimage:graphics/sane-backends
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	scanimage:graphics/sane-backends
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		gmake gnome jpeg localbase:ldflags pkgconfig
 USE_GITLAB=	yes

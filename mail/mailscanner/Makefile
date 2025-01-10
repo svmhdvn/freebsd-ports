@@ -11,7 +11,7 @@ WWW=		https://www.mailscanner.info
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=	\
+BR_DEPENDS=	\
 	p5-IO-Stringy>=0:devel/p5-IO-Stringy \
 	p5-DBI>=0:databases/p5-DBI \
 	p5-Mail-Tools>=0:mail/p5-Mail-Tools \
@@ -49,7 +49,8 @@ BUILD_DEPENDS=	\
 	p5-IP-Country>=0:net/p5-IP-Country \
 	curl:ftp/curl
 
-RUN_DEPENDS:=	${BUILD_DEPENDS} \
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS} \
 		bash:shells/bash \
 		tnef:converters/tnef \
 		wget:ftp/wget

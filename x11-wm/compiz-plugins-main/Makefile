@@ -14,9 +14,10 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 LIB_DEPENDS=	libcairo.so:graphics/cairo \
 		libpangocairo-1.0.so:x11-toolkits/pango \
 		libstartup-notification-1.so:x11/startup-notification
-BUILD_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/compiz.pc:x11-wm/compiz \
+BR_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/compiz.pc:x11-wm/compiz \
 		${LOCALBASE}/libdata/pkgconfig/bcop.pc:devel/compiz-bcop
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install-strip
