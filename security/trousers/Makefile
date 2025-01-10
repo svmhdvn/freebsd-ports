@@ -11,8 +11,8 @@ WWW=		https://sourceforge.net/projects/trousers/
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BUILD_DEPENDS=	tpm-emulator>=0.7.4_1:emulators/tpm-emulator
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		cpe dos2unix alias autoreconf gmake iconv libtool pkgconfig ssl
 CPE_VENDOR=	${PORTNAME}_project
@@ -40,6 +40,8 @@ GROUPS=		_tss
 
 OPTIONS_DEFINE=	DEBUG
 DEBUG_CONFIGURE_ENABLE=	debug
+
+_BUILD_RUN_DEPENDS=	tpm-emulator>=0.7.4_1:emulators/tpm-emulator
 
 post-install:
 	${INSTALL_DATA} \

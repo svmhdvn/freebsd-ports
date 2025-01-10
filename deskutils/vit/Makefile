@@ -10,9 +10,8 @@ WWW=		https://tasktools.org/projects/vit.html
 
 LICENSE=	GPLv3+
 
-BUILD_DEPENDS=	p5-Curses>=0:devel/p5-Curses \
-		task:deskutils/taskwarrior
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 NO_ARCH=	yes
 USES=		perl5 shebangfix
@@ -24,6 +23,9 @@ PLIST_FILES=	bin/vit \
 		etc/vit-commands \
 		share/man/man1/vit.1.gz \
 		share/man/man5/vitrc.5.gz
+
+_BUILD_RUN_DEPENDS=	p5-Curses>=0:devel/p5-Curses \
+			task:deskutils/taskwarrior
 
 do-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/vit ${STAGEDIR}${PREFIX}/bin

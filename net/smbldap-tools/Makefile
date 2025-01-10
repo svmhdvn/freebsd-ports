@@ -10,11 +10,8 @@ COMMENT=	Samba-LDAP management and support tools
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	p5-perl-ldap>=0:net/p5-perl-ldap \
-		p5-Crypt-SmbHash>=0:security/p5-Crypt-SmbHash \
-		p5-Digest-SHA1>=0:security/p5-Digest-SHA1 \
-		p5-Unicode-MapUTF8>=0:converters/p5-Unicode-MapUTF8
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		gmake perl5
 GNU_CONFIGURE=	yes
@@ -30,6 +27,11 @@ PORTDOCS=	*
 OPTIONS_DEFINE=	MIGRATION_SCRIPTS DOCS
 OPTIONS_SUB=	yes
 MIGRATION_SCRIPTS_DESC=	Install migration scripts
+
+_BUILD_RUN_DEPENDS=	p5-perl-ldap>=0:net/p5-perl-ldap \
+			p5-Crypt-SmbHash>=0:security/p5-Crypt-SmbHash \
+			p5-Digest-SHA1>=0:security/p5-Digest-SHA1 \
+			p5-Unicode-MapUTF8>=0:converters/p5-Unicode-MapUTF8
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \

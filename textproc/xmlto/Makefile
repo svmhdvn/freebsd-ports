@@ -17,15 +17,8 @@ WWW=		https://pagure.io/xmlto/
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=	${BASH_CMD}:shells/bash \
-		${GETOPT_CMD}:misc/getopt \
-		xmllint:textproc/libxml2 \
-		xsltproc:textproc/libxslt \
-		docbook-xsl>0:textproc/docbook-xsl \
-		paperconf:print/libpaper \
-		w3m:www/w3m \
-		docbook-xml>0:textproc/docbook-xml
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 SUB_FILES=	pkg-message
 
@@ -52,6 +45,15 @@ PORTDOCS=	AUTHORS ChangeLog NEWS THANKS
 # these documentation files do not convey information useful for
 # the FreeBSD port at this time, or are provided by the ports framework:
 # PORTDOCS+=	COPYING FAQ README
+
+_BUILD_RUN_DEPENDS=	${BASH_CMD}:shells/bash \
+			${GETOPT_CMD}:misc/getopt \
+			xmllint:textproc/libxml2 \
+			xsltproc:textproc/libxslt \
+			docbook-xsl>0:textproc/docbook-xsl \
+			paperconf:print/libpaper \
+			w3m:www/w3m \
+			docbook-xml>0:textproc/docbook-xml
 
 .include <bsd.port.pre.mk>
 

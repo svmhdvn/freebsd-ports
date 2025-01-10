@@ -11,12 +11,14 @@ WWW=		https://outflux.net
 
 LICENSE=	GPLv2+
 
-BUILD_DEPENDS=	p5-Config-Simple>=0:devel/p5-Config-Simple
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		perl5 shebangfix
 USE_PERL5=	configure
 SHEBANG_FILES=	scripts/mp3cd
 NO_ARCH=	yes
+
+_BUILD_RUN_DEPENDS=	p5-Config-Simple>=0:devel/p5-Config-Simple
 
 .include <bsd.port.mk>

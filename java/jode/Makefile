@@ -9,8 +9,8 @@ MAINTAINER=	ports@virtual-estates.net
 COMMENT=	Java package containing a decompiler and an optimizer for Java
 WWW=		https://jode.sourceforge.net/
 
-BUILD_DEPENDS=	${GETOPT_JAR}:java/java-getopt
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		gmake java perl5 shebangfix
 
@@ -32,6 +32,8 @@ MAKE_ARGS+=	JAVADEP=:
 SUB_LIST+=	GETOPT_JAR=${GETOPT_JAR}
 SUB_FILES=	jode
 PLIST_FILES=	bin/jode %%JAVAJARDIR%%/jode-${VENDOR_VERSION}.jar
+
+_BUILD_RUN_DEPENDS=	${GETOPT_JAR}:java/java-getopt
 
 post-patch:
 	${FIND} ${WRKSRC} -name '*.java*' |	\

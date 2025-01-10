@@ -12,8 +12,8 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Ambisonics LADSPA plugins, mainly to be used within Ardour
 WWW=		https://kokkinizita.linuxaudio.org/linuxaudio/ladspa/index.html
 
-BUILD_DEPENDS=	${LOCALBASE}/include/ladspa.h:audio/ladspa
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 LICENSE=	GPLv2 GPLv3
 LICENSE_COMB=	dual
@@ -22,6 +22,8 @@ USES=		tar:bzip2 gmake
 PLIST_FILES=	lib/ladspa/ambisonic0.so lib/ladspa/ambisonic1.so \
 		lib/ladspa/ambisonic2.so lib/ladspa/ambisonic3.so \
 		share/ladspa/rdf/fa-plugins.rdf
+
+_BUILD_RUN_DEPENDS=	${LOCALBASE}/include/ladspa.h:audio/ladspa
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|[[:space:]]-O3||g ; \

@@ -9,9 +9,9 @@ WWW=		https://github.com/Alexey-Yakovenko/jack
 
 LICENSE=	MIT
 
-BUILD_DEPENDS=	${LOCALBASE}/include/deadbeef/deadbeef.h:audio/deadbeef
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
 LIB_DEPENDS=	libjack.so:audio/jack
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	Alexey-Yakovenko
@@ -19,6 +19,8 @@ GH_PROJECT=	jack
 GH_TAGNAME=	62d1e6a
 
 PLIST_FILES=	lib/deadbeef/jack.so
+
+_BUILD_RUN_DEPENDS=	${LOCALBASE}/include/deadbeef/deadbeef.h:audio/deadbeef
 
 do-build:
 	cd ${WRKSRC} && ${CC} ${CFLAGS} -std=c99 -fPIC -shared -Wall \

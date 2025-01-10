@@ -12,14 +12,16 @@ WWW=		https://github.com/tych0/xcffib
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cffi>=1.1.0:devel/py-cffi@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}six>0:devel/py-six@${PY_FLAVOR}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
 LIB_DEPENDS=	libxcb.so:x11/libxcb
-RUN_DEPENDS=	${BUILD_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		python
 USE_PYTHON=	autoplist distutils
 
 NO_ARCH=	yes
+
+_BUILD_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cffi>=1.1.0:devel/py-cffi@${PY_FLAVOR} \
+			${PYTHON_PKGNAMEPREFIX}six>0:devel/py-six@${PY_FLAVOR}
 
 .include <bsd.port.mk>

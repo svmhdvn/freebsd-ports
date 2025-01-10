@@ -10,9 +10,9 @@ WWW=		https://sokobano.sourceforge.net/
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=	${LOCALBASE}/share/java/classes/lwjgl/lwjgl.jar:games/lwjgl
-RUN_DEPENDS:=	${LOCALBASE}/share/java/classes/jmf.jar:java/jmf \
-		${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS} \
+		${LOCALBASE}/share/java/classes/jmf.jar:java/jmf
 
 USES=		gmake java
 JAVA_VERSION=	8
@@ -25,6 +25,8 @@ BUILD_WRKSRC=	${WRKSRC}/src/gdi1sokoban
 JARNAME=	Sokobano-${PORTVERSION}.jar
 SUB_FILES=	${PORTNAME}.sh
 SUB_LIST=	JARNAME=${JARNAME}
+
+_BUILD_RUN_DEPENDS=	${LOCALBASE}/share/java/classes/lwjgl/lwjgl.jar:games/lwjgl
 
 post-extract:
 # All levels must be named as ``Level_$id.txt'' (uppercase `L')

@@ -11,8 +11,8 @@ WWW=		https://sourceforge.net/projects/gkrelltop/
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=	gkrellmd:sysutils/gkrellm2
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 WRKSRC=		${WRKDIR}/${DISTNAME:S/_/-/}
 
@@ -31,6 +31,8 @@ ALL_TARGET=	server
 .else
 PLIST_FILES+=	libexec/gkrellm2/plugins/gkrelltop.so
 .endif
+
+_BUILD_RUN_DEPENDS=	gkrellmd:sysutils/gkrellm2
 
 do-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/libexec/gkrellm2/plugins-gkrellmd

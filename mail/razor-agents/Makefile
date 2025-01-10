@@ -9,10 +9,8 @@ WWW=		https://sourceforge.net/projects/razor/
 
 LICENSE=	ART20
 
-BUILD_DEPENDS=	p5-Net-DNS>=0:dns/p5-Net-DNS \
-		p5-Digest-SHA1>=0:security/p5-Digest-SHA1 \
-		p5-URI>=0:net/p5-URI
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		perl5 shebangfix tar:bzip2
 USE_PERL5=	configure patch
@@ -23,6 +21,10 @@ SHEBANG_FILES=	lib/Razor2/Client/*.pm \
 
 MAKE_ARGS+=	PERLPREFIX=${PREFIX}
 MAKE_JOBS_UNSAFE=	yes
+
+_BUILD_RUN_DEPENDS=	p5-Net-DNS>=0:dns/p5-Net-DNS \
+			p5-Digest-SHA1>=0:security/p5-Digest-SHA1 \
+			p5-URI>=0:net/p5-URI
 
 post-patch:
 	@${FIND} ${WRKSRC} -type f | ${XARGS} ${PERL} -pi -e 's|/etc/razor|${PREFIX}/etc|g'

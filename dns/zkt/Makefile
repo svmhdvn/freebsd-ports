@@ -11,12 +11,14 @@ WWW=		https://www.hznet.de/dns/zkt/
 LICENSE=		BSD3CLAUSE
 LICENSE_FILE=		${WRKSRC}/LICENSE
 
-BUILD_DEPENDS=		dnssec-signzone:dns/bind-tools
-RUN_DEPENDS:=		${BUILD_DEPENDS}
+BUILD_DEPENDS=		${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=		${_BUILD_RUN_DEPENDS}
 
 DIR_NAMED_CONF?=	/etc/namedb
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-configpath=${DIR_NAMED_CONF}
+
+_BUILD_RUN_DEPENDS=	dnssec-signzone:dns/bind-tools
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|/var/named/|${DIR_NAMED_CONF}/|g' ${WRKSRC}/man/*.8

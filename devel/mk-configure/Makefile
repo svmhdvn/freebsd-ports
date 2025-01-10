@@ -10,8 +10,8 @@ WWW=		https://sourceforge.net/projects/mk-configure/
 
 LICENSE=	BSD2CLAUSE
 
-BUILD_DEPENDS=	${BMAKE}:devel/bmake
-RUN_DEPENDS:=	${BUILD_DEPENDS} \
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS} \
 		bmkdep:devel/bmkdep
 
 MAKE_JOBS_UNSAFE=	yes
@@ -25,6 +25,8 @@ PORTDATA=	*
 PORTEXAMPLES=	*
 
 OPTIONS_DEFINE=	DOCS EXAMPLES
+
+_BUILD_RUN_DEPENDS=	${BMAKE}:devel/bmake
 
 post-patch:
 	@${ECHO_CMD} "MKDEP ?= bmkdep" >> ${WRKSRC}/mk/sys.mk

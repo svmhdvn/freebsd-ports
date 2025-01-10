@@ -9,8 +9,8 @@ WWW=		https://github.com/udhos/fetchconfig
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	p5-Net-Telnet>=0:net/p5-Net-Telnet
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		perl5 shebangfix
 SHEBANG_FILES=	${PORTNAME}.pl
@@ -30,6 +30,8 @@ MODULES=	model/3ComMSR.pm model/Abstract.pm model/Acme.pm \
 PORTDOCS=	CHANGES README device_table.example
 
 OPTIONS_DEFINE=	DOCS
+
+_BUILD_RUN_DEPENDS=	p5-Net-Telnet>=0:net/p5-Net-Telnet
 
 do-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/${PORTNAME}.pl \

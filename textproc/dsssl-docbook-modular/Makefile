@@ -16,14 +16,16 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	DSSSL stylesheets for the DocBook DTD by Norman Walsh
 WWW=		https://sourceforge.net/projects/docbook/
 
-BUILD_DEPENDS=	xmlcatmgr:textproc/xmlcatmgr
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 NO_ARCH=	yes
 NO_MTREE=	yes
 
 RELDIR=		docbook/dsssl/modular
 INSTDIR=	${PREFIX}/share/sgml/${RELDIR}
+
+_BUILD_RUN_DEPENDS=	xmlcatmgr:textproc/xmlcatmgr
 
 do-build:
 	${RM} -R ${WRKSRC}/docsrc

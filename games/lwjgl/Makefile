@@ -11,9 +11,8 @@ LICENSE=	BSD3CLAUSE
 
 ONLY_FOR_ARCHS=	aarch64 amd64 i386 powerpc powerpc64 powerpc64le
 
-BUILD_DEPENDS=	${JAVAJARDIR}/jutils/jutils.jar:games/jutils \
-		${JAVAJARDIR}/jinput/jinput.jar:games/jinput
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		dos2unix java:ant,run xorg
 DOS2UNIX_REGEX=	.*.[^jp][^an][^rg]$
@@ -33,6 +32,9 @@ PLIST_FILES=	${JAVAJARDIR}/${PORTNAME}/${PORTNAME}.jar \
 		${JAVAJARDIR}/${PORTNAME}/${PORTNAME}_test.jar \
 		${JAVAJARDIR}/${PORTNAME}/${PORTNAME}_util.jar \
 		${JAVAJARDIR}/${PORTNAME}/${PORTNAME}_util_applet.jar
+
+_BUILD_RUN_DEPENDS=	${JAVAJARDIR}/jutils/jutils.jar:games/jutils \
+			${JAVAJARDIR}/jinput/jinput.jar:games/jinput
 
 .include <bsd.port.pre.mk>
 

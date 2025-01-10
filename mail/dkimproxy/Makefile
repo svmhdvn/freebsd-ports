@@ -11,10 +11,8 @@ WWW=		https://dkimproxy.sourceforge.net/
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	p5-Mail-DKIM>=0:mail/p5-Mail-DKIM \
-		p5-Net-Server>=0:net/p5-Net-Server \
-		p5-Error>=0:lang/p5-Error
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		gmake perl5 shebangfix
 
@@ -43,5 +41,9 @@ IPV6_EXTRA_PATCHES=	${FILESDIR}/extra-patch-lib_MSDW_SMTP_Server.pm \
 
 TEST_DESC=	Use dkim_responder.pl
 TEST_RUN_DEPENDS=	p5-MIME-Tools>=0:mail/p5-MIME-Tools
+
+_BUILD_RUN_DEPENDS=	p5-Mail-DKIM>=0:mail/p5-Mail-DKIM \
+			p5-Net-Server>=0:net/p5-Net-Server \
+			p5-Error>=0:lang/p5-Error
 
 .include <bsd.port.mk>

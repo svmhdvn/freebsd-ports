@@ -15,11 +15,13 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	dspinellis
 GH_PROJECT=	UMLGraph
 
-BUILD_DEPENDS=	dot:graphics/graphviz \
-		pic2plot:graphics/plotutils
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 PLIST_FILES=	bin/umlgraph %%JAVAJARDIR%%/UmlGraph.jar
+
+_BUILD_RUN_DEPENDS=	dot:graphics/graphviz \
+			pic2plot:graphics/plotutils
 
 post-configure:
 	${REINPLACE_CMD} -e 's|%%JAVA_HOME%%|${JAVA_HOME}|; \

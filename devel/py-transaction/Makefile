@@ -11,12 +11,14 @@ WWW=		https://pypi.org/project/transaction/
 
 LICENSE=	ZPL21
 
-BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}zope.interface>=3.5.2:devel/py-zope.interface@${PY_FLAVOR}
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		python
 USE_PYTHON=	distutils autoplist
 
 NO_ARCH=	yes
+
+_BUILD_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}zope.interface>=3.5.2:devel/py-zope.interface@${PY_FLAVOR}
 
 .include <bsd.port.mk>

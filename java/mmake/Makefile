@@ -8,8 +8,8 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Create a Makefile for Your Java files, ready to compile
 WWW=		https://www.tildeslash.com/mmake/
 
-BUILD_DEPENDS=	jikes:java/jikes
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		perl5 gmake
 GNU_CONFIGURE=	yes
@@ -17,6 +17,8 @@ GNU_CONFIGURE_MANPREFIX=${PREFIX}/share
 NO_BUILD=	yes
 
 PLIST_FILES=	bin/mmake share/man/man1/mmake.1.gz
+
+_BUILD_RUN_DEPENDS=	jikes:java/jikes
 
 post-patch:
 	@${REINPLACE_CMD} -E 's,(BIN|MAN)DIR),DESTDIR)$$(&,' \

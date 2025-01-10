@@ -10,12 +10,14 @@ WWW=		http://gitorious.org/gtk-sharp-beans
 
 LICENSE=	LGPL21
 
-BUILD_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/gio-sharp-2.0.pc:devel/gio-sharp
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ENV=	ac_cv_path_CSC=${LOCALBASE}/bin/mcs
 USES=		gmake pathfix pkgconfig tar:bzip2
 MAKE_JOBS_UNSAFE=yes
+
+_BUILD_RUN_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/gio-sharp-2.0.pc:devel/gio-sharp
 
 .include <bsd.port.mk>

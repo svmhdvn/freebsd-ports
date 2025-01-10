@@ -22,10 +22,8 @@ WWW=		https://common-lisp.net/project/cffi/
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYRIGHT
 
-BUILD_DEPENDS=	cl-alexandria>=0:devel/cl-alexandria \
-		cl-trivial-features>=0:devel/cl-trivial-features \
-		cl-babel>=0:converters/cl-babel
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 NO_BUILD=	yes
 
@@ -33,6 +31,10 @@ USES=		cl
 USE_ASDF=	yes
 
 OPTIONS_DEFINE=	DOCS EXAMPLES
+
+_BUILD_RUN_DEPENDS=	cl-alexandria>=0:devel/cl-alexandria \
+			cl-trivial-features>=0:devel/cl-trivial-features \
+			cl-babel>=0:converters/cl-babel
 
 do-install:
 	@${MKDIR} ${STAGEDIR}${ASDF_PATHNAME}

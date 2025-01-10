@@ -8,9 +8,9 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Another GTK2 frontend for cdrecord, mkisofs, readcd, and sox
 WWW=		https://www.nongnu.org/graveman/
 
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
 LIB_DEPENDS=	libmng.so:graphics/libmng
-BUILD_DEPENDS=	cdrecord:sysutils/cdrtools
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 GNU_CONFIGURE=	yes
 GNU_CONFIGURE_MANPREFIX=${PREFIX}/share
@@ -29,5 +29,7 @@ OGG_LIB_DEPENDS=	libogg.so:audio/libogg \
 			libvorbis.so:audio/libvorbis
 OGG_CONFIGURE_OFF=	--disable-ogg
 DVD_RUN_DEPENDS=	growisofs:sysutils/dvd+rw-tools
+
+_BUILD_RUN_DEPENDS=	cdrecord:sysutils/cdrtools
 
 .include <bsd.port.mk>

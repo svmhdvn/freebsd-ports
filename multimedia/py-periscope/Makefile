@@ -15,8 +15,8 @@ WWW=		https://code.google.com/archive/p/periscope/
 
 LICENSE=	LGPL3
 
-BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}beautifulsoup>=4:www/py-beautifulsoup@${PY_FLAVOR}
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		desktop-file-utils python
 USE_PYTHON=	autoplist distutils
@@ -28,6 +28,8 @@ UNRAR_RUN_DEPENDS=	unrar:archivers/unrar
 NO_WRKSUBDIR=	yes
 PLIST_FILES=	share/applications/periscope.desktop
 NO_ARCH=	yes
+
+_BUILD_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}beautifulsoup>=4:www/py-beautifulsoup@${PY_FLAVOR}
 
 post-patch:
 	${REINPLACE_CMD} -e 's|from BeautifulSoup import|from bs4 import|' \

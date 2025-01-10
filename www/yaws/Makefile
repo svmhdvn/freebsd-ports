@@ -9,8 +9,8 @@ WWW=		https://erlyaws.github.io/
 
 LICENSE=	BSD3CLAUSE
 
-BUILD_DEPENDS=	erl:lang/erlang
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		autoreconf cpe gmake libtool pathfix shebangfix
 
@@ -34,6 +34,8 @@ OPTIONS_SUB=	yes
 WWW_DESC=	Install sample applications
 
 _APPDIR=	${PREFIX}/lib/erlang/lib/yaws-${PORTVERSION}
+
+_BUILD_RUN_DEPENDS=	erl:lang/erlang
 
 .include <bsd.port.options.mk>
 

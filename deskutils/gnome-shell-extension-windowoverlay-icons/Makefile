@@ -12,9 +12,8 @@ WWW=		https://github.com/sustmi/gnome-shell-extensions-sustmi
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	gnome-shell>=0:x11/gnome-shell \
-		gsettings-desktop-schemas>=3.12.0:devel/gsettings-desktop-schemas
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		gettext gmake gnome pkgconfig
 USE_GNOME=	glib20
@@ -30,6 +29,9 @@ FILES=	README.md convenience.js \
 	extension.js metadata.json \
 	prefs.js prefs.xml \
 	stylesheet.css
+
+_BUILD_RUN_DEPENDS=	gnome-shell>=0:x11/gnome-shell \
+			gsettings-desktop-schemas>=3.12.0:devel/gsettings-desktop-schemas
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|"3.26"|"3.26","3.28"|g' \

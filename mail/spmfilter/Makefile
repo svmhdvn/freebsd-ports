@@ -10,10 +10,8 @@ WWW=		https://www.spmfilter.org/
 
 LICENSE=	LGPL3
 
-BUILD_DEPENDS=	libcmime>=0.1.10:mail/libcmime \
-		libesmtp>=1.0:mail/libesmtp
-
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 SMFUSER?=	nobody
 SMFGROUP?=	mail
@@ -39,6 +37,9 @@ PLIST_SUB=	LIB_VERSION=${PORTVERSION} \
 		SMFUSER=${SMFUSER} \
 		SMFGROUP=${SMFGROUP} \
 		SMFDIR=${SMFDIR}
+
+_BUILD_RUN_DEPENDS=	libcmime>=0.1.10:mail/libcmime \
+			libesmtp>=1.0:mail/libesmtp
 
 .include <bsd.port.options.mk>
 

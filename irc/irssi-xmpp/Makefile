@@ -14,9 +14,9 @@ WWW=		https://cybione.org/~irssi-xmpp/
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=	irssi:irc/irssi
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
 LIB_DEPENDS=	libloudmouth-1.so:net-im/loudmouth
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		gettext-runtime gnome pkgconfig
 
@@ -33,6 +33,8 @@ DATADIR=	${PREFIX}/share/irssi
 DOCSDIR=	${PREFIX}/share/doc/irssi
 
 OPTIONS_DEFINE=	DOCS
+
+_BUILD_RUN_DEPENDS=	irssi:irc/irssi
 
 post-patch:
 # Try to unbreak parallel builds (-jX)

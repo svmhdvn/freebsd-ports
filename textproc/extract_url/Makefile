@@ -11,9 +11,8 @@ WWW=		https://www.memoryhole.net/~kyle/extract_url/
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	p5-MIME-Tools>=0:mail/p5-MIME-Tools \
-		p5-HTML-Parser>=0:www/p5-HTML-Parser
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		gmake perl5
 
@@ -43,6 +42,9 @@ URLVIEW_DESC=		Uses urlview for the URL selector menu
 CURSES_UI_RUN_DEPENDS=	p5-Curses-UI>=0:devel/p5-Curses-UI
 URLVIEW_RUN_DEPENDS=	urlview>=0:textproc/urlview
 URI_FIND_RUN_DEPENDS=	p5-URI-Find>=0:textproc/p5-URI-Find
+
+_BUILD_RUN_DEPENDS=	p5-MIME-Tools>=0:mail/p5-MIME-Tools \
+			p5-HTML-Parser>=0:www/p5-HTML-Parser
 
 post-patch:
 	@${REINPLACE_CMD} '/pod2man.mk/s|make|${MAKE_CMD}|' \

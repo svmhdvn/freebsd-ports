@@ -9,8 +9,8 @@ WWW=		https://www.sql-ledger.org/
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=	p5-DBD-Pg>=0:databases/p5-DBD-Pg
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		apache:run perl5 pgsql shebangfix
 
@@ -28,7 +28,10 @@ ROOT_SCRIPTS=	admin.pl am.pl ap.pl ar.pl bp.pl ca.pl cp.pl ct.pl gl.pl hr.pl \
 		ic.pl im.pl ir.pl is.pl jc.pl login.pl menu.pl oe.pl pe.pl \
 		ps.pl rc.pl rd.pl rp.pl setup.pl sm.pl vr.pl
 
+_BUILD_RUN_DEPENDS=	p5-DBD-Pg>=0:databases/p5-DBD-Pg
+
 .include <bsd.port.pre.mk>
+
 do-install:
 	${INSTALL_DATA} ${WRKDIR}/sql-ledger-httpd.conf ${STAGEDIR}${PREFIX}/etc/
 	@${MKDIR} ${STAGEDIR}/${WWWDIR}

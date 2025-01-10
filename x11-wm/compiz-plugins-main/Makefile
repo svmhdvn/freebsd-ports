@@ -11,12 +11,11 @@ WWW=		https://gitlab.com/compiz/compiz-plugins-main
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
 LIB_DEPENDS=	libcairo.so:graphics/cairo \
 		libpangocairo-1.0.so:x11-toolkits/pango \
 		libstartup-notification-1.so:x11/startup-notification
-BUILD_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/compiz.pc:x11-wm/compiz \
-		${LOCALBASE}/libdata/pkgconfig/bcop.pc:devel/compiz-bcop
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install-strip
@@ -37,5 +36,8 @@ OPTIONS_DEFINE=		NLS
 
 NLS_CONFIGURE_ENABLE=	nls
 NLS_USES=		gettext-runtime
+
+_BUILD_RUN_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/compiz.pc:x11-wm/compiz \
+			${LOCALBASE}/libdata/pkgconfig/bcop.pc:devel/compiz-bcop
 
 .include <bsd.port.mk>

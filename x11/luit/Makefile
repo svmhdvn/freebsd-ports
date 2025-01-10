@@ -12,8 +12,8 @@ WWW=		https://invisible-island.net/luit/
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	${LOCALBASE}/share/fonts/encodings/encodings.dir:x11-fonts/encodings
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		iconv localbase:ldflags tar:tgz pkgconfig xorg
 USE_XORG=	ice x11 xt
@@ -28,5 +28,7 @@ CONFIGURE_ARGS=	--x-libraries=${LOCALBASE}/lib \
 
 PLIST_FILES=	bin/luit share/man/man1/luit.1.gz
 GNU_CONFIGURE_MANPREFIX=	${PREFIX}/share
+
+_BUILD_RUN_DEPENDS=	${LOCALBASE}/share/fonts/encodings/encodings.dir:x11-fonts/encodings
 
 .include <bsd.port.mk>

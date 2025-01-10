@@ -13,8 +13,8 @@ WWW=		https://perl.apache.org/
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BUILD_DEPENDS=	p5-BSD-Resource>=0:devel/p5-BSD-Resource
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 TEST_DEPENDS=	p5-CGI>=4.15:www/p5-CGI \
 		p5-libwww>=6.13:www/p5-libwww
 
@@ -27,6 +27,8 @@ CPE_VENDOR=	apache
 
 APMOD_FILE=	260_${PORTNAME}.conf.sample
 PLIST_SUB+=	APMOD_FILE=${APMOD_FILE}
+
+_BUILD_RUN_DEPENDS=	p5-BSD-Resource>=0:devel/p5-BSD-Resource
 
 .include <bsd.port.pre.mk>
 

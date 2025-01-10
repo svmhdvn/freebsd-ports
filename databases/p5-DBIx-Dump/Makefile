@@ -10,7 +10,7 @@ COMMENT=	Module for dumping database (DBI) data into a variety of formats
 WWW=		https://metacpan.org/release/DBIx-Dump
 
 BUILD_DEPENDS=	p5-DBI>=1.57:databases/p5-DBI
-RUN_DEPENDS:=	${BUILD_DEPENDS} \
+RUN_DEPENDS=	p5-DBI>=1.57:databases/p5-DBI \
 		p5-Spreadsheet-WriteExcel>=0:textproc/p5-Spreadsheet-WriteExcel \
 		p5-Text-CSV_XS>=0:textproc/p5-Text-CSV_XS
 

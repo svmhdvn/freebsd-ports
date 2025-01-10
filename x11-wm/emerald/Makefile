@@ -11,12 +11,12 @@ WWW=		http://www.beryl-project.org/
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/compiz.pc:x11-wm/compiz
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
 LIB_DEPENDS=	libfreetype.so:print/freetype2 \
 		libharfbuzz.so:print/harfbuzz \
 		libfontconfig.so:x11-fonts/fontconfig \
 		libwnck-1.so:x11-toolkits/libwnck
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 GNU_CONFIGURE=	yes
 GNU_CONFIGURE_MANPREFIX=	${PREFIX}/share
@@ -36,6 +36,8 @@ OPTIONS_DEFAULT=	NLS
 
 NLS_CONFIGURE_ENABLE=	nls
 NLS_USES=		gettext-runtime gettext-tools
+
+_BUILD_RUN_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/compiz.pc:x11-wm/compiz
 
 # XXX - might want to change that
 post-patch:

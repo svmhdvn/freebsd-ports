@@ -12,8 +12,8 @@ WWW=		https://sourceforge.net/projects/mcomix/
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pillow>=5.2.0:graphics/py-pillow@${PY_FLAVOR}
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 NO_ARCH=	yes
 USES=		desktop-file-utils gnome python
@@ -26,5 +26,7 @@ OPTIONS_DEFAULT=RAR
 
 RAR_DESC=	RAR (.cbr) comic book archives support
 RAR_RUN_DEPENDS=${LOCALBASE}/lib/libunrar.so:archivers/libunrar
+
+_BUILD_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pillow>=5.2.0:graphics/py-pillow@${PY_FLAVOR}
 
 .include <bsd.port.mk>

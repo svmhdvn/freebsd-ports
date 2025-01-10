@@ -9,8 +9,8 @@ MAINTAINER=	chiba.masashi@gmail.com
 COMMENT=	SCIM IMEngine module using various input methods
 WWW=		http://scim.freedesktop.org
 
-BUILD_DEPENDS=	scim:textproc/scim
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 GNU_CONFIGURE=	yes
 USES=		gettext gmake iconv libtool:keepla pathfix pkgconfig
@@ -18,6 +18,8 @@ USE_LDCONFIG=	yes
 
 CPPFLAGS+=	-I${LOCALBASE}/include -D__STDC_ISO_10646__
 LDFLAGS+=	-L${LOCALBASE}/lib
+
+_BUILD_RUN_DEPENDS=	scim:textproc/scim
 
 post-patch:
 	@${REINPLACE_CMD} '/^LIBTOOL_EXPORT_OPTIONS=/s/=.*/=/' \

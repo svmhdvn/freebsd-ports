@@ -11,10 +11,12 @@ WWW=		https://bitbucket.org/brentp/biostuff/src/
 
 LICENSE=	MIT
 
-BUILD_DEPENDS=	${PYNUMPY}
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		python
 USE_PYTHON=	distutils autoplist
+
+_BUILD_RUN_DEPENDS=	${PYNUMPY}
 
 .include <bsd.port.mk>

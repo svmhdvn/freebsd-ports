@@ -9,10 +9,8 @@ MAINTAINER=	kbowling@FreeBSD.org
 COMMENT=	InterNetNews -- the Internet meets Netnews
 WWW=		https://www.eyrie.org/~eagle/software/inn/
 
-BUILD_DEPENDS=	p5-GD>=0:graphics/p5-GD \
-		p5-MIME-Tools>=0:mail/p5-MIME-Tools
-
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USE_RC_SUBR=	innd
 SUB_FILES=	pkg-install
@@ -54,6 +52,8 @@ PLIST_SUB+=		SNAPSHOT="@comment "
 
 VARBASE?=	/var
 
+_BUILD_RUN_DEPENDS=	p5-GD>=0:graphics/p5-GD \
+			p5-MIME-Tools>=0:mail/p5-MIME-Tools
 .include "Makefile.layout"
 
 HAS_CONFIGURE=		yes
@@ -78,6 +78,9 @@ LIBSTORAGEVER_LONG?=	3.1.2
 PLIST_SUB+=		LIBVER=${LIBVER_LONG:R:R} LIBVER_LONG=${LIBVER_LONG} \
 			INNLIB=${INNLIB_LONG:R:R} INNLIB_LONG=${INNLIB_LONG} \
 			LIBSTORAGEVER=${LIBSTORAGEVER_LONG:R:R} LIBSTORAGEVER_LONG=${LIBSTORAGEVER_LONG}
+
+_BUILD_RUN_DEPENDS=	p5-GD>=0:graphics/p5-GD \
+			p5-MIME-Tools>=0:mail/p5-MIME-Tools
 
 .include <bsd.port.options.mk>
 

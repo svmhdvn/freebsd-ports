@@ -11,8 +11,8 @@ WWW=		http://xmlroff.org
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	libfo>=0.6.2:textproc/libfo
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		autoreconf gmake gnome gettext localbase libtool pkgconfig
 USE_GITHUB=	yes
@@ -30,6 +30,8 @@ INSTALL_TARGET=	install-strip
 OPTIONS_DEFINE=	DOCS
 DOCS_CONFIGURE_ENABLE=	gtk-doc
 DOCS_BUILD_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/gtk-doc.pc:textproc/gtk-doc
+
+_BUILD_RUN_DEPENDS=	libfo>=0.6.2:textproc/libfo
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' ${WRKSRC}/docs/Makefile.am

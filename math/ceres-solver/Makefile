@@ -10,9 +10,9 @@ WWW=		http://ceres-solver.org/
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BUILD_DEPENDS=	glog>=0.5.0:devel/glog
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
 LIB_DEPENDS=	libglog.so:devel/glog
-RUN_DEPENDS:=	${BUILD_DEPENDS:Meigen*}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		cmake:testing compiler:${OPENMP}c++11-lib eigen:3 localbase shebangfix
 USE_GITHUB=	yes
@@ -92,6 +92,8 @@ SUITESPARSE_DESC=	SuiteSparse support
 SUITESPARSE_LIB_DEPENDS=libspqr.so:math/suitesparse-spqr	\
 			libcholmod.so:math/suitesparse-cholmod
 SUITESPARSE_CMAKE_BOOL=	SUITESPARSE
+
+_BUILD_RUN_DEPENDS=	glog>=0.5.0:devel/glog
 
 post-patch-DOCS-on:
 	@${REINPLACE_CMD} -e 's,python,${PYTHON_CMD:T},' \

@@ -13,10 +13,8 @@ WWW=		https://metacpan.org/release/Autodia
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	p5-XML-Simple>=0:textproc/p5-XML-Simple \
-		p5-Template-Toolkit>=0:www/p5-Template-Toolkit \
-		p5-HTML-Mason>=0:www/p5-HTML-Mason
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		perl5 shebangfix
 SHEBANG_FILES=	autodia.pl
@@ -33,6 +31,10 @@ VCG_DESC=		VCG support
 GRAPHVIZ_RUN_DEPENDS=	p5-GraphViz>=0:graphics/p5-GraphViz
 SPRINGGRAPH_RUN_DEPENDS=	p5-SpringGraph>=0:graphics/p5-SpringGraph
 VCG_RUN_DEPENDS=	p5-VCG>=0:graphics/p5-VCG
+
+_BUILD_RUN_DEPENDS=	p5-XML-Simple>=0:textproc/p5-XML-Simple \
+			p5-Template-Toolkit>=0:www/p5-Template-Toolkit \
+			p5-HTML-Mason>=0:www/p5-HTML-Mason
 
 post-patch:
 	@${FIND} ${WRKSRC} -name "*.orig" -delete

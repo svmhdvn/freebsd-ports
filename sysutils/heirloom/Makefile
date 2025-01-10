@@ -8,8 +8,8 @@ MAINTAINER=	cy@FreeBSD.org
 COMMENT=	Collection of standard Unix utilities
 WWW=		https://heirloom.sourceforge.net/
 
-BUILD_DEPENDS=	ksh:shells/pdksh
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		gmake ncurses tar:bzip2
 LDFLAGS+=	-Wl,--allow-multiple-definition
@@ -26,6 +26,8 @@ SH2FIX=		maninst.sh genintro.sh crossln.sh
 
 DOC_FILES=	CHANGES LICENSE/COPYING LICENSE/LICENSE LICENSE/LUCENT \
 		LICENSE/README LICENSE/COPYING.LGPL README intro.txt
+
+_BUILD_RUN_DEPENDS=	ksh:shells/pdksh
 
 post-patch:
 # FreeBSD does not have neither <malloc.h> nor <alloca.h> system headers

@@ -10,12 +10,14 @@ WWW=		https://www.cs.indiana.edu/~kinzler/vshnu/
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	p5-Term-Screen>=0:devel/p5-Term-Screen
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		perl5 shebangfix tar:tgz
 USE_PERL5=	configure
 SHEBANG_FILES=	*.pl
 NO_ARCH=	yes
+
+_BUILD_RUN_DEPENDS=	p5-Term-Screen>=0:devel/p5-Term-Screen
 
 .include <bsd.port.mk>

@@ -11,9 +11,8 @@ WWW=		http://users.skynet.be/Peter.Verthez/projects/imc/
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	p5-GD>=0:graphics/p5-GD \
-		p5-CGI>=0:www/p5-CGI
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		gmake perl5
 GNU_CONFIGURE=	yes
@@ -26,6 +25,9 @@ PLIST_FILES=	bin/${PORTNAME} \
 		share/man/man1/${PORTNAME}.1.gz
 
 OPTIONS_DEFINE=	DOCS EXAMPLES
+
+_BUILD_RUN_DEPENDS=	p5-GD>=0:graphics/p5-GD \
+			p5-CGI>=0:www/p5-CGI
 
 post-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
