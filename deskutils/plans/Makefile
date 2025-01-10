@@ -25,8 +25,9 @@ WWW=		http://www.planscalendar.com/
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=	p5-CGI-Session>=0:www/p5-CGI-Session
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	p5-CGI-Session>=0:www/p5-CGI-Session
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		perl5 shebangfix zip
 USE_PERL5=	run

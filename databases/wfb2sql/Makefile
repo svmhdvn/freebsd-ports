@@ -11,8 +11,9 @@ WWW=		http://wfb2sql.sf.net/
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	p5-Config-General>=0:devel/p5-Config-General
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	p5-Config-General>=0:devel/p5-Config-General
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		perl5 shebangfix
 SHEBANG_FILES=	wfb2sql

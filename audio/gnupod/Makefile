@@ -12,13 +12,14 @@ WWW=		https://www.gnu.org/software/gnupod/
 LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	p5-MP3-Info>=0:audio/p5-MP3-Info \
+BR_DEPENDS=	p5-MP3-Info>=0:audio/p5-MP3-Info \
 		p5-XML-Parser>=0:textproc/p5-XML-Parser \
 		p5-TimeDate>=0:devel/p5-TimeDate \
 		p5-Unicode-String>=0:converters/p5-Unicode-String \
 		p5-libwww>=0:www/p5-libwww \
 		p5-Digest-SHA1>=0:security/p5-Digest-SHA1
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 INFO=		gnupod
 

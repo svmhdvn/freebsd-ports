@@ -12,9 +12,10 @@ WWW=		https://github.com/sustmi/gnome-shell-extensions-sustmi
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	gnome-shell>=0:x11/gnome-shell \
+BR_DEPENDS=	gnome-shell>=0:x11/gnome-shell \
 		gsettings-desktop-schemas>=3.12.0:devel/gsettings-desktop-schemas
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		gettext gmake gnome pkgconfig
 USE_GNOME=	glib20

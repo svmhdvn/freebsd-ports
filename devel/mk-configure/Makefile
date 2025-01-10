@@ -10,8 +10,9 @@ WWW=		https://sourceforge.net/projects/mk-configure/
 
 LICENSE=	BSD2CLAUSE
 
-BUILD_DEPENDS=	${BMAKE}:devel/bmake
-RUN_DEPENDS:=	${BUILD_DEPENDS} \
+BR_DEPENDS=	${BMAKE}:devel/bmake
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS} \
 		bmkdep:devel/bmkdep
 
 MAKE_JOBS_UNSAFE=	yes

@@ -17,11 +17,12 @@ LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
 NOT_FOR_ARCHS=		armv6 armv7 i386 mips powerpc
 NOT_FOR_ARCHS_REASON=	subcomponent libigl does not support 32bit platforms
 
-BUILD_DEPENDS=	erl:lang/erlang \
+BR_DEPENDS=	erl:lang/erlang \
 		erlang-cl>0:devel/erlang-cl \
 		erlang-wx>0:lang/erlang-wx \
 		pkg-config:devel/pkgconf
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		gl tar:bzip2 eigen:3 gmake
 

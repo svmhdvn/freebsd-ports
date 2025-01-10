@@ -9,9 +9,10 @@ WWW=		https://github.com/cboxdoerfer/ddb_spectrogram
 
 LICENSE=	GPLv2+
 
-BUILD_DEPENDS=	${LOCALBASE}/include/deadbeef/deadbeef.h:audio/deadbeef
+BR_DEPENDS=	${LOCALBASE}/include/deadbeef/deadbeef.h:audio/deadbeef
 LIB_DEPENDS=	libfftw3.so:math/fftw3
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	cboxdoerfer

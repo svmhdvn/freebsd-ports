@@ -11,9 +11,10 @@ WWW=		http://packages.python.org/apgl/
 
 LICENSE=	GPLv3
 
-BUILD_DEPENDS=	${PYNUMPY} \
+BR_DEPENDS=	${PYNUMPY} \
 		${PYTHON_PKGNAMEPREFIX}scipy>0.7.0:science/py-scipy@${PY_FLAVOR}
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		python
 USE_PYTHON=	autoplist distutils

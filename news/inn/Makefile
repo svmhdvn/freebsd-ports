@@ -9,10 +9,10 @@ MAINTAINER=	kbowling@FreeBSD.org
 COMMENT=	InterNetNews -- the Internet meets Netnews
 WWW=		https://www.eyrie.org/~eagle/software/inn/
 
-BUILD_DEPENDS=	p5-GD>=0:graphics/p5-GD \
+BR_DEPENDS=	p5-GD>=0:graphics/p5-GD \
 		p5-MIME-Tools>=0:mail/p5-MIME-Tools
-
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USE_RC_SUBR=	innd
 SUB_FILES=	pkg-install

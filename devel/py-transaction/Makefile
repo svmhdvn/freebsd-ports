@@ -11,8 +11,9 @@ WWW=		https://pypi.org/project/transaction/
 
 LICENSE=	ZPL21
 
-BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}zope.interface>=3.5.2:devel/py-zope.interface@${PY_FLAVOR}
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	${PYTHON_PKGNAMEPREFIX}zope.interface>=3.5.2:devel/py-zope.interface@${PY_FLAVOR}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		python
 USE_PYTHON=	distutils autoplist

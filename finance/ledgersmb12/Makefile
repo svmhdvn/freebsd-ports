@@ -8,10 +8,11 @@ MAINTAINER=	ty@eye-of-odin.com
 COMMENT=	Double entry accounting system
 WWW=		https://www.ledgersmb.org/
 
-BUILD_DEPENDS=	p5-DBD-Pg>=0:databases/p5-DBD-Pg \
+BR_DEPENDS=	p5-DBD-Pg>=0:databases/p5-DBD-Pg \
 		p5-MIME-Lite>=0:mail/p5-MIME-Lite \
 		p5-Config-Std>=0:devel/p5-Config-Std
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 WRKSRC=		${WRKDIR}/${PORTNAME}
 NO_BUILD=	yes

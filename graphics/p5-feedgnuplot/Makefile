@@ -12,9 +12,10 @@ WWW=		https://metacpan.org/release/DKOGAN/feedgnuplot-${PORTVERSION}
 LICENSE=	ART10 GPLv3
 LICENSE_COMB=	dual
 
-BUILD_DEPENDS=	p5-String-ShellQuote>=0.50:textproc/p5-String-ShellQuote \
+BR_DEPENDS=	p5-String-ShellQuote>=0.50:textproc/p5-String-ShellQuote \
 		p5-IPC-Run>=0:devel/p5-IPC-Run
-RUN_DEPENDS:=	${BUILD_DEPENDS} \
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS} \
 		p5-List-MoreUtils>=0:lang/p5-List-MoreUtils \
 		gnuplot:math/gnuplot
 

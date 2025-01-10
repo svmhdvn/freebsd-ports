@@ -10,8 +10,9 @@ WWW=		https://paraget.sourceforge.net/
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=	p5-Class-MethodMaker>=0:devel/p5-Class-MethodMaker
-RUN_DEPENDS:=	${BUILD_DEPENDS} \
+BR_DEPENDS=	p5-Class-MethodMaker>=0:devel/p5-Class-MethodMaker
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS} \
 		p5-URI>=0:net/p5-URI \
 		p5-XML-Simple>=0:textproc/p5-XML-Simple
 
