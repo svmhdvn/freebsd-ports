@@ -11,12 +11,11 @@ WWW=		https://www.lxde.org/
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
 LIB_DEPENDS=	libImlib2.so:graphics/imlib2 \
-	libfontconfig.so:x11-fonts/fontconfig \
-	libfreetype.so:print/freetype2
-BUILD_DEPENDS=	openbox:x11-wm/openbox \
-	lxappearance:x11-themes/lxappearance
-RUN_DEPENDS=	${BUILD_DEPENDS}
+		libfontconfig.so:x11-fonts/fontconfig \
+		libfreetype.so:print/freetype2
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=	gettext-tools gmake gnome libtool pkgconfig tar:xz xorg
 GNU_CONFIGURE=	yes
@@ -26,5 +25,8 @@ USE_XORG=	ice sm x11 xft
 INSTALL_TARGET=	install-strip
 
 CONFIGURE_ARGS+=	--disable-static
+
+_BUILD_RUN_DEPENDS=	openbox:x11-wm/openbox \
+			lxappearance:x11-themes/lxappearance
 
 .include <bsd.port.mk>

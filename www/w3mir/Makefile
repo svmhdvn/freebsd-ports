@@ -10,13 +10,15 @@ WWW=		https://www.langfeldt.net/w3mir/
 
 LICENSE=	ART10
 
-BUILD_DEPENDS=	p5-libwww>=0:www/p5-libwww
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		perl5
 USE_PERL5=	configure
 
 INSTALL_TARGET=	pure_install
+
+_BUILD_RUN_DEPENDS=	p5-libwww>=0:www/p5-libwww
 
 post-install:
 	${INSTALL} -d -m 755 \

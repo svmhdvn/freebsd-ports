@@ -9,9 +9,8 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Simple but full-featured backup/restore perl scripts (uses gnu tar)
 WWW=		https://cdbkup.sourceforge.net/
 
-BUILD_DEPENDS=	${LOCALBASE}/sbin/eject:sysutils/eject \
-		cdrecord:sysutils/cdrtools
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 WRKSRC=		${WRKDIR}/${PORTNAME}
 
@@ -23,5 +22,8 @@ CONFIGURE_ENV+=	PATH=${PATH}:${LOCALBASE}/sbin
 PORTDOCS=	README TODO COMPLIANCE
 
 OPTIONS_DEFINE=	DOCS
+
+_BUILD_RUN_DEPENDS=	${LOCALBASE}/sbin/eject:sysutils/eject \
+			cdrecord:sysutils/cdrtools
 
 .include <bsd.port.mk>

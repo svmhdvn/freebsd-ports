@@ -10,18 +10,20 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Interactive shell used to administer ldap directories
 WWW=		http://reductivelabs.com/cgi-bin/ldapsh.cgi/wiki
 
-BUILD_DEPENDS=	p5-Term-ReadKey>=0:devel/p5-Term-ReadKey \
-		p5-Term-ReadLine-Perl>=0:devel/p5-Term-ReadLine-Perl \
-		p5-perl-ldap>=0:net/p5-perl-ldap \
-		p5-Date-Manip>=0:devel/p5-Date-Manip \
-		p5-ParseLex>=0:devel/p5-ParseLex
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 SUB_FILES=	pkg-message
 
 USES=		perl5 shebangfix
 USE_PERL5=	configure
 SHEBANG_FILES=	ldapsh
+
+_BUILD_RUN_DEPENDS=	p5-Term-ReadKey>=0:devel/p5-Term-ReadKey \
+			p5-Term-ReadLine-Perl>=0:devel/p5-Term-ReadLine-Perl \
+			p5-perl-ldap>=0:net/p5-perl-ldap \
+			p5-Date-Manip>=0:devel/p5-Date-Manip \
+			p5-ParseLex>=0:devel/p5-ParseLex
 
 post-install:
 	${MKDIR} ${STAGEDIR}${DOCSDIR} ${STAGEDIR}${EXAMPLESDIR}

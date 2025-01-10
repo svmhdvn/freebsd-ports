@@ -11,16 +11,17 @@ WWW=		https://github.com/job/aggregate6
 
 LICENSE=	BSD2CLAUSE
 
-BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}radix>=0.10.0:net/py-radix@${PY_FLAVOR}
-RUN_DEPENDS:=	${BUILD_DEPENDS}
-TEST_DEPENDS=	\
-		${PYTHON_PKGNAMEPREFIX}mock>0:devel/py-mock@${PY_FLAVOR} \
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
+TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}mock>0:devel/py-mock@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}nose>0:devel/py-nose@${PY_FLAVOR}
 
 USES=		python
 USE_PYTHON=	autoplist concurrent distutils
 
 NO_ARCH=	yes
+
+_BUILD_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}radix>=0.10.0:net/py-radix@${PY_FLAVOR}
 
 do-test:
 	@(cd ${WRKSRC} && ${SETENV} ${PYTHON_CMD} ${PYSETUP} nosetests --with-coverage)

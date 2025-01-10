@@ -7,8 +7,8 @@ MAINTAINER=	ismail@EnderUNIX.org
 COMMENT=	EPS (Email Parsing System) sample tools
 WWW=		https://www.inter7.com/index.php?page=eps
 
-BUILD_DEPENDS=	${LOCALBASE}/lib/libeps.a:mail/eps
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 PORTDOCS=	README
 
@@ -20,6 +20,8 @@ INSTALL_FILES=	address b64decode b64encode body fold full headers qpdecode \
 		rewrite
 
 OPTIONS_DEFINE=	DOCS EXAMPLES
+
+_BUILD_RUN_DEPENDS=	${LOCALBASE}/lib/libeps.a:mail/eps
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|^CC =|CC \?=|' \

@@ -8,33 +8,8 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Monitor activity on a CVS Repository
 WWW=		https://sourceforge.net/projects/cvsmonitor/
 
-BUILD_DEPENDS=	p5-Time-Duration>=0:devel/p5-Time-Duration \
-		p5-Class-Autouse>=0:devel/p5-Class-Autouse \
-		p5-Class-Default>=0:devel/p5-Class-Default \
-		p5-Class-Inspector>=0:devel/p5-Class-Inspector \
-		p5-Class-Handle>=0:devel/p5-Class-Handle \
-		p5-Sort-Versions>=0:devel/p5-Sort-Versions \
-		p5-Proc-ProcessTable>=0:devel/p5-Proc-ProcessTable \
-		p5-Net-Telnet>=0:net/p5-Net-Telnet \
-		p5-HTTP-BrowserDetect>=0:www/p5-HTTP-BrowserDetect \
-		p5-Validate-Net>=0:net/p5-Validate-Net \
-		p5-Chart-Math-Axis>=0:math/p5-Chart-Math-Axis \
-		p5-File-NCopy>=0:devel/p5-File-NCopy \
-		p5-File-Remove>=0:devel/p5-File-Remove \
-		p5-File-Flat>=0:devel/p5-File-Flat \
-		p5-File-Find-Rule>=0:devel/p5-File-Find-Rule \
-		p5-File-Which>=0:sysutils/p5-File-Which \
-		p5-TimeDate>=0:devel/p5-TimeDate \
-		p5-Time-modules>=0:devel/p5-Time-modules \
-		p5-URI>=0:net/p5-URI \
-		p5-Clone>=0:devel/p5-Clone \
-		p5-Config-Tiny>=0:devel/p5-Config-Tiny \
-		p5-Array-Window>=0:devel/p5-Array-Window \
-		p5-Number-Compare>=0:math/p5-Number-Compare \
-		p5-Text-Glob>=0:textproc/p5-Text-Glob \
-		p5-XML-Generator>=0:textproc/p5-XML-Generator \
-		p5-GD-Graph>=0:graphics/p5-GD-Graph
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 WRKSRC=		${WRKDIR}/${PORTNAME}
 
@@ -65,6 +40,33 @@ FILES_SCRIPT=	cvsexec.pl cvsmonitor.pl setup.pl
 FILES_DATA=	README setup.conf
 
 CVSMONITOR_ROOT=	${PREFIX}/${CGIDIR}/cvsmonitor
+
+_BUILD_RUN_DEPENDS=	p5-Time-Duration>=0:devel/p5-Time-Duration \
+			p5-Class-Autouse>=0:devel/p5-Class-Autouse \
+			p5-Class-Default>=0:devel/p5-Class-Default \
+			p5-Class-Inspector>=0:devel/p5-Class-Inspector \
+			p5-Class-Handle>=0:devel/p5-Class-Handle \
+			p5-Sort-Versions>=0:devel/p5-Sort-Versions \
+			p5-Proc-ProcessTable>=0:devel/p5-Proc-ProcessTable \
+			p5-Net-Telnet>=0:net/p5-Net-Telnet \
+			p5-HTTP-BrowserDetect>=0:www/p5-HTTP-BrowserDetect \
+			p5-Validate-Net>=0:net/p5-Validate-Net \
+			p5-Chart-Math-Axis>=0:math/p5-Chart-Math-Axis \
+			p5-File-NCopy>=0:devel/p5-File-NCopy \
+			p5-File-Remove>=0:devel/p5-File-Remove \
+			p5-File-Flat>=0:devel/p5-File-Flat \
+			p5-File-Find-Rule>=0:devel/p5-File-Find-Rule \
+			p5-File-Which>=0:sysutils/p5-File-Which \
+			p5-TimeDate>=0:devel/p5-TimeDate \
+			p5-Time-modules>=0:devel/p5-Time-modules \
+			p5-URI>=0:net/p5-URI \
+			p5-Clone>=0:devel/p5-Clone \
+			p5-Config-Tiny>=0:devel/p5-Config-Tiny \
+			p5-Array-Window>=0:devel/p5-Array-Window \
+			p5-Number-Compare>=0:math/p5-Number-Compare \
+			p5-Text-Glob>=0:textproc/p5-Text-Glob \
+			p5-XML-Generator>=0:textproc/p5-XML-Generator \
+			p5-GD-Graph>=0:graphics/p5-GD-Graph
 
 post-patch:
 	@${PERL} -pi -e '$$_=q{	my $$solaris=1;} if $$.==270' \

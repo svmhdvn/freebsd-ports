@@ -11,10 +11,9 @@ WWW=		https://libosinfo.org/
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
 LIB_DEPENDS=	libsoup-2.4.so:devel/libsoup
-BUILD_DEPENDS=	${LOCALBASE}/share/pciids/pci.ids:misc/pciids \
-		${LOCALBASE}/share/usbids/usb.ids:misc/usbids
-RUN_DEPENDS=	${BUILD_DEPENDS} \
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS} \
 		osinfo-db-import:sysutils/osinfo-db-tools \
 		${LOCALBASE}/share/osinfo/VERSION:misc/osinfo-db
 
@@ -37,5 +36,8 @@ OPTIONS_SUB=	yes
 
 GTKDOC_BUILD_DEPENDS=	gtkdoc-scan:textproc/gtk-doc
 GTKDOC_MESON_TRUE=	enable-gtk-doc
+
+_BUILD_RUN_DEPENDS=	${LOCALBASE}/share/pciids/pci.ids:misc/pciids \
+			${LOCALBASE}/share/usbids/usb.ids:misc/usbids
 
 .include <bsd.port.mk>

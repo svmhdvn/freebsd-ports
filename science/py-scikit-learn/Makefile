@@ -12,16 +12,18 @@ WWW=		https://scikit-learn.org/
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}joblib>0:devel/py-joblib@${PY_FLAVOR} \
-		${PYNUMPY} \
-		${PYTHON_PKGNAMEPREFIX}scipy>=1.3.2:science/py-scipy@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}threadpoolctl>=0:devel/py-threadpoolctl@${PY_FLAVOR}
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		fortran python localbase
 USE_PYTHON=	distutils autoplist cython
 
 POST_PLIST=	fix-plist
+
+_BUILD_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}joblib>0:devel/py-joblib@${PY_FLAVOR} \
+			${PYNUMPY} \
+			${PYTHON_PKGNAMEPREFIX}scipy>=1.3.2:science/py-scipy@${PY_FLAVOR} \
+			${PYTHON_PKGNAMEPREFIX}threadpoolctl>=0:devel/py-threadpoolctl@${PY_FLAVOR}
 
 fix-plist: # https://github.com/scikit-learn/scikit-learn/issues/12681
 	@${REINPLACE_CMD} -e "s|lib/python.*/sklearn/datasets/tests/data/openml$$||" ${TMPPLIST}

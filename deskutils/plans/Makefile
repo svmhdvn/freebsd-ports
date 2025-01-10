@@ -25,8 +25,8 @@ WWW=		http://www.planscalendar.com/
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=	p5-CGI-Session>=0:www/p5-CGI-Session
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		perl5 shebangfix zip
 USE_PERL5=	run
@@ -41,6 +41,8 @@ SHAREMODE=	644
 WRKSRC=		${WRKDIR}/${PORTNAME}_${PORTVERSION}
 
 SUB_FILES=	pkg-message
+
+_BUILD_RUN_DEPENDS=	p5-CGI-Session>=0:www/p5-CGI-Session
 
 post-extract:
 	@${CP} ${_DISTDIR}/powerani.gif ${WRKSRC}/theme/graphics/freebsd.gif

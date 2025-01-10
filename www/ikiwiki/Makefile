@@ -12,20 +12,8 @@ WWW=		https://ikiwiki.info/
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=	p5-CGI-FormBuilder>=0:www/p5-CGI-FormBuilder \
-		p5-CGI-Session>=0:www/p5-CGI-Session \
-		p5-HTML-Parser>=0:www/p5-HTML-Parser \
-		p5-HTML-Scrubber>=0:www/p5-HTML-Scrubber \
-		p5-HTML-Template>=0:www/p5-HTML-Template \
-		p5-Locale-gettext>=0:devel/p5-Locale-gettext \
-		p5-Mail-Sendmail>=0:mail/p5-Mail-Sendmail \
-		p5-Text-Markdown>=0:textproc/p5-Text-Markdown \
-		p5-TimeDate>=0:devel/p5-TimeDate \
-		p5-URI>=0:net/p5-URI \
-		p5-XML-Simple>=0:textproc/p5-XML-Simple \
-		p5-YAML-LibYAML>=0:textproc/p5-YAML-LibYAML \
-		p5-YAML>=0:textproc/p5-YAML
-RUN_DEPENDS:=	${BUILD_DEPENDS} \
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS} \
 		p5-Authen-Passphrase>=0:security/p5-Authen-Passphrase \
 		p5-File-MimeInfo>=0:devel/p5-File-MimeInfo \
 		p5-LWPx-ParanoidAgent>=0:www/p5-LWPx-ParanoidAgent \
@@ -63,6 +51,20 @@ PO4A_RUN_DEPENDS=	po4a>=0.39:textproc/po4a
 SEARCH_RUN_DEPENDS=	${LOCALBASE}/www/xapian-omega/cgi-bin/omega:www/xapian-omega \
 			p5-Digest-SHA1>=0:security/p5-Digest-SHA1 \
 			p5-Search-Xapian>=0:databases/p5-Search-Xapian
+
+_BUILD_RUN_DEPENDS=	p5-CGI-FormBuilder>=0:www/p5-CGI-FormBuilder \
+			p5-CGI-Session>=0:www/p5-CGI-Session \
+			p5-HTML-Parser>=0:www/p5-HTML-Parser \
+			p5-HTML-Scrubber>=0:www/p5-HTML-Scrubber \
+			p5-HTML-Template>=0:www/p5-HTML-Template \
+			p5-Locale-gettext>=0:devel/p5-Locale-gettext \
+			p5-Mail-Sendmail>=0:mail/p5-Mail-Sendmail \
+			p5-Text-Markdown>=0:textproc/p5-Text-Markdown \
+			p5-TimeDate>=0:devel/p5-TimeDate \
+			p5-URI>=0:net/p5-URI \
+			p5-XML-Simple>=0:textproc/p5-XML-Simple \
+			p5-YAML-LibYAML>=0:textproc/p5-YAML-LibYAML \
+			p5-YAML>=0:textproc/p5-YAML
 
 post-patch:
 	@${REINPLACE_CMD} -i '' \

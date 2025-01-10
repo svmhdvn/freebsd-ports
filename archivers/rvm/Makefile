@@ -12,8 +12,8 @@ WWW=		https://rvm.sourceforge.net/
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=	rsync:net/rsync
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
 
@@ -25,5 +25,7 @@ CONFIGURE_ARGS=	--with-default-config-file=${PREFIX}/etc/rvm.conf \
 MAKE_ARGS=	CXXFLAGS="${CXXFLAGS}"
 
 PLIST_FILES=	bin/rvm share/man/man1/rvm.1.gz
+
+_BUILD_RUN_DEPENDS=	rsync:net/rsync
 
 .include <bsd.port.mk>

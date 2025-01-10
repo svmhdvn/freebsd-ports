@@ -11,18 +11,8 @@ WWW=		http://torrus.org
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	rrdtool>=0:databases/rrdtool \
-		p5-XML-LibXML>=0:textproc/p5-XML-LibXML \
-		p5-BerkeleyDB>=0:databases/p5-BerkeleyDB \
-		p5-Template-Toolkit>=0:www/p5-Template-Toolkit \
-		p5-Proc-Daemon>=0:devel/p5-Proc-Daemon \
-		p5-Net-SNMP>=0:net-mgmt/p5-Net-SNMP \
-		p5-URI>=0:net/p5-URI \
-		p5-TimeDate>=0:devel/p5-TimeDate \
-		p5-Apache-Session>=0:www/p5-Apache-Session \
-		p5-FCGI>=0:www/p5-FCGI \
-		p5-JSON>0:converters/p5-JSON
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USE_GNOME=	libxml2
 USES=		gnome perl5
@@ -47,6 +37,18 @@ CONFIGURE_ARGS=	--prefix=${PREFIX} \
 		perllibdir=${PREFIX}/${SITE_PERL_REL} \
 		scriptsdir=${PREFIX}/libexec/torrus/scripts \
 		--enable-pkgonly
+
+_BUILD_RUN_DEPENDS=	rrdtool>=0:databases/rrdtool \
+			p5-XML-LibXML>=0:textproc/p5-XML-LibXML \
+			p5-BerkeleyDB>=0:databases/p5-BerkeleyDB \
+			p5-Template-Toolkit>=0:www/p5-Template-Toolkit \
+			p5-Proc-Daemon>=0:devel/p5-Proc-Daemon \
+			p5-Net-SNMP>=0:net-mgmt/p5-Net-SNMP \
+			p5-URI>=0:net/p5-URI \
+			p5-TimeDate>=0:devel/p5-TimeDate \
+			p5-Apache-Session>=0:www/p5-Apache-Session \
+			p5-FCGI>=0:www/p5-FCGI \
+			p5-JSON>0:converters/p5-JSON
 
 post-install:
 	@${MKDIR} ${STAGEDIR}/var/torrus/session_data/store

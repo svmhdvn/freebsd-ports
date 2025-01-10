@@ -11,15 +11,13 @@ WWW=		https://gitlab.com/compiz/compiz-plugins-extra
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
 LIB_DEPENDS=	libcairo.so:graphics/cairo \
 		libfontconfig.so:x11-fonts/fontconfig \
 		libfreetype.so:print/freetype2 \
 		libnotify.so:devel/libnotify \
 		libstartup-notification-1.so:x11/startup-notification
-BUILD_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/compiz.pc:x11-wm/compiz \
-		${LOCALBASE}/libdata/pkgconfig/bcop.pc:devel/compiz-bcop \
-		${LOCALBASE}/libdata/pkgconfig/compiz-text.pc:x11-wm/compiz-plugins-main
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		gettext-tools gmake gl gnome libtool:keepla localbase:ldflags \
 		pathfix pkgconfig tar:bzip2 xorg
@@ -36,6 +34,10 @@ INSTALL_TARGET=	install-strip
 OPTIONS_DEFINE=	NLS
 NLS_USES=	gettext-runtime
 NLS_CONFIGURE_ENABLE=	nls
+
+_BUILD_RUN_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/compiz.pc:x11-wm/compiz \
+			${LOCALBASE}/libdata/pkgconfig/bcop.pc:devel/compiz-bcop \
+			${LOCALBASE}/libdata/pkgconfig/compiz-text.pc:x11-wm/compiz-plugins-main
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|malloc.h|stdlib.h|'	\

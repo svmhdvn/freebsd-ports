@@ -12,10 +12,8 @@ WWW=		http://www.dragonlace.net
 LICENSE=	GPLv3 LGPL3
 LICENSE_COMB=	multi
 
-BUILD_DEPENDS=	${SYSROOT}>0:lang/${SYSROOT} \
-		${LOCALBASE}/lib/libgmp.so:math/gmp \
-		${LOCALBASE}/lib/libmpfr.so:math/mpfr
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		cpe gmake tar:bzip2
 CPE_VENDOR=	gnu
@@ -41,6 +39,10 @@ CONFIGURE_ARGS+=	--with-gmp=${LOCALBASE}
 CONFIGURE_ARGS+=	--with-mpfr=${LOCALBASE}
 CONFIGURE_ARGS+=	--disable-werror
 CONFIGURE_ARGS+=	--disable-nls
+
+_BUILD_RUN_DEPENDS=	${SYSROOT}>0:lang/${SYSROOT} \
+			${LOCALBASE}/lib/libgmp.so:math/gmp \
+			${LOCALBASE}/lib/libmpfr.so:math/mpfr
 
 post-install:
 #	Move the unwanted documentation out of the stage directory

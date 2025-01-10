@@ -10,8 +10,8 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Scilab 1-D and 2-D Wavelet Toolbox
 WWW=		https://atoms.scilab.org/toolboxes/swt
 
-BUILD_DEPENDS=	${SCILAB_CMD}:math/scilab
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		dos2unix zip
 USE_LOCALE=	en_US.UTF-8
@@ -34,6 +34,8 @@ OPTIONS_SUB=	yes
 HELP_DESC=	Build help files (requires scilab with gui support)
 
 WRKSRC=		${WRKDIR}/swt
+
+_BUILD_RUN_DEPENDS=	${SCILAB_CMD}:math/scilab
 
 .include <bsd.port.options.mk>
 

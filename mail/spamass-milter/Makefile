@@ -10,8 +10,8 @@ WWW=		https://savannah.nongnu.org/projects/spamass-milt/
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=	spamc:mail/spamassassin
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USE_RC_SUBR=	spamass-milter
 
@@ -26,6 +26,8 @@ OPTIONS_DEFINE=	LDAP MILTER_PORT DOCS
 MILTER_PORT_DESC=	Build against libmilter port
 
 LDAP_USES=	ldap localbase:ldflags
+
+_BUILD_RUN_DEPENDS=	spamc:mail/spamassassin
 
 .include <bsd.port.pre.mk>
 

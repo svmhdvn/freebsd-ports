@@ -9,9 +9,9 @@ WWW=		https://github.com/cboxdoerfer/ddb_spectrogram
 
 LICENSE=	GPLv2+
 
-BUILD_DEPENDS=	${LOCALBASE}/include/deadbeef/deadbeef.h:audio/deadbeef
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
 LIB_DEPENDS=	libfftw3.so:math/fftw3
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	cboxdoerfer
@@ -30,6 +30,8 @@ GTK${v}_USE=	GNOME=gtk${v}0
 GTK${v}_ALL_TARGET=	gtk${v}
 
 GTK${v}_PLIST_FILES=	lib/deadbeef/ddb_vis_spectrogram_GTK${v}.so
+
+_BUILD_RUN_DEPENDS=	${LOCALBASE}/include/deadbeef/deadbeef.h:audio/deadbeef
 
 do-install-GTK${v}-on:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/deadbeef

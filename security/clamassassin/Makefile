@@ -10,9 +10,8 @@ WWW=		http://drivel.com/clamassassin/
 
 LICENSE=	BSD3CLAUSE
 
-BUILD_DEPENDS=	sigtool:security/clamav \
-		formail:mail/procmail
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 PLIST_FILES=	bin/clamassassin
 
@@ -25,6 +24,9 @@ OPTIONS_DEFINE=	CLAMDSCAN SUBREWRITE
 OPTIONS_DEFAULT=	CLAMDSCAN
 CLAMDSCAN_DESC=		Scanning using clamd
 SUBREWRITE_DESC=	Mail subject rewriting
+
+_BUILD_RUN_DEPENDS=	sigtool:security/clamav \
+			formail:mail/procmail
 
 .include <bsd.port.options.mk>
 

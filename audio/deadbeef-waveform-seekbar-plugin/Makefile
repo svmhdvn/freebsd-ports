@@ -7,8 +7,8 @@ MAINTAINER=	danfe@FreeBSD.org
 COMMENT=	Waveform seekbar plugin for DeaDBeeF audio player
 WWW=		https://github.com/cboxdoerfer/ddb_waveform_seekbar
 
-BUILD_DEPENDS=	${LOCALBASE}/include/deadbeef/deadbeef.h:audio/deadbeef
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	cboxdoerfer
@@ -27,6 +27,8 @@ GTK${v}_USE=	GNOME=gtk${v}0
 
 GTK${v}_ALL_TARGET=	gtk${v}
 GTK${v}_PLIST_FILES=	lib/deadbeef/ddb_misc_waveform_GTK${v}.so
+
+_BUILD_RUN_DEPENDS=	${LOCALBASE}/include/deadbeef/deadbeef.h:audio/deadbeef
 
 do-install-GTK${v}-on:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/deadbeef

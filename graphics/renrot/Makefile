@@ -10,8 +10,8 @@ WWW=		https://puszcza.gnu.org.ua/projects/renrot/
 
 LICENSE=	ART20
 
-BUILD_DEPENDS=	p5-Image-ExifTool>=0:graphics/p5-Image-ExifTool
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		perl5 jpeg:run
 USE_PERL5=	configure
@@ -22,6 +22,8 @@ OPTIONS_DEFINE=	IMAGEMAGICK DOCS
 IMAGEMAGICK_DESC=	Image::Magick Perl module support
 
 IMAGEMAGICK_USES=	magick:6,run
+
+_BUILD_RUN_DEPENDS=	p5-Image-ExifTool>=0:graphics/p5-Image-ExifTool
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${ETCDIR}

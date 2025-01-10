@@ -11,8 +11,8 @@ WWW=		https://www.latex2html.org/
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BUILD_DEPENDS=	${LOCALBASE}/bin/anytopnm:graphics/netpbm
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 CONFLICTS=	ja-latex2html
 
@@ -29,6 +29,8 @@ TEXHASHDIRS=	${TEXMFDIR}
 PORTDOCS=	FAQ INSTALL README
 
 OPTIONS_DEFINE=	DOCS
+
+_BUILD_RUN_DEPENDS=	${LOCALBASE}/bin/anytopnm:graphics/netpbm
 
 post-install:
 	${INSTALL_MAN} ${WRKSRC}/latex2html.1 ${STAGEDIR}${PREFIX}/share/man/man1

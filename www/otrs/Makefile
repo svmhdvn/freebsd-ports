@@ -11,47 +11,8 @@ WWW=		https://www.otrs.com/
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	p5-Archive-Zip>=0:archivers/p5-Archive-Zip \
-		p5-DBI>=0:databases/p5-DBI \
-		p5-Crypt-Eksblowfish>=0:security/p5-Crypt-Eksblowfish \
-		p5-Crypt-PasswdMD5>=0:security/p5-Crypt-PasswdMD5 \
-		p5-MIME-Tools>=5.427:mail/p5-MIME-Tools \
-		p5-libwww>=0:www/p5-libwww \
-		p5-Net-DNS>=0.66:dns/p5-Net-DNS \
-		p5-CSS-Minifier-XS>=0:textproc/p5-CSS-Minifier-XS \
-		p5-JavaScript-Minifier-XS>=0:textproc/p5-JavaScript-Minifier-XS \
-		p5-DateTime>=0:devel/p5-DateTime \
-		p5-Sys-Hostname-Long>=0:sysutils/p5-Sys-Hostname-Long \
-		p5-Proc-Daemon>=0:devel/p5-Proc-Daemon \
-		p5-JSON-XS>=0:converters/p5-JSON-XS \
-		p5-Text-CSV_XS>=0:textproc/p5-Text-CSV_XS \
-		p5-IO-Interactive>=0:devel/p5-IO-Interactive \
-		p5-Email-Valid>=0:mail/p5-Email-Valid \
-		p5-JSON>=0:converters/p5-JSON \
-		p5-YAML>=0:textproc/p5-YAML \
-		p5-Date-Pcalc>=0:devel/p5-Date-Pcalc \
-		p5-Text-CSV>=0:textproc/p5-Text-CSV \
-		p5-Text-Diff>=0:textproc/p5-Text-Diff \
-		p5-XML-FeedPP>=0:textproc/p5-XML-FeedPP \
-		p5-YAML-LibYAML>=0:textproc/p5-YAML-LibYAML \
-		p5-JavaScript-Minifier>=0:textproc/p5-JavaScript-Minifier \
-		p5-CSS-Minifier>=0:textproc/p5-CSS-Minifier \
-		p5-SOAP-Lite>=0:net/p5-SOAP-Lite \
-		p5-Class-Inspector>=0:devel/p5-Class-Inspector \
-		p5-Mozilla-CA>=0:www/p5-Mozilla-CA \
-		p5-CGI>=0:www/p5-CGI \
-		p5-Lingua-Translit>=0:devel/p5-Lingua-Translit \
-		p5-Pod-Strip>=0:textproc/p5-Pod-Strip \
-		p5-Template-Toolkit>=0:www/p5-Template-Toolkit \
-		p5-Sisimai>=0:mail/p5-Sisimai \
-		p5-XML-Parser>=0:textproc/p5-XML-Parser \
-		p5-XML-LibXML>=0:textproc/p5-XML-LibXML \
-		p5-XML-LibXML-Simple>=0:textproc/p5-XML-LibXML-Simple \
-		p5-XML-LibXSLT>=0:textproc/p5-XML-LibXSLT \
-		p5-Locale-Codes>=0:misc/p5-Locale-Codes \
-		p5-Math-Random-Secure>=0:math/p5-Math-Random-Secure \
-		p5-Schedule-Cron-Events>=0:sysutils/p5-Schedule-Cron-Events
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		cpe shebangfix perl5 tar:bzip2
 
@@ -132,6 +93,47 @@ ISPELL_RUN_DEPENDS=	ispell:textproc/aspell-ispell
 ASPELL_RUN_DEPENDS=	aspell:textproc/aspell
 
 GNUPG_RUN_DEPENDS=	gpg:security/gnupg1
+
+_BUILD_RUN_DEPENDS=	p5-Archive-Zip>=0:archivers/p5-Archive-Zip \
+			p5-DBI>=0:databases/p5-DBI \
+			p5-Crypt-Eksblowfish>=0:security/p5-Crypt-Eksblowfish \
+			p5-Crypt-PasswdMD5>=0:security/p5-Crypt-PasswdMD5 \
+			p5-MIME-Tools>=5.427:mail/p5-MIME-Tools \
+			p5-libwww>=0:www/p5-libwww \
+			p5-Net-DNS>=0.66:dns/p5-Net-DNS \
+			p5-CSS-Minifier-XS>=0:textproc/p5-CSS-Minifier-XS \
+			p5-JavaScript-Minifier-XS>=0:textproc/p5-JavaScript-Minifier-XS \
+			p5-DateTime>=0:devel/p5-DateTime \
+			p5-Sys-Hostname-Long>=0:sysutils/p5-Sys-Hostname-Long \
+			p5-Proc-Daemon>=0:devel/p5-Proc-Daemon \
+			p5-JSON-XS>=0:converters/p5-JSON-XS \
+			p5-Text-CSV_XS>=0:textproc/p5-Text-CSV_XS \
+			p5-IO-Interactive>=0:devel/p5-IO-Interactive \
+			p5-Email-Valid>=0:mail/p5-Email-Valid \
+			p5-JSON>=0:converters/p5-JSON \
+			p5-YAML>=0:textproc/p5-YAML \
+			p5-Date-Pcalc>=0:devel/p5-Date-Pcalc \
+			p5-Text-CSV>=0:textproc/p5-Text-CSV \
+			p5-Text-Diff>=0:textproc/p5-Text-Diff \
+			p5-XML-FeedPP>=0:textproc/p5-XML-FeedPP \
+			p5-YAML-LibYAML>=0:textproc/p5-YAML-LibYAML \
+			p5-JavaScript-Minifier>=0:textproc/p5-JavaScript-Minifier \
+			p5-CSS-Minifier>=0:textproc/p5-CSS-Minifier \
+			p5-SOAP-Lite>=0:net/p5-SOAP-Lite \
+			p5-Class-Inspector>=0:devel/p5-Class-Inspector \
+			p5-Mozilla-CA>=0:www/p5-Mozilla-CA \
+			p5-CGI>=0:www/p5-CGI \
+			p5-Lingua-Translit>=0:devel/p5-Lingua-Translit \
+			p5-Pod-Strip>=0:textproc/p5-Pod-Strip \
+			p5-Template-Toolkit>=0:www/p5-Template-Toolkit \
+			p5-Sisimai>=0:mail/p5-Sisimai \
+			p5-XML-Parser>=0:textproc/p5-XML-Parser \
+			p5-XML-LibXML>=0:textproc/p5-XML-LibXML \
+			p5-XML-LibXML-Simple>=0:textproc/p5-XML-LibXML-Simple \
+			p5-XML-LibXSLT>=0:textproc/p5-XML-LibXSLT \
+			p5-Locale-Codes>=0:misc/p5-Locale-Codes \
+			p5-Math-Random-Secure>=0:math/p5-Math-Random-Secure \
+			p5-Schedule-Cron-Events>=0:sysutils/p5-Schedule-Cron-Events
 
 .include <bsd.port.pre.mk>
 

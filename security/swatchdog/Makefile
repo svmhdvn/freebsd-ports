@@ -10,16 +10,18 @@ WWW=		https://swatch.sourceforge.net/
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	p5-Date-Calc>=0:devel/p5-Date-Calc \
-		p5-Date-Manip>=0:devel/p5-Date-Manip \
-		p5-File-Tail>=0:devel/p5-File-Tail \
-		p5-TimeDate>=0:devel/p5-TimeDate
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		perl5
 USE_PERL5=	configure
 CONFIGURE_ARGS=	INSTALLMAN1DIR=${PREFIX}/man/man1
 USE_RC_SUBR=	${PORTNAME}
+
+_BUILD_RUN_DEPENDS=	p5-Date-Calc>=0:devel/p5-Date-Calc \
+			p5-Date-Manip>=0:devel/p5-Date-Manip \
+			p5-File-Tail>=0:devel/p5-File-Tail \
+			p5-TimeDate>=0:devel/p5-TimeDate
 
 post-patch:
 	${FIND} ${WRKSRC} -name "*.orig" -delete

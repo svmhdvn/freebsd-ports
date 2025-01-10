@@ -9,8 +9,8 @@ WWW=		https://github.com/rebar/rebar
 
 LICENSE=	APACHE20
 
-BUILD_DEPENDS=	${LOCALBASE}/bin/escript:lang/erlang
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 OPTIONS_DEFINE=	BASH ZSH EXAMPLES
 
@@ -22,6 +22,8 @@ PORTEXAMPLES=	rebar.config.sample
 
 BASH_PLIST_FILES=	share/bash-completion/completions/rebar
 ZSH_PLIST_FILES=	share/zsh/site-functions/_rebar
+
+_BUILD_RUN_DEPENDS=	${LOCALBASE}/bin/escript:lang/erlang
 
 .include <bsd.port.options.mk>
 

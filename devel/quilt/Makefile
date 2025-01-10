@@ -11,15 +11,8 @@ WWW=		https://savannah.nongnu.org/projects/quilt
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	bash:shells/bash \
-		gcp:sysutils/coreutils \
-		gsed:textproc/gsed \
-		gpatch:devel/patch \
-		gdiff:textproc/diffutils \
-		diffstat:textproc/diffstat \
-		gawk:lang/gawk \
-		${LOCALBASE}/bin/ggrep:textproc/gnugrep
-RUN_DEPENDS:=	${BUILD_DEPENDS} \
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS} \
 		formail:mail/procmail
 
 USES=		desthack gmake perl5
@@ -46,6 +39,15 @@ NLS_USES=		gettext
 NLS_CONFIGURE_ENABLE=	nls
 
 DOCS_EXTRA_PATCHES_OFF=	${PATCHDIR}/extra-patch-Makefile.in
+
+_BUILD_RUN_DEPENDS=	bash:shells/bash \
+			gcp:sysutils/coreutils \
+			gsed:textproc/gsed \
+			gpatch:devel/patch \
+			gdiff:textproc/diffutils \
+			diffstat:textproc/diffstat \
+			gawk:lang/gawk \
+			${LOCALBASE}/bin/ggrep:textproc/gnugrep
 
 .include <bsd.port.options.mk>
 

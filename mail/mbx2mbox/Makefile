@@ -8,10 +8,12 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	MS Outlook Express .mbx to mbox file converter
 WWW=		http://mbx2mbox.sourceforge.net/
 
-BUILD_DEPENDS=	p5-Date-Manip>=0:devel/p5-Date-Manip
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		perl5
 USE_PERL5=	configure
+
+_BUILD_RUN_DEPENDS=	p5-Date-Manip>=0:devel/p5-Date-Manip
 
 .include <bsd.port.mk>

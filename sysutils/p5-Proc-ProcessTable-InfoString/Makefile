@@ -8,14 +8,16 @@ MAINTAINER=	vvelox@vvelox.net
 COMMENT=	Creates a PS like stat string showing the flags/state/wchan
 WWW=		https://metacpan.org/release/Proc-ProcessTable-InfoString
 
-BUILD_DEPENDS=	p5-Proc-ProcessTable>=0.59:devel/p5-Proc-ProcessTable \
-		p5-Term-ANSIColor>0:devel/p5-Term-ANSIColor
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		perl5
 USE_PERL5=	configure
 
 PLIST_FILES=	${SITE_MAN3_REL}/Proc::ProcessTable::InfoString.3.gz \
 		${SITE_PERL_REL}/Proc/ProcessTable/InfoString.pm
+
+_BUILD_RUN_DEPENDS=	p5-Proc-ProcessTable>=0.59:devel/p5-Proc-ProcessTable \
+			p5-Term-ANSIColor>0:devel/p5-Term-ANSIColor
 
 .include <bsd.port.mk>

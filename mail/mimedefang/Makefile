@@ -11,13 +11,8 @@ WWW=		https://www.mimedefang.org/
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=	\
-	p5-IO-Stringy>=0:devel/p5-IO-Stringy \
-	p5-MIME-Tools>=5.417:mail/p5-MIME-Tools \
-	p5-Mail-Tools>=0:mail/p5-Mail-Tools \
-	p5-Digest-SHA1>=0:security/p5-Digest-SHA1 \
-	spamassassin>=3.0:mail/spamassassin
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		cpe perl5 shebangfix
 perl_OLD_CMD=	perl
@@ -53,6 +48,12 @@ CLAMAV_DESC=	Enable Clamav
 CLAMAV_BUILD_DEPENDS=		clamscan:security/clamav
 CLAMAV_RUN_DEPENDS=		clamscan:security/clamav
 CLAMAV_CONFIGURE_ENABLE=	antivirus clamav clamd
+
+_BUILD_RUN_DEPENDS=	p5-IO-Stringy>=0:devel/p5-IO-Stringy \
+			p5-MIME-Tools>=5.417:mail/p5-MIME-Tools \
+			p5-Mail-Tools>=0:mail/p5-Mail-Tools \
+			p5-Digest-SHA1>=0:security/p5-Digest-SHA1 \
+			spamassassin>=3.0:mail/spamassassin
 
 .include <bsd.port.options.mk>
 

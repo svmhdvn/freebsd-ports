@@ -15,23 +15,9 @@ WWW=		https://paperless.readthedocs.io
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}dateparser>=1.1.0:devel/py-dateparser@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}django-cors-headers>=2.4.0:www/py-django-cors-headers@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}django-crispy-forms>=1.7.2:www/py-django-crispy-forms@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}django-extensions>=2.1.6:www/py-django-extensions@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}django-filter>=2.0.0:www/py-django-filter@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}djangoql>=0.17.0:www/py-djangoql@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}djangorestframework>=3.9.0:www/py-djangorestframework@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}fuzzywuzzy>=0.15.1:devel/py-fuzzywuzzy@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}langdetect>=1.0.9:textproc/py-langdetect@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pdftotext>=2.1.1:textproc/py-pdftotext@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pyocr>=0.5.3:graphics/py-pyocr@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}python-dotenv>=0.10.1:www/py-python-dotenv@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}python-gnupg>=0.4.3:security/py-python-gnupg@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}python-magic>=0.4.10:devel/py-python-magic@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}sqlite3>0:databases/py-sqlite3@${PY_FLAVOR}
-RUN_DEPENDS:=	${BUILD_DEPENDS}
-RUN_DEPENDS+=	gpg2:security/gnupg \
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS} \
+		gpg2:security/gnupg \
 		optipng:graphics/optipng \
 		tesseract:graphics/tesseract \
 		unpaper:graphics/unpaper
@@ -78,6 +64,22 @@ IMAGICK7_NOX11_USES=		magick:7,run,nox11
 PORTDOCS=	*
 
 PAPERLESS_STATICDIR=	${WRKSRC}/static
+
+_BUILD_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}dateparser>=1.1.0:devel/py-dateparser@${PY_FLAVOR} \
+			${PYTHON_PKGNAMEPREFIX}django-cors-headers>=2.4.0:www/py-django-cors-headers@${PY_FLAVOR} \
+			${PYTHON_PKGNAMEPREFIX}django-crispy-forms>=1.7.2:www/py-django-crispy-forms@${PY_FLAVOR} \
+			${PYTHON_PKGNAMEPREFIX}django-extensions>=2.1.6:www/py-django-extensions@${PY_FLAVOR} \
+			${PYTHON_PKGNAMEPREFIX}django-filter>=2.0.0:www/py-django-filter@${PY_FLAVOR} \
+			${PYTHON_PKGNAMEPREFIX}djangoql>=0.17.0:www/py-djangoql@${PY_FLAVOR} \
+			${PYTHON_PKGNAMEPREFIX}djangorestframework>=3.9.0:www/py-djangorestframework@${PY_FLAVOR} \
+			${PYTHON_PKGNAMEPREFIX}fuzzywuzzy>=0.15.1:devel/py-fuzzywuzzy@${PY_FLAVOR} \
+			${PYTHON_PKGNAMEPREFIX}langdetect>=1.0.9:textproc/py-langdetect@${PY_FLAVOR} \
+			${PYTHON_PKGNAMEPREFIX}pdftotext>=2.1.1:textproc/py-pdftotext@${PY_FLAVOR} \
+			${PYTHON_PKGNAMEPREFIX}pyocr>=0.5.3:graphics/py-pyocr@${PY_FLAVOR} \
+			${PYTHON_PKGNAMEPREFIX}python-dotenv>=0.10.1:www/py-python-dotenv@${PY_FLAVOR} \
+			${PYTHON_PKGNAMEPREFIX}python-gnupg>=0.4.3:security/py-python-gnupg@${PY_FLAVOR} \
+			${PYTHON_PKGNAMEPREFIX}python-magic>=0.4.10:devel/py-python-magic@${PY_FLAVOR} \
+			${PYTHON_PKGNAMEPREFIX}sqlite3>0:databases/py-sqlite3@${PY_FLAVOR}
 
 do-build:
 	@${PYTHON_CMD} ${PYTHON_LIBDIR}/compileall.py \

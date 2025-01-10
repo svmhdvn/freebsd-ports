@@ -8,10 +8,8 @@ MAINTAINER=	ty@eye-of-odin.com
 COMMENT=	Double entry accounting system
 WWW=		https://www.ledgersmb.org/
 
-BUILD_DEPENDS=	p5-DBD-Pg>=0:databases/p5-DBD-Pg \
-		p5-MIME-Lite>=0:mail/p5-MIME-Lite \
-		p5-Config-Std>=0:devel/p5-Config-Std
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 WRKSRC=		${WRKDIR}/${PORTNAME}
 NO_BUILD=	yes
@@ -23,6 +21,10 @@ SHEBANG_FILES=	utils/devel/chart-load-test.sh \
 USE_PERL5=	run build patch
 PLIST_SUB=	WWWOWN="${WWWOWN}" WWWGRP="${WWWGRP}"
 SUB_FILES=	pkg-message
+
+_BUILD_RUN_DEPENDS=	p5-DBD-Pg>=0:databases/p5-DBD-Pg \
+			p5-MIME-Lite>=0:mail/p5-MIME-Lite \
+			p5-Config-Std>=0:devel/p5-Config-Std
 
 post-patch:
 	@${REINPLACE_CMD} -i '' -e 's|/usr/bin/perl|${perl_CMD}|' \

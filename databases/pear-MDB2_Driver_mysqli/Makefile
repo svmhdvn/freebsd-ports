@@ -8,11 +8,13 @@ WWW=		https://pear.php.net/package/MDB2_Driver_mysqli
 
 LICENSE=	BSD3CLAUSE
 
-BUILD_DEPENDS=	${PEAR_PKGNAMEPREFIX}MDB2>=0:databases/pear-MDB2@${PHP_FLAVOR}
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 NO_ARCH=	yes
 USES=		pear php
 USE_PHP=	mysqli
+
+_BUILD_RUN_DEPENDS=	${PEAR_PKGNAMEPREFIX}MDB2>=0:databases/pear-MDB2@${PHP_FLAVOR}
 
 .include <bsd.port.mk>

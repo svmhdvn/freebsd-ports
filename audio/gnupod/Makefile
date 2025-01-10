@@ -12,13 +12,8 @@ WWW=		https://www.gnu.org/software/gnupod/
 LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	p5-MP3-Info>=0:audio/p5-MP3-Info \
-		p5-XML-Parser>=0:textproc/p5-XML-Parser \
-		p5-TimeDate>=0:devel/p5-TimeDate \
-		p5-Unicode-String>=0:converters/p5-Unicode-String \
-		p5-libwww>=0:www/p5-libwww \
-		p5-Digest-SHA1>=0:security/p5-Digest-SHA1
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 INFO=		gnupod
 
@@ -39,6 +34,13 @@ VORBIS_BUILD_DEPENDS=	p5-Ogg-Vorbis-Header-PurePerl>=0:audio/p5-Ogg-Vorbis-Heade
 			oggdec:audio/vorbis-tools
 VORBIS_RUN_DEPENDS=	p5-Ogg-Vorbis-Header-PurePerl>=0:audio/p5-Ogg-Vorbis-Header-PurePerl \
 			oggdec:audio/vorbis-tools
+
+_BUILD_RUN_DEPENDS=	p5-MP3-Info>=0:audio/p5-MP3-Info \
+			p5-XML-Parser>=0:textproc/p5-XML-Parser \
+			p5-TimeDate>=0:devel/p5-TimeDate \
+			p5-Unicode-String>=0:converters/p5-Unicode-String \
+			p5-libwww>=0:www/p5-libwww \
+			p5-Digest-SHA1>=0:security/p5-Digest-SHA1
 
 post-install:
 	# It tries to guess where it should install it's Perl modules, gets it

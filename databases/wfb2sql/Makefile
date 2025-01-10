@@ -11,8 +11,8 @@ WWW=		http://wfb2sql.sf.net/
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	p5-Config-General>=0:devel/p5-Config-General
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		perl5 shebangfix
 SHEBANG_FILES=	wfb2sql
@@ -24,6 +24,8 @@ PORTDOCS=	wfb2sql.html
 PORTEXAMPLES=	wfb2sqlrc
 
 OPTIONS_DEFINE=	DOCS EXAMPLES
+
+_BUILD_RUN_DEPENDS=	p5-Config-General>=0:devel/p5-Config-General
 
 do-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/wfb2sql ${STAGEDIR}${PREFIX}/bin

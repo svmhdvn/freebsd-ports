@@ -10,8 +10,8 @@ WWW=		https://mapserver.org/tinyows/
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.md
 
-BUILD_DEPENDS=	shp2pgsql:databases/postgis33
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		autoreconf gnome pgsql
 USE_GNOME=	libxml2
@@ -23,6 +23,8 @@ OPTIONS_DEFAULT=FASTCGI
 
 FASTCGI_LIB_DEPENDS=	libfcgi.so:www/fcgi
 FASTCGI_CONFIGURE_WITH=	fastcgi=${LOCALBASE}
+
+_BUILD_RUN_DEPENDS=	shp2pgsql:databases/postgis33
 
 post-install:
 	${MKDIR} ${STAGEDIR}${WWWDIR}/cgi-bin/

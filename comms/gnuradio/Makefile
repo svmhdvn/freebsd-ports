@@ -9,30 +9,7 @@ WWW=		https://www.gnuradio.org/
 
 LICENSE=	GPLv3
 
-BUILD_DEPENDS=	${PYNUMPY} \
-		${PYTHON_PKGNAMEPREFIX}jsonschema>0:devel/py-jsonschema@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}lxml>0:devel/py-lxml@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pyqtgraph>0:graphics/py-pyqtgraph@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}sphinx>=1.2.2,1:textproc/py-sphinx@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pyyaml>0:devel/py-pyyaml@${PY_FLAVOR} \
-		${PYTHON_SITELIBDIR}/click/__init__.py:devel/py-click@${PY_FLAVOR} \
-		${PYTHON_SITELIBDIR}/click_plugins/__init__.py:devel/py-click-plugins@${PY_FLAVOR} \
-		${PYTHON_SITELIBDIR}/gi/__init__.py:devel/py-pygobject@${PY_FLAVOR} \
-		${PYTHON_SITELIBDIR}/mako/__init__.py:textproc/py-mako@${PY_FLAVOR} \
-		${PYTHON_SITELIBDIR}/pygccxml/__init__.py:textproc/py-pygccxml@${PY_FLAVOR} \
-		${PYTHON_SITELIBDIR}/pytest/__init__.py:devel/py-pytest@${PY_FLAVOR} \
-		${PYTHON_SITELIBDIR}/yaml/__init__.py:devel/py-pyyaml@${PY_FLAVOR} \
-		${SCIPY} \
-		aconnect:audio/alsa-utils \
-		cheetah:devel/py-cheetah3@${PY_FLAVOR} \
-		cppzmq>0:net/cppzmq \
-		minixmlto:textproc/minixmlto \
-		mpir>0:math/mpir \
-		pybind11>0:devel/pybind11 \
-		pygobject-common>0:devel/pygobject-common \
-		sdl-config:devel/sdl12 \
-		volk>0:devel/volk \
-		xdg-open:devel/xdg-utils
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
 LIB_DEPENDS=	libad9361.so:misc/libad9361-iio \
 		libasound.so:audio/alsa-lib \
 		libboost_system.so:devel/boost-libs \
@@ -51,7 +28,7 @@ LIB_DEPENDS=	libad9361.so:misc/libad9361-iio \
 		libunwind.so:devel/libunwind \
 		libqwt.so:x11-toolkits/qwt6@qt5 \
 		libzmq.so:net/libzmq4
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		cmake compiler:c++14-lang desktop-file-utils fortran gnome \
 		iconv localbase:ldflags pathfix perl5 pkgconfig pyqt:5 python \
@@ -109,6 +86,32 @@ UHD_CMAKE_OFF=	-DENABLE_GR_UHD:STRING="OFF"
 
 ICONDIR=	${PREFIX}/share/icons
 MIME=		${PREFIX}/share/mime/packages
+
+_BUILD_RUN_DEPENDS=	${PYNUMPY} \
+			${PYTHON_PKGNAMEPREFIX}jsonschema>0:devel/py-jsonschema@${PY_FLAVOR} \
+			${PYTHON_PKGNAMEPREFIX}lxml>0:devel/py-lxml@${PY_FLAVOR} \
+			${PYTHON_PKGNAMEPREFIX}pyqtgraph>0:graphics/py-pyqtgraph@${PY_FLAVOR} \
+			${PYTHON_PKGNAMEPREFIX}sphinx>=1.2.2,1:textproc/py-sphinx@${PY_FLAVOR} \
+			${PYTHON_PKGNAMEPREFIX}pyyaml>0:devel/py-pyyaml@${PY_FLAVOR} \
+			${PYTHON_SITELIBDIR}/click/__init__.py:devel/py-click@${PY_FLAVOR} \
+			${PYTHON_SITELIBDIR}/click_plugins/__init__.py:devel/py-click-plugins@${PY_FLAVOR} \
+			${PYTHON_SITELIBDIR}/gi/__init__.py:devel/py-pygobject@${PY_FLAVOR} \
+			${PYTHON_SITELIBDIR}/mako/__init__.py:textproc/py-mako@${PY_FLAVOR} \
+			${PYTHON_SITELIBDIR}/pygccxml/__init__.py:textproc/py-pygccxml@${PY_FLAVOR} \
+			${PYTHON_SITELIBDIR}/pytest/__init__.py:devel/py-pytest@${PY_FLAVOR} \
+			${PYTHON_SITELIBDIR}/yaml/__init__.py:devel/py-pyyaml@${PY_FLAVOR} \
+			${SCIPY} \
+			aconnect:audio/alsa-utils \
+			cheetah:devel/py-cheetah3@${PY_FLAVOR} \
+			cppzmq>0:net/cppzmq \
+			minixmlto:textproc/minixmlto \
+			mpir>0:math/mpir \
+			pybind11>0:devel/pybind11 \
+			pygobject-common>0:devel/pygobject-common \
+			sdl-config:devel/sdl12 \
+			volk>0:devel/volk \
+			xdg-open:devel/xdg-utils
+
 post-install:
 .for size in 16 24 32 48 64 128 256
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/mime/packages

@@ -11,45 +11,9 @@ WWW=		https://www.mailscanner.info
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=	\
-	p5-IO-Stringy>=0:devel/p5-IO-Stringy \
-	p5-DBI>=0:databases/p5-DBI \
-	p5-Mail-Tools>=0:mail/p5-Mail-Tools \
-	p5-HTML-Tagset>=0:www/p5-HTML-Tagset \
-	p5-HTML-Parser>=0:www/p5-HTML-Parser \
-	p5-MIME-Tools>=0:mail/p5-MIME-Tools \
-	p5-Convert-TNEF>=0:converters/p5-Convert-TNEF \
-	p5-Convert-BinHex>=0:converters/p5-Convert-BinHex \
-	p5-Net-CIDR>=0:net-mgmt/p5-Net-CIDR \
-	p5-Net-Ident>=0:net/p5-Net-Ident \
-	p5-Archive-Zip>=0:archivers/p5-Archive-Zip \
-	p5-DBD-SQLite>=0:databases/p5-DBD-SQLite \
-	p5-DBI>=0:databases/p5-DBI \
-	p5-TimeDate>=0:devel/p5-TimeDate \
-	p5-Filesys-Df>=0:sysutils/p5-Filesys-Df \
-	p5-Sys-Hostname-Long>=0:sysutils/p5-Sys-Hostname-Long \
-	p5-OLE-Storage_Lite>=0:devel/p5-OLE-Storage_Lite \
-	p5-Sys-SigAction>=0:devel/p5-Sys-SigAction \
-	p5-Inline>=0:devel/p5-Inline \
-	p5-Inline-C>=0:devel/p5-Inline-C \
-	p5-Mail-IMAPClient>=0:mail/p5-Mail-IMAPClient \
-	p5-Mail-SPF>=0:mail/p5-Mail-SPF \
-	p5-Net-CIDR-Lite>=0:net/p5-Net-CIDR-Lite \
-	p5-Net-DNS-Resolver-Programmable>=0:dns/p5-Net-DNS-Resolver-Programmable \
-	p5-Net-IP>=0:net-mgmt/p5-Net-IP \
-	p5-Parse-RecDescent>=0:devel/p5-Parse-RecDescent \
-	p5-Test-Manifest>=0:devel/p5-Test-Manifest \
-	p5-URI>=0:net/p5-URI \
-	p5-IO-String>=0:devel/p5-IO-String \
-	p5-Business-ISBN>=0:misc/p5-Business-ISBN \
-	p5-Business-ISBN-Data>=0:misc/p5-Business-ISBN-Data \
-	p5-Data-Dump>=0:devel/p5-Data-Dump \
-	p5-Digest-SHA1>=0:security/p5-Digest-SHA1 \
-	p5-File-ShareDir>=0:devel/p5-File-ShareDir \
-	p5-IP-Country>=0:net/p5-IP-Country \
-	curl:ftp/curl
 
-RUN_DEPENDS:=	${BUILD_DEPENDS} \
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS} \
 		bash:shells/bash \
 		tnef:converters/tnef \
 		wget:ftp/wget
@@ -74,6 +38,43 @@ SPAMASSASSIN_DESC=	Install SpamAssassin
 CLAMAV_DESC=		Install ClamAV
 
 OPTIONS_DEFAULT=	SPAMASSASSIN CLAMAV
+
+_BUILD_RUN_DEPENDS=	p5-IO-Stringy>=0:devel/p5-IO-Stringy \
+			p5-DBI>=0:databases/p5-DBI \
+			p5-Mail-Tools>=0:mail/p5-Mail-Tools \
+			p5-HTML-Tagset>=0:www/p5-HTML-Tagset \
+			p5-HTML-Parser>=0:www/p5-HTML-Parser \
+			p5-MIME-Tools>=0:mail/p5-MIME-Tools \
+			p5-Convert-TNEF>=0:converters/p5-Convert-TNEF \
+			p5-Convert-BinHex>=0:converters/p5-Convert-BinHex \
+			p5-Net-CIDR>=0:net-mgmt/p5-Net-CIDR \
+			p5-Net-Ident>=0:net/p5-Net-Ident \
+			p5-Archive-Zip>=0:archivers/p5-Archive-Zip \
+			p5-DBD-SQLite>=0:databases/p5-DBD-SQLite \
+			p5-DBI>=0:databases/p5-DBI \
+			p5-TimeDate>=0:devel/p5-TimeDate \
+			p5-Filesys-Df>=0:sysutils/p5-Filesys-Df \
+			p5-Sys-Hostname-Long>=0:sysutils/p5-Sys-Hostname-Long \
+			p5-OLE-Storage_Lite>=0:devel/p5-OLE-Storage_Lite \
+			p5-Sys-SigAction>=0:devel/p5-Sys-SigAction \
+			p5-Inline>=0:devel/p5-Inline \
+			p5-Inline-C>=0:devel/p5-Inline-C \
+			p5-Mail-IMAPClient>=0:mail/p5-Mail-IMAPClient \
+			p5-Mail-SPF>=0:mail/p5-Mail-SPF \
+			p5-Net-CIDR-Lite>=0:net/p5-Net-CIDR-Lite \
+			p5-Net-DNS-Resolver-Programmable>=0:dns/p5-Net-DNS-Resolver-Programmable \
+			p5-Net-IP>=0:net-mgmt/p5-Net-IP \
+			p5-Parse-RecDescent>=0:devel/p5-Parse-RecDescent \
+			p5-Test-Manifest>=0:devel/p5-Test-Manifest \
+			p5-URI>=0:net/p5-URI \
+			p5-IO-String>=0:devel/p5-IO-String \
+			p5-Business-ISBN>=0:misc/p5-Business-ISBN \
+			p5-Business-ISBN-Data>=0:misc/p5-Business-ISBN-Data \
+			p5-Data-Dump>=0:devel/p5-Data-Dump \
+			p5-Digest-SHA1>=0:security/p5-Digest-SHA1 \
+			p5-File-ShareDir>=0:devel/p5-File-ShareDir \
+			p5-IP-Country>=0:net/p5-IP-Country \
+			curl:ftp/curl
 
 .include <bsd.port.options.mk>
 

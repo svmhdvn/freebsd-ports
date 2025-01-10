@@ -12,12 +12,14 @@ WWW=		https://www.perforce.com/manuals/p4python/Content/P4Python/Home-p4python.h
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
-BUILD_DEPENDS+=	${LOCALBASE}/lib/perforce/libclient.a:devel/p4api
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		dos2unix python ssl
 USE_PYTHON=	distutils autoplist
 PYDISTUTILS_BUILDARGS=	--ssl ${OPENSSLLIB}
+
+_BUILD_RUN_DEPENDS=	${LOCALBASE}/lib/perforce/libclient.a:devel/p4api
 
 post-patch:
 	@${REINPLACE_CMD} -e 's:%%LOCALBASE%%:${LOCALBASE}:' ${WRKSRC}/setup.py

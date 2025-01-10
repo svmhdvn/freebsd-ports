@@ -11,10 +11,9 @@ WWW=		https://ygrek.org/p/ocurl/
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	ocamlc:lang/ocaml \
-		ocamlfind:devel/ocaml-findlib
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
 LIB_DEPENDS=	libcurl.so:ftp/curl
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		gmake ocaml:camlp4,findlib,ldconfig
 
@@ -32,6 +31,9 @@ OPTIONS_SUB=		yes
 LWT_DESC=		Include threading support (ocaml-lwt)
 LWT_RUN_DEPENDS=	${LOCALBASE}/${OCAML_SITELIBDIR}/lwt/lwt.a:devel/ocaml-lwt
 LWT_BUILD_DEPENDS=	${LWT_RUN_DEPENDS}
+
+_BUILD_RUN_DEPENDS=	ocamlc:lang/ocaml \
+			ocamlfind:devel/ocaml-findlib
 
 post-install-LWT-on:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${OCAML_SITELIBDIR}/curl/curl_lwt.cmxs

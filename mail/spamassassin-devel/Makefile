@@ -15,12 +15,8 @@ SA_COMMIT_DATE=	2025.03.26
 
 LICENSE=	APACHE20
 
-BUILD_DEPENDS=	p5-Encode-Detect>=0:converters/p5-Encode-Detect \
-		p5-HTML-Parser>=3.46:www/p5-HTML-Parser \
-		p5-HTTP-Date>=0:www/p5-HTTP-Date \
-		p5-Net-DNS>=0.63:dns/p5-Net-DNS \
-		p5-NetAddr-IP>=4.010:net-mgmt/p5-NetAddr-IP
-RUN_DEPENDS:=	${BUILD_DEPENDS} \
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS} \
 		p5-Net-CIDR-Lite>=0:net/p5-Net-CIDR-Lite \
 		p5-Net-IDN-Encode>=0:textproc/p5-Net-IDN-Encode \
 		p5-Net-LibIDN>=0:dns/p5-Net-LibIDN \
@@ -158,6 +154,12 @@ PORTDOCS=	${DOCS} sql ldap
 USE_RC_SUBR=	sa-spamd
 
 ALL_TARGET=	all spamc/libspamc.so
+
+_BUILD_RUN_DEPENDS=	p5-Encode-Detect>=0:converters/p5-Encode-Detect \
+			p5-HTML-Parser>=3.46:www/p5-HTML-Parser \
+			p5-HTTP-Date>=0:www/p5-HTTP-Date \
+			p5-Net-DNS>=0.63:dns/p5-Net-DNS \
+			p5-NetAddr-IP>=4.010:net-mgmt/p5-NetAddr-IP
 
 .include <bsd.port.pre.mk>
 

@@ -8,8 +8,8 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	SCIM IMEngine module like SKK
 WWW=		https://sourceforge.jp/projects/scim-imengine/
 
-BUILD_DEPENDS=	scim:textproc/scim
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		gmake iconv libtool pkgconfig
 GNU_CONFIGURE=	yes
@@ -18,6 +18,8 @@ INSTALL_TARGET=	install-strip
 
 CPPFLAGS+=	-I${LOCALBASE}/include -D__STDC_ISO_10646__
 LDFLAGS+=	-L${LOCALBASE}/lib
+
+_BUILD_RUN_DEPENDS=	scim:textproc/scim
 
 post-patch:
 	@${REINPLACE_CMD} "s|%%LOCALBASE%%|${LOCALBASE}|" ${WRKSRC}/src/scim_skk_prefs.h

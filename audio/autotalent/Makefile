@@ -12,8 +12,8 @@ WWW=		http://tombaran.info/autotalent.html
 LICENSE=	BSD3CLAUSE GPLv2
 LICENSE_COMB=	multi
 
-BUILD_DEPENDS=	${LOCALBASE}/include/ladspa.h:audio/ladspa
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		gmake
 
@@ -23,6 +23,8 @@ MAKE_ARGS=	CXX="${CXX}" CC="${CC}" CPP="${CPP}" \
 ALL_TARGET=	targets
 
 PLIST_FILES=	lib/ladspa/autotalent.so
+
+_BUILD_RUN_DEPENDS=	${LOCALBASE}/include/ladspa.h:audio/ladspa
 
 post-patch:
 	@${FIND} ${BUILD_WRKSRC} -name '*.cpp' | ${XARGS} \

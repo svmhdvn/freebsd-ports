@@ -11,8 +11,8 @@ WWW=		https://github.com/scim-im/scim
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	scim>=1.2.0:textproc/scim
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${_BUILD_RUN_DEPENDS}
+RUN_DEPENDS=	${_BUILD_RUN_DEPENDS}
 
 USES=		gmake iconv libtool:keepla localbase:ldflags pathfix pkgconfig
 USE_CXXSTD=	c++14
@@ -30,5 +30,7 @@ OPTIONS_SUB=	yes
 
 NLS_USES=	gettext
 NLS_CONFIGURE_ENABLE=	nls
+
+_BUILD_RUN_DEPENDS=	scim>=1.2.0:textproc/scim
 
 .include <bsd.port.mk>
