@@ -1,0 +1,1 @@
+This filter adds a DKIM signature to emails going through OpenSMTPd.
