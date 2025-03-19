@@ -1,0 +1,54 @@
+#!/bin/sh
+
+set -eu
+
+org_domain="$(hostname -d)"
+
+# TODO move everything to CDB
+chroot "${PKG_ROOTDIR}" sh <<EOF
+postmap /usr/local/etc/postfix/mlmmj_aliases
+postmap /usr/local/etc/postfix/mlmmj_transport
+postalias cdb:/etc/mail/aliases
+postfix set-permissions
+
+chown -R mlmmj:mlmmj /var/spool/mlmmj
+
+/usr/local/cyrus/sbin/mkimap
+
+chown -R cyrus:mail \
+    /etc/krb5.keytab \
+    /var/db/cyrusimap \
+    /var/spool/cyrusimap \
+    /var/run/cyrusimap \
+    /usr/local/etc/ssl/certs/mail.${org_domain}.crt.pem \
+    /usr/local/etc/ssl/certs/mail.${org_domain}.key.pem
+
+install -d -o redis -g redis \
+    /var/log/redis \
+    /var/db/redis \
+    /var/run/redis
+
+install -d -o redis -g rspamd -m 0775 /var/run/redis-rspamd
+chown -R rspamd:rspamd /var/db/opendkim
+
+EOF
+
+for s in smtp imap HTTP; do
+    cat > "${PKG_ROOTDIR}/etc/pam.d/${s}" <<EOF
+auth required pam_krb5.so no_user_check
+account sufficient pam_permit.so
+EOF
+done
+
+echo "key1._domainkey.${org_domain} ${org_domain}:key1:/var/db/opendkim/keys/key1.private" \
+    > "${PKG_ROOTDIR}/empt/jails/mail/var/db/opendkim/dkim.keytable"
+echo "*@${org_domain} key1._domainkey.${org_domain}" \
+    > "${PKG_ROOTDIR}/empt/jails/mail/var/db/opendkim/dkim.signingtable"
+
+sysrc -R "${PKG_ROOTDIR}" \
+    saslauthd_enable=YES \
+    postfix_enable=YES \
+    imapd_enable=YES \
+    rspamd_enable=YES \
+    redis_enable=YES \
+    redis_profiles="rspamd-bayes rspamd-other"
