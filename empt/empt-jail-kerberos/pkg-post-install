@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -eu
+
+# Fill out the krb5.conf template
+realm="$(hostname -d | tr 'a-z' 'A-Z')"
+sed -i '' -e "s,%%REALM%%,${realm},g" "${PKG_ROOTDIR}/etc/krb5.conf"
+
+# Initialize the realm
+chroot "${PKG_ROOTDIR}" kstash --random-key
+chroot "${PKG_ROOTDIR}" kadmin -l init \
+    --realm-max-renewable-life=1w \
+    --realm-max-ticket-life=1w \
+    "${realm}"

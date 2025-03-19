@@ -941,6 +941,9 @@ tarantool:*:996:
 bareos:*:997:
 _rmilter:*:998:
 ebnetd:*:999:
+# EMPT reserved GIDs
+empthelper:*:2001:
+mlmmj:*:2002:
 # DO NOT USE: 1000-65532
 nogroup:*:65533:
 nobody:*:65534:

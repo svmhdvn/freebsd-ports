@@ -1,0 +1,7 @@
+#!/bin/sh
+
+set -eu
+
+cp -f "${PKG_ROOTDIR}/var/backups/sysctl.conf.bak" "${PKG_ROOTDIR}/etc/sysctl.conf"
+cp -f "${PKG_ROOTDIR}/var/backups/loader.conf.bak" "${PKG_ROOTDIR}/boot/loader.conf"
+cp -f "${PKG_ROOTDIR}/var/backups/rc.conf.bak"     "${PKG_ROOTDIR}/etc/rc.conf"
