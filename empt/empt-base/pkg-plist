@@ -1,0 +1,10 @@
+/etc/jail.conf
+/etc/periodic.conf.local
+etc/cron.d/empt-periodic
+etc/dhcpcd.conf
+etc/empt.d/ipfw/00-common.nat.conf
+etc/empt.d/ipfw/ipfw.rules
+etc/empt.d/newsyslog.conf
+etc/empt.d/sshd_config
+etc/empt.d/syslog.conf
+etc/tmux/tmux.conf

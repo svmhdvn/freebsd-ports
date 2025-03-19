@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -eu
+
+# TODO do this in empt.sh
+# ====================================================
+empt_root="${PKG_ROOTDIR}${PREFIX}/empt"
+zfs create -p -o mountpoint="${empt_root}" zroot/empt
+zfs create -p zroot/empt/synced
+zfs create -p \
+    -o exec=off \
+    -o setuid=off \
+    -o compression=zstd \
+    zroot/empt/synced/rw
+
+mkdir -p \
+    "${empt_root}/jails" \
+    "${empt_root}/synced/rw/fstab.d" \
+    "${empt_root}/synced/rw/groups" \
+    "${empt_root}/synced/rw/humans" \
+    "${empt_root}/synced/rw/logs"
+# ====================================================
