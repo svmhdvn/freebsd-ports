@@ -1,0 +1,26 @@
+#!/bin/sh
+
+set -eu
+
+# TODO programmatically query
+public_interface=re0
+
+ipfw -f flush
+
+# TODO do we need this?
+ipfw disable one_pass
+
+cat /usr/local/etc/empt.d/ipfw/*.nat.conf | xargs ipfw nat 1 config if "${public_interface}"
+
+ipfw add 005 allow ipv6 from any to any               # allow all IPv6 traffic
+ipfw add 010 allow all from any to any via lo0        # exclude loopback traffic
+
+# TODO do we need this?
+ipfw add 099 reass all from any to any in             # reassemble inbound packets
+
+ipfw add 100 nat 1 all from any to any via "${public_interface}"   # NAT any packets on the public interface
+
+ipfw add 999 allow all from any to any
+
+# NOTE enable logging if needed and also set firewall_logging=YES in rc.conf
+#ipfw add 999 deny log all from any to any
