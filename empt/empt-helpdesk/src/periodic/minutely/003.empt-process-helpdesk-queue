@@ -1,0 +1,15 @@
+#!/bin/sh
+
+process_helpdesk_queue() {
+    fdm -q fetch || exit 3
+}
+
+if test -r /etc/defaults/periodic.conf; then
+    . /etc/defaults/periodic.conf
+    source_periodic_confs
+fi
+
+case "${minutely_empt_process_helpdesk_queue_enable:-NO}" in
+    [Yy][Ee][Ss]) process_helpdesk_queue ;;
+    *) ;;
+esac

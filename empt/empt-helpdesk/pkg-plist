@@ -1,0 +1,3 @@
+@(empthelper,empthelper,0600) etc/fdm.conf
+libexec/empt/helpdesk
+etc/periodic/minutely/003.empt-process-helpdesk-queue

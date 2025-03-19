@@ -1,0 +1,18 @@
+#!/bin/sh
+
+set -eu
+
+mlmmj_maintd() {
+    jexec -l -U mlmmj mail \
+        /usr/local/bin/mlmmj-maintd -F -d /var/spool/mlmmj || exit 3
+}
+
+if test -r /etc/defaults/periodic.conf; then
+    . /etc/defaults/periodic.conf
+    source_periodic_confs
+fi
+
+case "${minutely_empt_mlmmj_maintd_enable:-NO}" in
+    [Yy][Ee][Ss]) mlmmj_maintd ;;
+    *) ;;
+esac

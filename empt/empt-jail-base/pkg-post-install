@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -eu
+
+# fill in the krb5.conf template
+realm="$(hostname -d | tr 'a-z' 'A-Z')"
+
+sed -i '' \
+    -e "s,%%REALM%%,${realm},g" \
+    "${PKG_ROOTDIR}/etc/krb5.conf"
+
+sysrc -R "${PKG_ROOTDIR}" \
+    dumpdev=NO \
+    syslogd_enable=NO \
+    cron_enable=NO
