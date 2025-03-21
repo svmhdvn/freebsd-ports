@@ -23,7 +23,7 @@ PORTSCOUT=	limitw:1,even
 
 USES=		compiler:c11 desktop-file-utils gettext gnome \
 		localbase:ldflags meson pathfix pkgconfig tar:xz
-USE_GNOME=	cairo gtk30 intlhack introspection:build
+USE_GNOME=	cairo gtk30 intlhack introspection:build libxml2
 
 DOCSDIR=	${PREFIX}/share/doc/gladeui-2
 
