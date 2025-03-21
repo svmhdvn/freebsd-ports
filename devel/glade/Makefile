@@ -1,6 +1,6 @@
 PORTNAME=	glade
 PORTVERSION=	3.40.0
-PORTREVISION=	5
+PORTREVISION=	6
 CATEGORIES=	devel gnome
 MASTER_SITES=	GNOME
 DIST_SUBDIR=	gnome
@@ -23,7 +23,7 @@ PORTSCOUT=	limitw:1,even
 
 USES=		compiler:c11 desktop-file-utils gettext gnome \
 		localbase:ldflags meson pathfix pkgconfig tar:xz
-USE_GNOME=	cairo gtk30 intlhack introspection:build
+USE_GNOME=	cairo gtk30 intlhack introspection:build libxml2
 
 DOCSDIR=	${PREFIX}/share/doc/gladeui-2
 
