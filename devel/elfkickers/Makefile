@@ -1,6 +1,6 @@
 PORTNAME=	elfkickers
 PORTVERSION=	3.2
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	devel education sysutils
 MASTER_SITES=	http://www.muppetlabs.com/~breadbox/pub/software/
 DISTNAME=	ELFkickers-${PORTVERSION}
@@ -18,15 +18,6 @@ ELFBINS=	ebfc elfls elftoc infect objres rebind sstrip
 PORTDOCS=	COPYING Changelog README
 
 OPTIONS_DEFINE=	DOCS
-
-post-patch:
-	@${GREP} -lR "gcc" ${WRKSRC}/*/Makefile | ${XARGS} \
-	${REINPLACE_CMD} -e 's,gcc,${CC},g'
-
-do-build:
-.for f in ${ELFBINS}
-	@(cd ${WRKSRC}/$f; ${SETENV} ${MAKE_ENV} ${MAKE_CMD})
-.endfor
 
 do-install:
 .for f in ${ELFBINS}
