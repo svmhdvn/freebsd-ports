@@ -1,0 +1,11 @@
+--- infect/Makefile.orig	2011-05-31 06:52:27 UTC
++++ infect/Makefile
+@@ -1,7 +1,6 @@
+ #  Makefile for infect
+ 
+-CC = gcc
+-CFLAGS = -Wall -Wextra
++CFLAGS := -Wall -Wextra $(CFLAGS)
+ 
+ infect: infect.c
+ 

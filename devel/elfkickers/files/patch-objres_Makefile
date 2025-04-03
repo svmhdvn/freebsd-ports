@@ -1,0 +1,13 @@
+--- objres/Makefile.orig	2016-11-14 21:46:24 UTC
++++ objres/Makefile
+@@ -1,8 +1,7 @@
+ #  Makefile for objres
+ 
+-CC = gcc
+-CFLAGS = -Wall -Wextra -I../elfrw
+-LDFLAGS = -Wall -Wextra
++CFLAGS := -Wall -Wextra -I../elfrw $(CFLAGS)
++LDFLAGS := -Wall -Wextra $(LDFLAGS)
+ 
+ objres: objres.o ../elfrw/libelfrw.a
+ 

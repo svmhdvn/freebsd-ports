@@ -1,0 +1,11 @@
+--- rebind/Makefile.orig	2011-05-24 03:29:16 UTC
++++ rebind/Makefile
+@@ -1,7 +1,6 @@
+ #  Makefile for rebind
+ 
+-CC = gcc
+-CFLAGS = -Wall -Wextra -I../elfrw
++CFLAGS := -Wall -Wextra -I../elfrw $(CFLAGS)
+ 
+ rebind: rebind.c ../elfrw/libelfrw.a
+ 

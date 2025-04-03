@@ -1,0 +1,11 @@
+--- ebfc/Makefile.orig	2021-05-17 03:15:56 UTC
++++ ebfc/Makefile
+@@ -1,7 +1,6 @@
+ #  Makefile for ebfc
+ 
+-CC = gcc
+-CFLAGS = -Wall -Wextra -Wno-missing-field-initializers
++CFLAGS := -Wall -Wextra -Wno-missing-field-initializers $(CFLAGS)
+ 
+ # The main program.
+ 

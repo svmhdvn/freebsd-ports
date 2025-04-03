@@ -1,0 +1,11 @@
+--- elfls/Makefile.orig	2011-05-31 06:53:05 UTC
++++ elfls/Makefile
+@@ -1,7 +1,6 @@
+ #  Makefile for elfls
+ 
+-CC = gcc
+-CFLAGS = -Wall -Wextra -I../elfrw
++CFLAGS := -Wall -Wextra -I../elfrw $(CFLAGS)
+ 
+ elfls: elfls.c ../elfrw/libelfrw.a
+ 
