@@ -1,0 +1,13 @@
+--- elftoc/Makefile.orig	2021-05-17 05:52:56 UTC
++++ elftoc/Makefile
+@@ -1,8 +1,7 @@
+ #  Makefile for elftoc
+ 
+-CC = gcc
+-CFLAGS = -Wall -Wextra
+-LDFLAGS = -Wall -Wextra
++CFLAGS := -Wall -Wextra $(CFLAGS)
++LDFLAGS := -Wall -Wextra $(LDFLAGS)
+ 
+ OBJS = gen.o names.o address.o readelf.o shdrtab.o phdrtab.o dynamic.o \
+        pieces.o outbase.o outitems.o outelf64.o outelf32.o out.o elftoc.o
