@@ -18,7 +18,7 @@ USE_GITHUB=	yes
 PLIST_FILES=	bin/ucpp share/man/man1/ucpp.1.gz
 USES=		gmake
 
-PIE_UNSAFE=	yes
+#PIE_UNSAFE=	yes
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin/

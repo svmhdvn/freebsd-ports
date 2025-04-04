@@ -26,7 +26,7 @@ CMAKE_TESTING_ARGS=	-DGOOGLETEST_PATH=${WRKSRC_googletest}
 CFLAGS+=	-Wno-error=sign-conversion
 CXXFLAGS+=	${CXXFLAGS_${CHOSEN_COMPILER_TYPE}}
 CXXFLAGS_gcc=	-Wno-stringop-truncation
-PIE_UNSAFE=	yes
+#PIE_UNSAFE=	yes
 
 BINARY_ALIAS=	git=false
 
