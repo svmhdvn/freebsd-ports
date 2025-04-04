@@ -1,6 +1,6 @@
 PORTNAME=	openmpi
 DISTVERSION=	5.0.7
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	net parallel
 MASTER_SITES=	https://download.open-mpi.org/release/open-mpi/v${PORTVERSION:R}/
 
@@ -42,7 +42,6 @@ CONFIGURE_ARGS+=	--program-prefix= \
 			--with-wrapper-ldflags=-Wl,-rpath=-Wl,-rpath=${LOCALBASE}/lib/gcc${_GCC_VER}
 TEST_TARGET=		check
 CFLAGS+=		${CFLAGS_F2018}
-PIE_UNSAFE=		yes
 CONFLICTS_INSTALL=	openmpi4-4*
 
 DOCSDIR=	${PREFIX}/${MPIDIR}/share/doc
