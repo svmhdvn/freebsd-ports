@@ -25,7 +25,7 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	ksh93
 GH_PROJECT=	ksh
 
-PIE_UNSAFE=	yes
+#PIE_UNSAFE=	yes
 
 # IMPORTANT:	Disabling conflicts, i.e. -DDISABLE_CONFLICTS will result in
 #		arcane build failures due to already installed ksh/ksh93 in
