@@ -28,7 +28,7 @@ USE_QT=		base scxml
 USE_XORG=	x11
 USE_LDCONFIG=	yes
 
-PIE_UNSAFE=	yes
+#PIE_UNSAFE=	yes
 
 OPTIONS_DEFINE=	DOCS
 
