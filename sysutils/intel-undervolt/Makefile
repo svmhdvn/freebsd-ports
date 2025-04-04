@@ -17,7 +17,7 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	kitsunyan
 GNU_CONFIGURE=	yes
 
-PIE_UNSAFE=	yes
+#PIE_UNSAFE=	yes
 
 MAKE_ARGS=	CC="${CC}" \
 		SYSCONFDIR="${PREFIX}/etc"
