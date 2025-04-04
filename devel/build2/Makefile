@@ -14,7 +14,7 @@ LICENSE_COMB=	multi
 
 USES=		gmake pkgconfig sqlite tar:xz
 
-PIE_UNSAFE=	yes
+#PIE_UNSAFE=	yes
 
 # Fix build on i386/powerpc: error: timestamp is not lock-free on this architecture
 CXXFLAGS_i386=		-DLIBBUILD2_ATOMIC_NON_LOCK_FREE

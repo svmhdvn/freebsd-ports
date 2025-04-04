@@ -25,7 +25,7 @@ CONFIGURE_ENV=	FORCE_UNSAFE_CONFIGURE=1
 
 TEST_TARGET=	check
 
-PIE_UNSAFE=	yes
+#PIE_UNSAFE=	yes
 
 CONFLICTS_INSTALL=	gdu geneweb gexpr rubygem-god # bin/gdu bin/gexpr bin/god bin/gwc
 

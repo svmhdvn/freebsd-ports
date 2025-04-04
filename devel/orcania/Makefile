@@ -14,7 +14,7 @@ USES=		cmake pathfix
 USE_GITHUB=	yes
 GH_ACCOUNT=	babelouest
 
-PIE_UNSAFE=	yes
+#PIE_UNSAFE=	yes
 
 PLIST_SUB=	PORTVERSION=${PORTVERSION}
 

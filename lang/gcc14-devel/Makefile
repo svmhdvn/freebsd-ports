@@ -98,11 +98,11 @@ CONFIGURE_OUTSOURCE=	yes
 .if ${PORT_OPTIONS:MLTO_BOOTSTRAP}
 CONFIGURE_ARGS+=--with-build-config=bootstrap-lto-noplugin
 ALL_TARGET=	bootstrap-lean
-PIE_UNSAFE=	yes
+#PIE_UNSAFE=	yes
 .else
 CONFIGURE_ARGS+=--with-build-config=bootstrap-debug
 ALL_TARGET=	bootstrap-lean
-PIE_UNSAFE=	yes
+#PIE_UNSAFE=	yes
 .endif
 INSTALL_TARGET=	install-strip
 .if ${UID} != 0
