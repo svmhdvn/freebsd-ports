@@ -25,7 +25,7 @@ PLIST=			/dev/null
 PLIST_FILES=		"@shell /rescue/oksh"
 .endif
 
-PIE_UNSAFE=	yes
+#PIE_UNSAFE=	yes
 
 OPTIONS_DEFINE=		CURSES SMALL
 OPTIONS_DEFAULT=	CURSES

@@ -65,7 +65,7 @@ BINARY_ALIAS+=	clang=${LOCALBASE}/bin/clang${LLVM_VERSION} \
 
 SUB_FILES=	pkg-message
 
-PIE_UNSAFE=	yes
+#PIE_UNSAFE=	yes
 
 PORTDATA=	wine.inf
 

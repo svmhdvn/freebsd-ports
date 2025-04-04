@@ -4,6 +4,6 @@ OPTIONS_SLAVE=	STATIC
 
 PKGNAMESUFFIX=	-static
 
-PIE_UNSAFE=	yes
+#PIE_UNSAFE=	yes
 
 .include "${MASTERDIR}/Makefile"

@@ -21,7 +21,7 @@ ONLY_FOR_ARCHS_REASON=	written in ARM assembly
 BUILD_DEPENDS=	arm-none-eabi-binutils>2.25:devel/binutils@arm_none_eabi
 
 # Port installs a hand-crafted position-dependent ELF binary.
-PIE_UNSAFE=	yes
+#PIE_UNSAFE=	yes
 
 # stripping eats our hand-crafted ELF binaries, so don't do that
 # the binaries are free of symbols or stuff like that anyway

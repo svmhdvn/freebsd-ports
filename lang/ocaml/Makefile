@@ -37,7 +37,7 @@ TEST_TARGET=	tests
 LDFLAGS_armv7=	-Wl,-z,notext
 LDFLAGS_i386=	-Wl,-z,notext
 LDFLAGS_powerpc=	-Wl,-z,notext
-PIE_UNSAFE=	yes
+#PIE_UNSAFE=	yes
 SSP_UNSAFE=	yes
 
 CONFLICTS=	metaocaml ocaml-nox11

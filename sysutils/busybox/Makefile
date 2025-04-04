@@ -17,7 +17,7 @@ USE_PERL5=	build
 OPTIONS_DEFINE=	DOCS STATIC
 STATIC_LDFLAGS=	-static
 
-PIE_UNSAFE=	yes
+#PIE_UNSAFE=	yes
 
 .include <bsd.port.options.mk>
 # fix ash crash on arm, see shell/ash.c

@@ -57,7 +57,7 @@ USES+=		tar:xz
 USE_XORG=	x11 xorg-server xext
 USE_LDCONFIG=	yes
 
-PIE_UNSAFE=	yes
+#PIE_UNSAFE=	yes
 
 EGL_JSON_PATH=		${PREFIX}/share/egl/egl_external_platform.d
 GLVND_JSON_PATH=	${PREFIX}/share/glvnd/egl_vendor.d

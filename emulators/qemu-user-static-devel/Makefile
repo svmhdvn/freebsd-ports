@@ -35,7 +35,7 @@ USE_PERL5=	build
 USE_RC_SUBR=	qemu_user_static
 SUB_LIST=	NAME=qemu_user_static
 
-PIE_UNSAFE=	yes
+#PIE_UNSAFE=	yes
 
 MAKE_ENV=	BSD_MAKE="${MAKE}" V=1
 CONFIGURE_ARGS=	--prefix=${PREFIX} --cc=${CC} \
