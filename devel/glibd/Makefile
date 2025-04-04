@@ -24,6 +24,6 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	gtkd-developers
 GH_PROJECT=	GlibD
 
-PIE_UNSAFE=	yes
+#PIE_UNSAFE=	yes
 
 .include <bsd.port.mk>
