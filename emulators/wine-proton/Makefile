@@ -98,7 +98,7 @@ CONFIGURE_ENV=	CPPBIN="false" CPPFLAGS="" FLEX="${LOCALBASE}/bin/flex" JXRLIB_CF
 
 CFLAGS+=	-D__NR_futex="-1" -Werror=implicit-function-declaration -Wno-int-conversion
 CFLAGS_i386+=	-mpreferred-stack-boundary=4 -mstackrealign
-PIE_UNSAFE=	yes
+#PIE_UNSAFE=	yes
 
 BINARY_ALIAS+=	clang=${LOCALBASE}/bin/clang${_LLVM_VERSION} \
 		lld-link=${LOCALBASE}/bin/lld-link${_LLVM_VERSION}
