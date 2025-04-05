@@ -1,6 +1,5 @@
 PORTNAME=	racket
-PORTVERSION=	8.11.1
-PORTREVISION=	1
+PORTVERSION=	8.16
 CATEGORIES=	lang scheme
 MASTER_SITES=	http://mirror.racket-lang.org/installers/${PORTVERSION}/ \
 		http://www.cs.utah.edu/plt/installers/${PORTVERSION}/ \
@@ -11,6 +10,9 @@ MASTER_SITES=	http://mirror.racket-lang.org/installers/${PORTVERSION}/ \
 PKGNAMESUFFIX=	-minimal
 DISTNAME=	${PORTNAME}${PKGNAMESUFFIX}-${PORTVERSION}-src-builtpkgs
 DIST_SUBDIR=	${PORTNAME}${PKGNAMESUFFIX}/${PORTVERSION}
+
+PATCH_SITES=	https://github.com/racket/racket/commit/
+PATCHFILES=	fe5e3342f4f035edf3ee69ddae6fce4d1e113bd2.patch:-p2
 
 MAINTAINER=	olgeni@FreeBSD.org
 COMMENT=	Interactive, integrated, graphical Scheme programming environment
@@ -30,8 +32,7 @@ USES=		cpe gmake iconv libtool localbase tar:tgz
 CPE_VENDOR=	${PORTNAME}-lang
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--enable-liblz4 \
-		--enable-pthread \
-		--mandir=${PREFIX}/share/man
+		--enable-pthread
 WRKSRC=		${WRKDIR}/racket-${PORTVERSION}/src
 PATCH_WRKSRC=	${WRKDIR}/racket-${PORTVERSION}
 USE_LDCONFIG=	yes
