@@ -1,3 +1,5 @@
-TIMESTAMP = 1701334137
-SHA256 (racket-minimal/8.11.1/racket-minimal-8.11.1-src-builtpkgs.tgz) = cdacc8d72d10747a9fc17447d7783869fa2dab396527333303a2a847d9554ef8
-SIZE (racket-minimal/8.11.1/racket-minimal-8.11.1-src-builtpkgs.tgz) = 23130377
+TIMESTAMP = 1744560254
+SHA256 (racket-minimal/8.16/racket-minimal-8.16-src-builtpkgs.tgz) = e910fb1da243c73ee6a0b2983c11fe81dc37306e7427b4c074b2d1ca0c2ff773
+SIZE (racket-minimal/8.16/racket-minimal-8.16-src-builtpkgs.tgz) = 23517703
+SHA256 (racket-minimal/8.16/fe5e3342f4f035edf3ee69ddae6fce4d1e113bd2.patch) = 17a291a80a6faa3f5dce791d1ba9d25a89ce895cffbd28d6a9f3c14550023209
+SIZE (racket-minimal/8.16/fe5e3342f4f035edf3ee69ddae6fce4d1e113bd2.patch) = 6206
