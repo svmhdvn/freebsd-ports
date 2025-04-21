@@ -11,6 +11,8 @@ WWW=		https://asciidoctor.org/ \
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
+RUN_DEPENDS=	rubygem-logger>=0:devel/rubygem-logger
+
 USES=		gem
 
 NO_ARCH=	yes
