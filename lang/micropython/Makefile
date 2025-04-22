@@ -1,7 +1,6 @@
 PORTNAME=	micropython
-PORTVERSION=	1.17
+PORTVERSION=	1.25.0
 DISTVERSIONPREFIX=	v
-PORTREVISION=	2
 CATEGORIES=	lang python
 
 MAINTAINER=	python@FreeBSD.org
@@ -17,10 +16,10 @@ BROKEN_armv7=	fails to assemble: error: invalid operand for instruction
 LIB_DEPENDS=	libffi.so:devel/libffi
 
 USES=		gmake pkgconfig python:,build
-USE_GCC=	yes
+#USE_GCC=	yes
 USE_GITHUB=	yes
-GH_TUPLE=	micropython:axtls:531cab9:axtls \
-		pfalcon:berkeley-db-1.xx:35aaec4:bdb
+#GH_TUPLE=	micropython:axtls:531cab9:axtls \
+#		pfalcon:berkeley-db-1.xx:35aaec4:bdb
 
 MAKE_ARGS+=	CC=${CC} CPP="${CC} -E" V=1
 MAKE_ENV+=	CFLAGS_EXTRA="${CPPFLAGS} ${CFLAGS} -Wno-float-conversion" COPT=""
