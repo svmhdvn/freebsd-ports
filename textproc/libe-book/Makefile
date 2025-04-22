@@ -29,9 +29,9 @@ CPPFLAGS+=	-DBOOST_ERROR_CODE_HEADER_ONLY
 
 CONFIGURE_ARGS=	--disable-werror --disable-tests
 
-OPTIONS_DEFINE=	DOCS
+OPTIONS_DEFINE=	DOXYGEN
 
-DOCS_BUILD_DEPENDS=	doxygen:devel/doxygen
-DOCS_CONFIGURE_OFF=	--without-docs
+DOXYGEN_BUILD_DEPENDS=	doxygen:devel/doxygen
+DOXYGEN_CONFIGURE_OFF=	--without-docs
 
 .include <bsd.port.mk>
