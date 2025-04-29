@@ -1,6 +1,5 @@
 PORTNAME=	julia
-DISTVERSION=	1.10.3
-PORTREVISION=	6
+DISTVERSION=	1.12.0-beta2
 DISTVERSIONSUFFIX=	-full
 CATEGORIES=	lang math
 MASTER_SITES=	https://github.com/JuliaLang/${PORTNAME}/releases/download/v${DISTVERSION}/
@@ -27,9 +26,6 @@ WWW=		https://julialang.org/
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.md
 
-DEPRECATED=	Depends on expired security/mbedtls2
-EXPIRATION_DATE=2025-06-30
-
 ONLY_FOR_ARCHS=		amd64
 ONLY_FOR_ARCHS_REASON=	Has not been ported to this platform for freebsd
 
@@ -45,14 +41,13 @@ LIB_DEPENDS=	libcurl.so:ftp/curl \
 		libgit2.so:devel/libgit2 \
 		libgmp.so:math/gmp \
 		libnghttp2.so:www/libnghttp2 \
-		libmbedtls.so:security/mbedtls2 \
 		libmpfr.so:math/mpfr \
 		libopenlibm.so:math/openlibm \
+		libunwind.so:devel/libunwind \
 		libpcre2-8.so:devel/pcre2 \
 		libssh2.so:security/libssh2 \
 		libsuitesparseconfig.so:math/suitesparse-config \
 		libutf8proc.so:textproc/utf8proc \
-		libunwind.so:devel/libunwind \
 		libzstd.so:archivers/zstd
 RUN_DEPENDS=	${MY_DEPENDS}
 
@@ -61,7 +56,7 @@ BUILD_DEPENDS_i386=	ittapi>0:devel/ittapi
 
 # Do not set USES=fortran to avoid extra-linkage
 USES=		blaslapack:openblas compiler:c++17-lang cpe elfctl gmake \
-		perl5 python shebangfix
+		perl5 python pkgconfig shebangfix ssl
 _GCC_VER=	${GCC_DEFAULT:S/.//}
 
 CPE_VENDOR=	julialang
@@ -87,19 +82,19 @@ MAKE_ARGS+=	JULIA_DEBUG=Documenter VERBOSE=1 NO_GIT=1 \
 		USE_SYSTEM_LIBSSH2=1 \
 		USE_SYSTEM_LIBUNWIND=1 \
 		USE_SYSTEM_LLD=1 \
-		USE_SYSTEM_MBEDTLS=1 \
+		USE_SYSTEM_OPENSSL=1 \
 		USE_SYSTEM_MPFR=1 \
 		USE_SYSTEM_NGHTTP2=1 \
 		USE_SYSTEM_P7ZIP=1 \
 		USE_SYSTEM_PATCHELF=1 \
 		USE_SYSTEM_PCRE=1 \
 		USE_SYSTEM_UTF8PROC=1 \
-		USE_SYSTEM_ZLIB=0 \
+		USE_SYSTEM_ZLIB=1 \
 		CC=${CC} \
 		CXX=${CXX}
 ALL_TARGET=	default
 INSTALL_TARGET=	install
-TEST_TARGET=	test
+TEST_TARGET=	testall
 
 CFLAGS+=	-fpic
 
@@ -193,8 +188,8 @@ DARC_afopenssl=	OpenSSL.v3.0.13.x86_64-unknown-freebsd.tar.gz
 
 post-extract:
 	@${MKDIR} ${WRKSRC}/deps/srccache
-	${CP} ${FILESDIR}/llvm-patch-backport-version-fixes \
-		${WRKSRC}/deps/patches/llvm-version-fixes.patch
+	#${CP} ${FILESDIR}/llvm-patch-backport-version-fixes \
+	#	${WRKSRC}/deps/patches/llvm-version-fixes.patch
 
 post-extract-DOCS-on:
 	@${MKDIR} ${WRKSRC}/doc/deps/registries
@@ -241,7 +236,6 @@ pre-configure:
 
 pre-install:
 	${MAKE} SHEBANG_GLOB="${LATE_SHEBANG_GLOB}" fix-shebang
-	${CP} ${WRKSRC}/deps/srccache/cacert-2023-01-10.pem ${WRKSRC}/usr/share/julia/cert.pem
 
 pre-install-DEBUG-on:
 	@(cd ${INSTALL_WRKSRC} && ${SETENVI} ${WRK_ENV} ${MAKE_ENV} ${FAKEROOT} \
@@ -262,7 +256,7 @@ post-install:
 
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/julia
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libjulia.so*
-.for bin in libccalltest.so libllvmcalltest.so libjulia-internal.so* libblastrampoline.so libuv.so* libz.so* libLLVM* sys.so libjulia-codegen.so*
+.for bin in libccalltest.so libllvmcalltest.so libjulia-internal.so* libblastrampoline.so libuv.so* libLLVM* sys.so libjulia-codegen.so*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/julia/${bin}
 .endfor
 .for bin in lld dsymutil

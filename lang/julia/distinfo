@@ -1,6 +1,6 @@
-TIMESTAMP = 1715263119
-SHA256 (julia-1.10.3-full.tar.gz) = d892b2123be64dacf9d05e4ccbad7f1797f6bf87c397a74804b011c8750f6c8f
-SIZE (julia-1.10.3-full.tar.gz) = 318660498
+TIMESTAMP = 1745938133
+SHA256 (julia-1.12.0-beta2-full.tar.gz) = 0f11df4635a1415fb573cd5c405e05dd12e2c6a28834d97fd2e61bcd78924872
+SIZE (julia-1.12.0-beta2-full.tar.gz) = 537347458
 SHA256 (UnicodeData.txt) = bdbffbbfc8ad4d3a6d01b5891510458f3d36f7170422af4ea2bed3211a73e8bb
 SIZE (UnicodeData.txt) = 1851767
 SHA256 (Expat.v2.6.2.x86_64-unknown-freebsd.tar.gz) = 0c2445fbf26b5633f10ee074a482181a240705925525214c676ee59e24b08ba3
