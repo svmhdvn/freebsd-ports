@@ -1,0 +1,11 @@
+--- vcpkg.json.orig	2025-10-23 00:47:32 UTC
++++ vcpkg.json
+@@ -297,7 +297,7 @@
+     },
+     {
+       "name": "skia",
+-      "version": "129#0"
++      "version": "140#0"
+     },
+     {
+       "name": "sqlite3",

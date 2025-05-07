@@ -1,0 +1,42 @@
+--- .gn.orig	2025-10-23 01:58:16 UTC
++++ .gn
+@@ -7,11 +7,11 @@
+ # As a result this file will only affect stand-alone ANGLE builds,
+ # not chromium builds.
+ 
+-import("//build/dotfile_settings.gni")
++#import("//build/dotfile_settings.gni")
+ import("//dotfile_settings.gni")
+ 
+ # Location of the build configuration file.
+-buildconfig = "//build/config/BUILDCONFIG.gn"
++#buildconfig = "//build/config/BUILDCONFIG.gn"
+ 
+ # The python interpreter to use by default. On Windows, this will look
+ # for python3.exe and python3.bat.
+@@ -26,15 +26,16 @@ script_executable = "python3"
+ # These are the list of GN files that run exec_script. This allowlist exists
+ # to force additional review for new uses of exec_script, which is strongly
+ # discouraged except for gypi_to_gn calls.
+-exec_script_allowlist = angle_dotfile_settings.exec_script_allowlist +
+-                        build_dotfile_settings.exec_script_allowlist +
+-                        [
+-                          "//build/config/sysroot.gni",
+-                          "//build/config/win/BUILD.gn",
+-                          "//build/config/win/visual_studio_version.gni",
+-                          "//build/gn_helpers.py",
+-                          "//build_overrides/build.gni",
+-                        ]
++#exec_script_allowlist = angle_dotfile_settings.exec_script_allowlist +
++#                        build_dotfile_settings.exec_script_allowlist +
++#                        [
++#                          "//build/config/sysroot.gni",
++#                          "//build/config/win/BUILD.gn",
++#                          "//build/config/win/visual_studio_version.gni",
++#                          "//build/gn_helpers.py",
++#                          "//build_overrides/build.gni",
++#                        ]
++exec_script_allowlist = angle_dotfile_settings.exec_script_allowlist
+ 
+ default_args = {
+   clang_use_chrome_plugins = true
