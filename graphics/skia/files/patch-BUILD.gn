@@ -1,0 +1,11 @@
+--- BUILD.gn.orig	2025-04-25 17:21:14 UTC
++++ BUILD.gn
+@@ -1260,7 +1260,7 @@ optional("pdf") {
+             skia_use_libjpeg_turbo_encode
+   public_defines = [ "SK_SUPPORT_PDF" ]
+ 
+-  deps = [ "//third_party/zlib" ]
++  deps = [ ]
+   public = skia_pdf_public
+   sources = skia_pdf_sources
+   sources_when_disabled = [ "src/pdf/SkDocument_PDF_None.cpp" ]
