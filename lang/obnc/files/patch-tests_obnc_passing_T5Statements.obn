@@ -1,0 +1,11 @@
+--- tests/obnc/passing/T5Statements.obn.orig	2024-03-09 21:44:51 UTC
++++ tests/obnc/passing/T5Statements.obn
+@@ -126,6 +126,8 @@ MODULE T5Statements;
+ 		ASSERT(strs1[0] = "foo");
+ 		ASSERT(strs1[1] = "bar");
+ 
++		strs2[0, 0] := "foo";
++		strs2[0, 1] := "bar";
+ 		AssignMultiDimOpenArray(strs2)
+ 	END TestArrayAssignments;
+ 

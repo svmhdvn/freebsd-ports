@@ -1,0 +1,11 @@
+--- bin/obnc-test.orig	2025-05-11 19:46:59 UTC
++++ bin/obnc-test
+@@ -101,7 +101,7 @@ if Run "$packagePath/bin/obnc" client.obn; then
+ 	cp M.obn M.obn.bak
+ 	trap "mv \"$dir/M.obn.bak\" \"$dir/M.obn\"" EXIT
+ 	sleep 1
+-	sed -i 's/a* = 1;/\0b* = 2;/' M.obn
++	sed 's/= 1;/= 1;b* = 2;/' M.obn.bak > M.obn
+ 	sleep 1
+ 	if Run "$packagePath/bin/obnc" client.obn; then
+ 		if [ .obnc/client.c -ot M.obn ]; then
