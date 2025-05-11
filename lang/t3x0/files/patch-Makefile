@@ -1,0 +1,22 @@
+--- Makefile.orig	2025-05-12 15:05:56 UTC
++++ Makefile
+@@ -22,8 +22,8 @@ CC=	cc
+ 
+ # Flags for compiling T3X/0 assembly output
+ #
+-  CFLAGS=
+-  CFLAGS+= -m32			# on x86_64 in 32-bit mode
++# CFLAGS=
++# CFLAGS+= -m32			# on x86_64 in 32-bit mode
+ # CFLAGS+= -Dunix		# needed for syscalls on macOS
+ # CFLAGS+= -static		# if all else fails
+ # CFLAGS+= -fPIC		# get rid of stupid linker errors
+@@ -98,7 +98,7 @@ tcvm:	tcvm.c library/console.c library/system.c
+ # The Tcode/0 VM
+ #
+ tcvm:	tcvm.c library/console.c library/system.c
+-	$(CC) $(TCVM_CFLAGS) $(OPTS) -o tcvm tcvm.c $(LIBS)
++	$(CC) $(CFLAGS) $(OPTS) -o tcvm tcvm.c $(LIBS)
+ 
+ # Triple test of the Tcode/0 compiler
+ #
