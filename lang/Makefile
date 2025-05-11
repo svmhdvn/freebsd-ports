@@ -375,6 +375,7 @@
     SUBDIR += swift510
     SUBDIR += swift6
     SUBDIR += swipl
+    SUBDIR += t3x0
     SUBDIR += tauthon
     SUBDIR += tcbasic
     SUBDIR += tcc
