@@ -1,0 +1,6 @@
+OBNC is a compiler for Niklaus Wirth's programming language Oberon. It
+implements the final version of the language from 2016. OBNC translates source
+code written in Oberon to the lower-level programming language C. The
+translated code is then compiled and linked using the C compiler and linker of
+the host operating system. The build command obnc performs all these tasks and
+keeps track of which files need to be compiled or recompiled.
