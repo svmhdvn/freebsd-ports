@@ -1,0 +1,4 @@
+T3X/0 is a small, portable, procedural, block-structured, recursive, and almost
+typeless programming language, and the latest member of the T3X family of
+languages. Its compiler is freely available (0BSD license or public domain).
+T3X/0 syntax is similar to Pascal, its semantics resembles BCPL's.
