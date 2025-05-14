@@ -1,0 +1,44 @@
+--- tests/test_touch.orig	2025-05-14 21:35:33 UTC
++++ tests/test_touch
+@@ -5,29 +5,33 @@ Mount
+ 
+ Mount
+ 
+-EXPECTED="12345678"
++EXPECTED_UNIX="12345678"
++EXPECTED_HUMAN="$(date -r ${EXPECTED_UNIX} '+%FT%T')"
+ FILENAME="target/a"
+ 
+ touch ${FILENAME}
+-touch -d @${EXPECTED} ${FILENAME}
+-RESULT="$(stat --format=%X-%Y ${FILENAME})"
+-if [ "${RESULT}" != "${EXPECTED}-${EXPECTED}" ]
++touch -d ${EXPECTED_HUMAN} ${FILENAME}
++RESULT="$(stat -f '%a-%m' ${FILENAME})"
++EXPECTED="${EXPECTED_UNIX}-${EXPECTED_UNIX}"
++if [ "${RESULT}" != "${EXPECTED}" ]
+ then
+ 	Fail "test1: Got=${RESULT} Expected=${EXPECTED}"
+ fi
+ 
+ # This is what tar xf does for extracted files via futimens(2)
+ touch ${FILENAME}
+-touch -m -d @${EXPECTED} ${FILENAME}
+-RESULT="$(stat --format=%Y ${FILENAME})"
++touch -m -d ${EXPECTED_HUMAN} ${FILENAME}
++RESULT="$(stat -f '%m' ${FILENAME})"
++EXPECTED="${EXPECTED_UNIX}"
+ if [ "${RESULT}" != "${EXPECTED}" ]
+ then
+ 	Fail "test2: Got=${RESULT} Expected=${EXPECTED}"
+ fi
+ 
+ touch ${FILENAME}
+-touch -a -d @${EXPECTED} ${FILENAME}
+-RESULT="$(stat --format=%X ${FILENAME})"
++touch -a -d ${EXPECTED_HUMAN} ${FILENAME}
++RESULT="$(stat -f '%a' ${FILENAME})"
++EXPECTED="${EXPECTED_UNIX}"
+ if [ "${RESULT}" != "${EXPECTED}" ]
+ then
+ 	Fail "test3: Got=${RESULT} Expected=${EXPECTED}"

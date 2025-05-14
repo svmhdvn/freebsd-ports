@@ -1,0 +1,22 @@
+--- tests/common.orig	2021-01-19 11:52:23 UTC
++++ tests/common
+@@ -1,17 +1,16 @@ Mount () {
+ trap "Unmount 2>/dev/null" EXIT
+ 
+ Mount () {
+-	Unmount
+ 	mkdir -p target
+ 	../disorderfs -q "${@}" fixtures/ target/
+ }
+ 
+ Unmount () {
+-	fusermount -q -z -u target/ && rm -rf target/
++	umount target && rm -rf target
+ }
+ 
+ Get_entries () {
+-	find target -type f -printf %f
++	find target -type f | xargs basename | xargs -n1 printf '%s'
+ }
+ 
+ Fail () {

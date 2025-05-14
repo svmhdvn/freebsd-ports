@@ -1,0 +1,15 @@
+--- tests/Makefile.orig	2021-01-19 11:52:23 UTC
++++ tests/Makefile
+@@ -1,9 +1,9 @@
+-TESTS := $(sort $(wildcard test_*))
++TESTS := benchmark inodes shuffle sort touch
+ 
+ test: ../disorderfs
+ 	set -eu; for X in $(TESTS); do \
+-		echo "executing $$X" >&2; \
+-		./$$X; \
++		echo "executing test $$X" >&2; \
++		./test_$$X; \
+ 	done
+ 
+ .PHONY: test

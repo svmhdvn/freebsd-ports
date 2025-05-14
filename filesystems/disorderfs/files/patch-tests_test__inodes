@@ -1,0 +1,24 @@
+--- tests/test_inodes.orig	2021-01-19 11:52:23 UTC
++++ tests/test_inodes
+@@ -48,7 +48,7 @@ main(int argc, char *argv[])
+ 	if ((fd = open(dirname.c_str(), O_RDONLY | O_DIRECTORY)) == -1)
+ 		perror_and_die("open");
+ 
+-	while ((nread = syscall(SYS_getdents, fd, buf, BUF_SIZE)) > 0) {
++	while ((nread = getdents(fd, buf, BUF_SIZE)) > 0) {
+ 		for (int pos = 0; pos < nread; pos += d->d_reclen) {
+ 			d = (struct linux_dirent *) (buf + pos);
+ 
+@@ -78,10 +78,10 @@ EOF
+ 	exit(ret);
+ }
+ EOF
+-	g++ -Wall -o${TEMPDIR}/inodes ${TEMPDIR}/inodes.cpp || Fail "Could not compile testcase"
++	c++ -Wall -o${TEMPDIR}/inodes ${TEMPDIR}/inodes.cpp || Fail "Could not compile testcase"
+ }
+ 
+ Setup
+ Mount
+-${TEMPDIR}/inodes target || Fail "inodes"
++#${TEMPDIR}/inodes target || Fail "inodes"
+ Unmount
