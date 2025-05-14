@@ -1,0 +1,16 @@
+--- tests/common.orig	2025-05-20 21:08:13 UTC
++++ tests/common
+@@ -6,11 +6,11 @@ Unmount () {
+ }
+ 
+ Unmount () {
+-	fusermount -q -z -u target/ && rm -rf target/
++	umount target/ && rm -rf target/
+ }
+ 
+ Get_entries () {
+-	find target -type f -printf %f
++	find target -type f | xargs basename | xargs printf %s
+ }
+ 
+ Fail () {
