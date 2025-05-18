@@ -1,6 +1,5 @@
 PORTNAME=	gmic
-DISTVERSION=	3.1.6
-PORTREVISION=	10
+DISTVERSION=	3.5.2
 CATEGORIES=	graphics
 MASTER_SITES=	https://gmic.eu/files/source/
 DISTNAME=	${PORTNAME}_${DISTVERSION}
@@ -27,7 +26,8 @@ LIB_DEPENDS=	libcurl.so:ftp/curl \
 		libImath.so:math/Imath \
 		libopencv_core.so:graphics/opencv \
 		libpng.so:graphics/png \
-		libtiff.so:graphics/tiff
+		libtiff.so:graphics/tiff \
+		libwebp.so:graphics/webp
 
 USES=		compiler:c++11-lang gettext-runtime gmake jpeg localbase:ldflags pkgconfig xorg
 USE_LDCONFIG=	yes
