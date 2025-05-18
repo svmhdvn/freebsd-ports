@@ -3,8 +3,13 @@ include/gmic.h
 include/gmic_libc.h
 lib/libgmic.so
 lib/libgmic.so.3
-lib/libgmic.so.316
-libexec/gimp/2.2/plug-ins/gmic_cluts.gmz
-libexec/gimp/2.2/plug-ins/gmic_denoise_cnn.gmz
+lib/libgmic.so.352
+share/bash-completion/completions/gmic
+%%DATADIR%%/gmic_cluts.gmz
+%%DATADIR%%/gmic_denoise_cnn.gmz
+%%DATADIR%%/gmic_fonts.gmz
+%%DATADIR%%/gmic_lightleaks.gmz
+%%DATADIR%%/gmic_scale2x_cnn.gmz
 share/man/fr/man1/gmic.1.gz
 share/man/man1/gmic.1.gz
+@dir libexec/gimp/2.2/plug-ins
