@@ -1,22 +1,23 @@
 PORTNAME=	golded+
-PORTVERSION=	1.1.5.a${SNAPDATE}
-PORTREVISION=	1
+DISTVERSIONPREFIX=	golded-plus-
+DISTVERSION=	1.1.5-${SNAPDATE}-1
 CATEGORIES=	news mail
-MASTER_SITES=	SF/golded-plus/Golded%2B%201.1.5%20snapshots/${_SNAPDATE}
-DISTNAME=	gpsrc-115-${SNAPDATE}
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	me@svmhdvn.name
 COMMENT=	GoldEd+ (FTN message editor)
 WWW=		https://golded-plus.sourceforge.net/
 
 LICENSE=	GPLv2 LGPL20
 LICENSE_COMB=	multi
 
-USES=		gmake ncurses tar:tgz
+USES=		gmake ncurses
 
-_SNAPDATE=	2017.03.03
-SNAPDATE=	${_SNAPDATE:S/.//g}
-WRKSRC=		${WRKDIR}/golded-plus/${PORTNAME}
+USE_GITHUB=	yes
+GH_ACCOUNT=	golded-plus
+GH_PROJECT=	golded-plus
+
+SNAPDATE=	20180707
+#WRKSRC=		${WRKDIR}/golded-plus/${PORTNAME}
 
 DOCS=		copying copying.lib license.txt notework.txt rusfaq.txt\
 		tips.txt notework.rus
@@ -31,7 +32,7 @@ DOCS_SUB_LIST_OFF=	NOTEWORK=""
 .include <bsd.port.options.mk>
 
 .if ${OPSYS} == FreeBSD
-CFLAGS+=  -Dregister=
+CFLAGS+=	-Dregister=
 .endif
 
 post-patch:
