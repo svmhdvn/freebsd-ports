@@ -1,8 +1,7 @@
 PORTNAME=	pitivi
-PORTVERSION=	2022.06
-PORTREVISION=	4
+PORTVERSION=	2023.03.0
 CATEGORIES=	multimedia
-MASTER_SITES=	GNOME/sources/${PORTNAME}/${PORTVERSION:R}
+MASTER_SITES=	GNOME
 
 MAINTAINER=	kwm@FreeBSD.org
 COMMENT=	Gstreamer based non-linear audio/video editor
@@ -19,7 +18,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}gstreamer1>=1.14.0:multimedia/py-gstreamer1@
 		${PYNUMPY}
 
 USES=		cpe desktop-file-utils gettext gnome gstreamer meson pkgconfig python \
-		shared-mime-info shebangfix tar:xz
+		shared-mime-info shebangfix
 SHEBANG_FILES=	bin/pitivi.in \
 		getenvvar.py \
 		tests/__init__.py \
