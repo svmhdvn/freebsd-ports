@@ -1,28 +1,23 @@
 PORTNAME=	artifactory
-DISTVERSION=	5.8.3
-PORTREVISION=	1
+DISTVERSION=	7.111.8
 CATEGORIES=	devel java
-MASTER_SITES=	https://bintray.com/artifact/download/jfrog/artifactory/
-DISTNAME=	jfrog-${PORTNAME}-oss-${PORTVERSION}
+MASTER_SITES=	https://releases.jfrog.io/artifactory/bintray-artifactory/org/artifactory/oss/jfrog-artifactory-oss/${DISTVERSION}/
+DISTNAME=	jfrog-${PORTNAME}-oss-${PORTVERSION}-base
 
-MAINTAINER=	dharrigan@gmail.com
+MAINTAINER=	me@svmhdvn.name
 COMMENT=	Universal Artifact Repository Manager
 WWW=		https://www.jfrog.com/artifactory
 
 LICENSE=	GPLv3 APACHE20
 LICENSE_COMB=	multi
-LICENSE_FILE_GPLv3=	${WRKSRC}/COPYING.AFFERO
-LICENSE_FILE_APACHE20=	${WRKSRC}/tomcat/LICENSE
-
-FORBIDDEN=	Ships a very vulnerable Tomcat 8.5.23
-DEPRECATED=	Outdated with known vulnerabilities and marked as forbidden in 2023
-EXPIRATION_DATE=2025-05-31
+#LICENSE_FILE_GPLv3=	${WRKSRC}/COPYING.AFFERO
+#LICENSE_FILE_APACHE20=	${WRKSRC}/tomcat/LICENSE
 
 RUN_DEPENDS=	bash:shells/bash
 
 WRKSRC=		${WRKDIR}/${PORTNAME}-oss-${PORTVERSION}
 
-USES=		cpe java shebangfix zip
+USES=		cpe java shebangfix
 CPE_VENDOR=	jfrog
 SHEBANG_FILES=	bin/artifactory.sh
 JAVA_VENDOR=	openjdk
