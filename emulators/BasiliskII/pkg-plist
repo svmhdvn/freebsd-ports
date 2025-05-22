@@ -1,0 +1,5 @@
+bin/BasiliskII
+share/BasiliskII/fbdevices
+share/BasiliskII/keycodes
+share/BasiliskII/tunconfig
+share/man/man1/BasiliskII.1.gz

@@ -1,0 +1,19 @@
+[
+{ type: install
+  message: <<EOM
+This port uses a snapshot of the git macemu repo hosted by NYC*BUG . 
+Original Git repo is https://github.com/emaculation/macemu
+
+To use BasiliskII you will need a copy of a Mac ROM and a copy of MacOS for 68K.
+
+For MacOS 
+    o https://winworldpc.com/product/mac-os-7/70
+    o https://winworldpc.com/product/mac-os-8/80-final
+
+For Roms 
+    o https://www.macintoshrepository.org/7038-all-macintosh-roms-68k-ppc- 
+    o https://mirrors.nycbug.org/pub/distfiles/Old_World_Mac_Roms.zip 
+
+EOM
+}
+]
