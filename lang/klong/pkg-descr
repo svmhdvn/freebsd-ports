@@ -1,0 +1,3 @@
+Klong is an array language, like K, but without the ambiguity. A Klong program
+is a set of functions that use various pre-defined operators to manipulate
+lists (vectors) and (multi-dimensional) arrays.
