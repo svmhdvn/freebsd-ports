@@ -1,0 +1,65 @@
+/you/have/to/check/what/makeplist/gives/you
+/Mail/MIMEDefang.pm
+/Mail/MIMEDefang/Actions.pm
+/Mail/MIMEDefang/Antispam.pm
+/Mail/MIMEDefang/Antivirus.pm
+/Mail/MIMEDefang/Authres.pm
+/Mail/MIMEDefang/DKIM.pm
+/Mail/MIMEDefang/DKIM/ARC.pm
+/Mail/MIMEDefang/MIME.pm
+/Mail/MIMEDefang/Mail.pm
+/Mail/MIMEDefang/Net.pm
+/Mail/MIMEDefang/RFC2822.pm
+/Mail/MIMEDefang/SPF.pm
+/Mail/MIMEDefang/Unit.pm
+/Mail/MIMEDefang/Utils.pm
+bin/md-mx-ctrl
+bin/mimedefang
+bin/mimedefang-multiplexor
+bin/mimedefang-release
+bin/mimedefang-util
+bin/mimedefang.pl
+bin/watch-mimedefang
+bin/watch-multiple-mimedefangs.tcl
+%%ETCDIR%%/mimedefang-filter.sample
+%%ETCDIR%%/mimedefang-ip-key.sample
+%%ETCDIR%%/sa-mimedefang.cf.sample
+etc/rc.d/mimedefang
+%%PORTDOCS%%%%DOCSDIR%%/README.NONROOT
+%%PORTDOCS%%%%DOCSDIR%%/README.SECURITY
+%%PORTDOCS%%%%DOCSDIR%%/README.SOPHIE
+%%PORTDOCS%%%%DOCSDIR%%/README.SPAMASSASSIN
+%%PORTDOCS%%%%DOCSDIR%%/README.md
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/README
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/stream-by-domain-filter
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/suggested-minimum-filter-for-windows-clients
+share/man/man1/mimedefang-util.1.gz
+share/man/man3/Mail::MIMEDefang.3.gz
+share/man/man3/Mail::MIMEDefang::Actions.3.gz
+share/man/man3/Mail::MIMEDefang::Antispam.3.gz
+share/man/man3/Mail::MIMEDefang::Antivirus.3.gz
+share/man/man3/Mail::MIMEDefang::Authres.3.gz
+share/man/man3/Mail::MIMEDefang::DKIM.3.gz
+share/man/man3/Mail::MIMEDefang::DKIM::ARC.3.gz
+share/man/man3/Mail::MIMEDefang::MIME.3.gz
+share/man/man3/Mail::MIMEDefang::Mail.3.gz
+share/man/man3/Mail::MIMEDefang::Net.3.gz
+share/man/man3/Mail::MIMEDefang::RFC2822.3.gz
+share/man/man3/Mail::MIMEDefang::SPF.3.gz
+share/man/man3/Mail::MIMEDefang::Unit.3.gz
+share/man/man3/Mail::MIMEDefang::Utils.3.gz
+share/man/man5/mimedefang-filter.5.gz
+share/man/man7/mimedefang-notify.7.gz
+share/man/man7/mimedefang-protocol.7.gz
+share/man/man8/md-mx-ctrl.8.gz
+share/man/man8/mimedefang-multiplexor.8.gz
+share/man/man8/mimedefang-release.8.gz
+share/man/man8/mimedefang.8.gz
+share/man/man8/mimedefang.pl.8.gz
+share/man/man8/watch-mimedefang.8.gz
+share/man/man8/watch-multiple-mimedefangs.8.gz
+@dir /Mail/MIMEDefang/DKIM
+@dir /Mail/MIMEDefang
+@dir /Mail
+@dir %%MIMEDEFANG_QUARANTINEDIR%%
+@dir %%MIMEDEFANG_RUNDIR%%
