@@ -1,7 +1,6 @@
 PORTNAME=	snmp_passpersist
 DISTVERSIONPREFIX=	v
-DISTVERSION=	2.0.0
-PORTREVISION=	1
+DISTVERSION=	2.1.0
 CATEGORIES=	net-mgmt python
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
@@ -17,8 +16,9 @@ USES=		python
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	nagius
-GH_TAGNAME=	fb0af0d
 
 USE_PYTHON=	autoplist distutils
+
+NO_ARCH=	yes
 
 .include <bsd.port.mk>
