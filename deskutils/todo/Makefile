@@ -22,7 +22,7 @@ PLIST_FILES=	bin/todo \
 		etc/todo.cfg \
 		etc/bash_completion.d/todo
 
-CONFLICTS_INSTALL=	deforaos-todo devtodo # bin/todo
+CONFLICTS_INSTALL=	deforaos-todo devtodo2 # bin/todo
 
 SHEBANG_FILES=	todo.sh todo_completion
 

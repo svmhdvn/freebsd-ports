@@ -20,7 +20,7 @@ USE_GNOME=	gtk30
 USE_XORG=	x11
 MAKE_ARGS+=	PREFIX=${PREFIX}
 
-CONFLICTS_INSTALL=	devtodo # man/man1/todo.1.gz
+CONFLICTS_INSTALL=	devtodo2 # man/man1/todo.1.gz
 
 OPTIONS_DEFINE=		DOCS NLS
 OPTIONS_SUB=		yes
