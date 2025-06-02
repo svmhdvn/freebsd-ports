@@ -1,11 +1,8 @@
 PORTNAME=	scilab
-DISTVERSION=	6.1.1
-PORTREVISION=	22
+DISTVERSION=	2025.1.0
 CATEGORIES=	math cad java
-MASTER_SITES=	https://www.scilab.org/download/${DISTVERSION}/
-DISTFILES=	${DISTNAME}-src${EXTRACT_SUFX}
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	me@svmhdvn.name
 COMMENT=	Scientific software package for numerical computations
 WWW=		https://www.scilab.org
 
@@ -31,6 +28,8 @@ USES=		compiler:c++17-lang cpe desktop-file-utils eigen:3,build \
 		localbase ncurses pathfix pkgconfig shared-mime-info
 USE_GNOME=	libxml2
 USE_LOCALE=	en_US.UTF-8
+
+USE_GITLAB=	yes
 
 GNU_CONFIGURE=	yes
 
