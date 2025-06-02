@@ -21,9 +21,10 @@ RUN_DEPENDS=	7z:archivers/7-zip \
 		sudo:security/sudo \
 		wget:ftp/wget \
 		xdg-open:devel/xdg-utils \
-		xterm:x11/xterm
+		xterm:x11/xterm \
+		${PYTHON_PKGNAMEPREFIX}natsort>0:devel/py-natsort@${PY_FLAVOR}
 
-USES=		perl5 python:run shebangfix
+USES=		perl5 python:run shebangfix # magick:7
 USE_GITHUB=	yes
 GH_ACCOUNT=	Clockwork6400
 GH_PROJECT=	POL-FreeBSD-4
