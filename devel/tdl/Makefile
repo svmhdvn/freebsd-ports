@@ -11,7 +11,7 @@ WWW=		http://www.rc0.org.uk/tdl/
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-CONFLICTS=	devtodo
+CONFLICTS=	devtodo2
 
 USES=		readline
 
