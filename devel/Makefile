@@ -603,7 +603,7 @@
     SUBDIR += desktop-file-utils
     SUBDIR += dev86
     SUBDIR += devhelp
-    SUBDIR += devtodo
+    SUBDIR += devtodo2
     SUBDIR += dfuife-curses
     SUBDIR += dia2code
     SUBDIR += dill
