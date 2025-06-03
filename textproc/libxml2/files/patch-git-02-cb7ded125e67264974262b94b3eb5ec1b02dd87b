@@ -1,0 +1,34 @@
+From cb7ded125e67264974262b94b3eb5ec1b02dd87b Mon Sep 17 00:00:00 2001
+From: Nick Wellnhofer <wellnhofer@aevum.de>
+Date: Wed, 7 May 2025 20:20:31 +0200
+Subject: [PATCH] reader: Fix null deref on malloc failure
+
+Short-lived regression from 177067ea.
+---
+ xmlreader.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/xmlreader.c b/xmlreader.c
+index 32d23a29c..b121a4713 100644
+--- xmlreader.c
++++ xmlreader.c
+@@ -206,10 +206,16 @@ xmlTextReaderErr(xmlParserErrors code, const char *msg, ...) {
+ 
+ static void
+ xmlTextReaderErrMemory(xmlTextReaderPtr reader) {
++    if (reader == NULL) {
++        xmlRaiseMemoryError(NULL, NULL, NULL, XML_FROM_PARSER, NULL);
++        return;
++    }
++
+     if (reader->ctxt != NULL)
+         xmlCtxtErrMemory(reader->ctxt);
+     else
+         xmlRaiseMemoryError(NULL, NULL, NULL, XML_FROM_PARSER, NULL);
++
+     reader->mode = XML_TEXTREADER_MODE_ERROR;
+     reader->state = XML_TEXTREADER_ERROR;
+ }
+-- 
+GitLab
+

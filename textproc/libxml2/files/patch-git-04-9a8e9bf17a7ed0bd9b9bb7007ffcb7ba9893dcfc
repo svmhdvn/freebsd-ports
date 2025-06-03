@@ -1,0 +1,36 @@
+From 9a8e9bf17a7ed0bd9b9bb7007ffcb7ba9893dcfc Mon Sep 17 00:00:00 2001
+From: Nick Wellnhofer <wellnhofer@aevum.de>
+Date: Fri, 16 May 2025 19:38:29 +0200
+Subject: [PATCH] parser: Undeprecate some parser context members
+
+ctxt->node doesn't have an accessor yet and ctxt->disableSAX is still
+widely used.
+---
+ include/libxml/parser.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/include/libxml/parser.h b/include/libxml/parser.h
+index 14c77aee0..338cab87b 100644
+--- include/libxml/parser.h
++++ include/libxml/parser.h
+@@ -275,7 +275,7 @@ struct _xmlParserCtxt {
+     /* Node analysis stack only used for DOM building */
+ 
+     /* Current parsed Node */
+-    xmlNodePtr node XML_DEPRECATED_MEMBER;
++    xmlNodePtr node;
+     /* Depth of the parsing stack */
+     int nodeNr XML_DEPRECATED_MEMBER;
+     /* Max depth of the parsing stack */
+@@ -331,7 +331,7 @@ struct _xmlParserCtxt {
+     /* ugly but ... */
+     int keepBlanks XML_DEPRECATED_MEMBER;
+     /* SAX callbacks are disabled */
+-    int disableSAX XML_DEPRECATED_MEMBER;
++    int disableSAX;
+     /* Parsing is in int 1/ext 2 subset */
+     int inSubset;
+     /* name of subset */
+-- 
+GitLab
+

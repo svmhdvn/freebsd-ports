@@ -1,0 +1,48 @@
+From 509ea95aecabfaa7d8aafc1f84a85cf5d51f753b Mon Sep 17 00:00:00 2001
+From: Nick Wellnhofer <wellnhofer@aevum.de>
+Date: Sun, 25 May 2025 20:56:40 +0200
+Subject: [PATCH] parser: Use parser context as default in resource loader
+
+This allows to access the original context for example when using
+modules like XInclude or schemas.
+---
+ parserInternals.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/parserInternals.c b/parserInternals.c
+index 432b7095b..4e39db1f8 100644
+--- parserInternals.c
++++ parserInternals.c
+@@ -2672,6 +2672,8 @@ xmlGetExternalEntityLoader(void) {
+  * Installs a custom callback to load documents, DTDs or external
+  * entities.
+  *
++ * If @vctxt is NULL, the parser context will be passed.
++ *
+  * Available since 2.14.0.
+  */
+ void
+@@ -2704,6 +2706,7 @@ xmlLoadResource(xmlParserCtxtPtr ctxt, const char *url, const char *publicId,
+ 
+     if ((ctxt != NULL) && (ctxt->resourceLoader != NULL)) {
+         char *resource = NULL;
++        void *userData;
+         xmlParserInputFlags flags = 0;
+         int code;
+ 
+@@ -2718,7 +2721,11 @@ xmlLoadResource(xmlParserCtxtPtr ctxt, const char *url, const char *publicId,
+         if ((ctxt->options & XML_PARSE_NONET) == 0)
+             flags |= XML_INPUT_NETWORK;
+ 
+-        code = ctxt->resourceLoader(ctxt->resourceCtxt, url, publicId, type,
++        userData = ctxt->resourceCtxt;
++        if (userData == NULL)
++            userData = ctxt;
++
++        code = ctxt->resourceLoader(userData, url, publicId, type,
+                                     flags, &ret);
+         if (code != XML_ERR_OK) {
+             xmlCtxtErrIO(ctxt, code, url);
+-- 
+GitLab
+
