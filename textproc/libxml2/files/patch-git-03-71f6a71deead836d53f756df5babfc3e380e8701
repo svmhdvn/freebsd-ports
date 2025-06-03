@@ -1,0 +1,242 @@
+From 71f6a71deead836d53f756df5babfc3e380e8701 Mon Sep 17 00:00:00 2001
+From: Nick Wellnhofer <wellnhofer@aevum.de>
+Date: Tue, 13 May 2025 22:38:15 +0200
+Subject: [PATCH] io: Make xmlOutputBufferCreate* not free encoder on error
+
+Revert a530ff12 which was an inadvertent API change.
+---
+ HTMLtree.c | 16 ++++++++++++----
+ xmlIO.c    | 26 ++++++++++----------------
+ xmlsave.c  |  4 ++++
+ 3 files changed, 26 insertions(+), 20 deletions(-)
+
+diff --git a/HTMLtree.c b/HTMLtree.c
+index 4173a3630..3a013a33c 100644
+--- HTMLtree.c
++++ HTMLtree.c
+@@ -456,8 +456,10 @@ htmlNodeDumpFileFormat(FILE *out, xmlDocPtr doc,
+     if (htmlFindOutputEncoder(encoding, &handler) != XML_ERR_OK)
+         return(-1);
+     buf = xmlOutputBufferCreateFile(out, handler);
+-    if (buf == NULL)
++    if (buf == NULL) {
++        xmlCharEncCloseFunc(handler);
+         return(-1);
++    }
+ 
+     htmlNodeDumpFormatOutput(buf, doc, cur, NULL, format);
+ 
+@@ -508,8 +510,10 @@ htmlDocDumpMemoryFormat(xmlDocPtr cur, xmlChar**mem, int *size, int format) {
+     if (htmlFindOutputEncoder(encoding, &handler) != XML_ERR_OK)
+         return;
+     buf = xmlAllocOutputBuffer(handler);
+-    if (buf == NULL)
++    if (buf == NULL) {
++        xmlCharEncCloseFunc(handler);
+ 	return;
++    }
+ 
+     htmlDocContentDumpFormatOutput(buf, cur, NULL, format);
+ 
+@@ -973,8 +977,10 @@ htmlDocDump(FILE *f, xmlDocPtr cur) {
+     if (htmlFindOutputEncoder(encoding, &handler) != XML_ERR_OK)
+         return(-1);
+     buf = xmlOutputBufferCreateFile(f, handler);
+-    if (buf == NULL)
++    if (buf == NULL) {
++        xmlCharEncCloseFunc(handler);
+         return(-1);
++    }
+     htmlDocContentDumpOutput(buf, cur, NULL);
+ 
+     ret = xmlOutputBufferClose(buf);
+@@ -1049,8 +1055,10 @@ htmlSaveFileFormat(const char *filename, xmlDocPtr cur,
+      * save the content to a temp buffer.
+      */
+     buf = xmlOutputBufferCreateFilename(filename, handler, 0);
+-    if (buf == NULL)
++    if (buf == NULL) {
++        xmlCharEncCloseFunc(handler);
+         return(0);
++    }
+ 
+     htmlDocContentDumpFormatOutput(buf, cur, encoding, format);
+ 
+diff --git a/xmlIO.c b/xmlIO.c
+index 206efa79c..4c58d81f2 100644
+--- xmlIO.c
++++ xmlIO.c
+@@ -1316,7 +1316,7 @@ xmlAllocParserInputBuffer(xmlCharEncoding enc) {
+  *
+  * Create a buffered parser output
+  *
+- * Consumes @encoder even in error case.
++ * Consumes @encoder but not in error case.
+  *
+  * Returns the new parser output or NULL
+  */
+@@ -1326,13 +1326,11 @@ xmlAllocOutputBuffer(xmlCharEncodingHandlerPtr encoder) {
+ 
+     ret = (xmlOutputBufferPtr) xmlMalloc(sizeof(xmlOutputBuffer));
+     if (ret == NULL) {
+-        xmlCharEncCloseFunc(encoder);
+ 	return(NULL);
+     }
+     memset(ret, 0, sizeof(xmlOutputBuffer));
+     ret->buffer = xmlBufCreate(MINLEN);
+     if (ret->buffer == NULL) {
+-        xmlCharEncCloseFunc(encoder);
+         xmlFree(ret);
+ 	return(NULL);
+     }
+@@ -1341,7 +1339,8 @@ xmlAllocOutputBuffer(xmlCharEncodingHandlerPtr encoder) {
+     if (encoder != NULL) {
+         ret->conv = xmlBufCreate(MINLEN);
+ 	if (ret->conv == NULL) {
+-            xmlOutputBufferClose(ret);
++            xmlBufFree(ret->buffer);
++            xmlFree(ret);
+ 	    return(NULL);
+ 	}
+ 
+@@ -1591,7 +1590,6 @@ __xmlOutputBufferCreateFilename(const char *URI,
+      * Allocate the Output buffer front-end.
+      */
+     ret = xmlAllocOutputBuffer(encoder);
+-    encoder = NULL;
+     if (ret == NULL)
+         goto error;
+ 
+@@ -1620,14 +1618,14 @@ __xmlOutputBufferCreateFilename(const char *URI,
+     }
+ 
+     if (ret->context == NULL) {
++        /* Don't free encoder */
++        ret->encoder = NULL;
+         xmlOutputBufferClose(ret);
+ 	ret = NULL;
+     }
+ 
+ error:
+     xmlFree(unescaped);
+-    if (encoder != NULL)
+-        xmlCharEncCloseFunc(encoder);
+     return(ret);
+ }
+ 
+@@ -1644,7 +1642,7 @@ error:
+  * TODO: currently if compression is set, the library only support
+  *       writing to a local file.
+  *
+- * Consumes @encoder even in error case.
++ * Consumes @encoder but not in error case.
+  *
+  * Returns the new output or NULL
+  */
+@@ -1700,7 +1698,7 @@ xmlParserInputBufferCreateFile(FILE *file, xmlCharEncoding enc) {
+  * Create a buffered output for the progressive saving to a FILE *
+  * buffered C I/O
+  *
+- * Consumes @encoder even in error case.
++ * Consumes @encoder but not in error case.
+  *
+  * Returns the new parser output or NULL
+  */
+@@ -1709,7 +1707,6 @@ xmlOutputBufferCreateFile(FILE *file, xmlCharEncodingHandlerPtr encoder) {
+     xmlOutputBufferPtr ret;
+ 
+     if (file == NULL) {
+-        xmlCharEncCloseFunc(encoder);
+         return(NULL);
+     }
+ 
+@@ -1730,7 +1727,7 @@ xmlOutputBufferCreateFile(FILE *file, xmlCharEncodingHandlerPtr encoder) {
+  *
+  * Create a buffered output for the progressive saving to a xmlBuffer
+  *
+- * Consumes @encoder even in error case.
++ * Consumes @encoder but not in error case.
+  *
+  * Returns the new parser output or NULL
+  */
+@@ -1740,7 +1737,6 @@ xmlOutputBufferCreateBuffer(xmlBufferPtr buffer,
+     xmlOutputBufferPtr ret;
+ 
+     if (buffer == NULL) {
+-        xmlCharEncCloseFunc(encoder);
+         return(NULL);
+     }
+ 
+@@ -2008,7 +2004,7 @@ xmlNewInputBufferString(const char *str, xmlParserInputFlags flags) {
+  * Create a buffered output for the progressive saving
+  * to a file descriptor
+  *
+- * Consumes @encoder even in error case.
++ * Consumes @encoder but not in error case.
+  *
+  * Returns the new parser output or NULL
+  */
+@@ -2017,7 +2013,6 @@ xmlOutputBufferCreateFd(int fd, xmlCharEncodingHandlerPtr encoder) {
+     xmlOutputBufferPtr ret;
+ 
+     if (fd < 0) {
+-        xmlCharEncCloseFunc(encoder);
+         return(NULL);
+     }
+ 
+@@ -2086,7 +2081,7 @@ xmlParserInputBufferCreateIO(xmlInputReadCallback   ioread,
+  * Create a buffered output for the progressive saving
+  * to an I/O handler
+  *
+- * Consumes @encoder even in error case.
++ * Consumes @encoder but not in error case.
+  *
+  * Returns the new parser output or NULL
+  */
+@@ -2097,7 +2092,6 @@ xmlOutputBufferCreateIO(xmlOutputWriteCallback   iowrite,
+     xmlOutputBufferPtr ret;
+ 
+     if (iowrite == NULL) {
+-        xmlCharEncCloseFunc(encoder);
+         return(NULL);
+     }
+ 
+diff --git a/xmlsave.c b/xmlsave.c
+index e24aef260..a56d46f56 100644
+--- xmlsave.c
++++ xmlsave.c
+@@ -1973,6 +1973,7 @@ xmlSaveToFd(int fd, const char *encoding, int options)
+     if (ret == NULL) return(NULL);
+     ret->buf = xmlOutputBufferCreateFd(fd, ret->handler);
+     if (ret->buf == NULL) {
++        xmlCharEncCloseFunc(ret->handler);
+ 	xmlFreeSaveCtxt(ret);
+ 	return(NULL);
+     }
+@@ -2002,6 +2003,7 @@ xmlSaveToFilename(const char *filename, const char *encoding, int options)
+     ret->buf = xmlOutputBufferCreateFilename(filename, ret->handler,
+                                              compression);
+     if (ret->buf == NULL) {
++        xmlCharEncCloseFunc(ret->handler);
+ 	xmlFreeSaveCtxt(ret);
+ 	return(NULL);
+     }
+@@ -2029,6 +2031,7 @@ xmlSaveToBuffer(xmlBufferPtr buffer, const char *encoding, int options)
+     if (ret == NULL) return(NULL);
+     ret->buf = xmlOutputBufferCreateBuffer(buffer, ret->handler);
+     if (ret->buf == NULL) {
++        xmlCharEncCloseFunc(ret->handler);
+ 	xmlFreeSaveCtxt(ret);
+ 	return(NULL);
+     }
+@@ -2059,6 +2062,7 @@ xmlSaveToIO(xmlOutputWriteCallback iowrite,
+     if (ret == NULL) return(NULL);
+     ret->buf = xmlOutputBufferCreateIO(iowrite, ioclose, ioctx, ret->handler);
+     if (ret->buf == NULL) {
++        xmlCharEncCloseFunc(ret->handler);
+ 	xmlFreeSaveCtxt(ret);
+ 	return(NULL);
+     }
+-- 
+GitLab
+

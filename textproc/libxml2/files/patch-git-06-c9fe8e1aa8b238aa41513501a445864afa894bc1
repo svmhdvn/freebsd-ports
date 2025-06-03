@@ -1,0 +1,89 @@
+From c9fe8e1aa8b238aa41513501a445864afa894bc1 Mon Sep 17 00:00:00 2001
+From: Nick Wellnhofer <wellnhofer@aevum.de>
+Date: Sun, 18 May 2025 17:45:11 +0200
+Subject: [PATCH] parser: Only validate EnumerationTypes when requested
+
+This has quadratic behavior and is only a validity constraint.
+---
+ parser.c | 58 +++++++++++++++++++++++++++++++++-----------------------
+ 1 file changed, 34 insertions(+), 24 deletions(-)
+
+diff --git a/parser.c b/parser.c
+index a75adc583..61eff705f 100644
+--- parser.c
++++ parser.c
+@@ -6005,18 +6005,23 @@ xmlParseNotationType(xmlParserCtxtPtr ctxt) {
+             xmlFreeEnumeration(ret);
+ 	    return(NULL);
+ 	}
+-	tmp = ret;
+-	while (tmp != NULL) {
+-	    if (xmlStrEqual(name, tmp->name)) {
+-		xmlValidityError(ctxt, XML_DTD_DUP_TOKEN,
+-	  "standalone: attribute notation value token %s duplicated\n",
+-				 name, NULL);
+-		if (!xmlDictOwns(ctxt->dict, name))
+-		    xmlFree((xmlChar *) name);
+-		break;
+-	    }
+-	    tmp = tmp->next;
+-	}
++        tmp = NULL;
++#ifdef LIBXML_VALID_ENABLED
++        if (ctxt->validate) {
++            tmp = ret;
++            while (tmp != NULL) {
++                if (xmlStrEqual(name, tmp->name)) {
++                    xmlValidityError(ctxt, XML_DTD_DUP_TOKEN,
++              "standalone: attribute notation value token %s duplicated\n",
++                                     name, NULL);
++                    if (!xmlDictOwns(ctxt->dict, name))
++                        xmlFree((xmlChar *) name);
++                    break;
++                }
++                tmp = tmp->next;
++            }
++        }
++#endif /* LIBXML_VALID_ENABLED */
+ 	if (tmp == NULL) {
+ 	    cur = xmlCreateEnumeration(name);
+ 	    if (cur == NULL) {
+@@ -6075,18 +6080,23 @@ xmlParseEnumerationType(xmlParserCtxtPtr ctxt) {
+ 	    xmlFatalErr(ctxt, XML_ERR_NMTOKEN_REQUIRED, NULL);
+ 	    return(ret);
+ 	}
+-	tmp = ret;
+-	while (tmp != NULL) {
+-	    if (xmlStrEqual(name, tmp->name)) {
+-		xmlValidityError(ctxt, XML_DTD_DUP_TOKEN,
+-	  "standalone: attribute enumeration value token %s duplicated\n",
+-				 name, NULL);
+-		if (!xmlDictOwns(ctxt->dict, name))
+-		    xmlFree(name);
+-		break;
+-	    }
+-	    tmp = tmp->next;
+-	}
++        tmp = NULL;
++#ifdef LIBXML_VALID_ENABLED
++        if (ctxt->validate) {
++            tmp = ret;
++            while (tmp != NULL) {
++                if (xmlStrEqual(name, tmp->name)) {
++                    xmlValidityError(ctxt, XML_DTD_DUP_TOKEN,
++              "standalone: attribute enumeration value token %s duplicated\n",
++                                     name, NULL);
++                    if (!xmlDictOwns(ctxt->dict, name))
++                        xmlFree(name);
++                    break;
++                }
++                tmp = tmp->next;
++            }
++        }
++#endif /* LIBXML_VALID_ENABLED */
+ 	if (tmp == NULL) {
+ 	    cur = xmlCreateEnumeration(name);
+ 	    if (!xmlDictOwns(ctxt->dict, name))
+-- 
+GitLab
+

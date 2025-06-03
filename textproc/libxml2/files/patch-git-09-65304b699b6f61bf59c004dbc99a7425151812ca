@@ -1,0 +1,28 @@
+From 65304b699b6f61bf59c004dbc99a7425151812ca Mon Sep 17 00:00:00 2001
+From: Nick Wellnhofer <wellnhofer@aevum.de>
+Date: Wed, 28 May 2025 14:57:37 +0200
+Subject: [PATCH] error: Fix initGenericErrorDefaultFunc compatibility macro
+ again
+
+Now it really should work as before.
+---
+ include/libxml/xmlerror.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/include/libxml/xmlerror.h b/include/libxml/xmlerror.h
+index f59ce6324..743d82130 100644
+--- include/libxml/xmlerror.h
++++ include/libxml/xmlerror.h
+@@ -19,7 +19,8 @@ extern "C" {
+ /*
+  * Backward compatibility
+  */
+-#define initGenericErrorDefaultFunc(h) xmlSetGenericErrorFunc(NULL, *(h))
++#define initGenericErrorDefaultFunc(h) \
++    xmlSetGenericErrorFunc(NULL, (h) ? *(h) : NULL)
+ 
+ /**
+  * xmlErrorLevel:
+-- 
+GitLab
+
