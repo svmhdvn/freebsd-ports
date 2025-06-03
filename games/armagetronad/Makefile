@@ -1,9 +1,7 @@
 PORTNAME=	armagetronad
-DISTVERSION=	0.2.8.3.5
-DISTVERSIONSUFFIX=	.src
-PORTREVISION=	4
+DISTVERSION=	${_MAJOR_VER}.${_MINOR_VER}
 CATEGORIES=	games
-MASTER_SITES=	SF/${PORTNAME}/stable/${DISTVERSION}/
+MASTER_SITES=	https://launchpad.net/armagetronad/${_MAJOR_VER}/${DISTVERSION}/+download/
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Tron clone in 3D
@@ -17,8 +15,7 @@ BROKEN=		Fails to build with libxml2 2.14, error: indirection requires pointer o
 BUILD_DEPENDS=	bash:shells/bash
 LIB_DEPENDS=	libpng.so:graphics/png
 
-USES=		autoreconf desktop-file-utils gl gmake gnome jpeg sdl
-USE_CXXSTD=	c++14
+USES=		autoreconf compiler:c++14-lang desktop-file-utils gl gmake gnome jpeg pkgconfig sdl tar:tbz
 USE_GL=		gl glu
 USE_GNOME=	libxml2
 USE_SDL=	image mixer sdl
@@ -34,6 +31,9 @@ WRKSRC=		${WRKDIR}/${PORTNAME}-${DISTVERSION}
 PORTDOCS=	*
 
 OPTIONS_DEFINE=	DOCS
+
+_MAJOR_VER=	0.2.9
+_MINOR_VER=	2.3
 
 post-install:
 	@${MV} ${STAGEDIR}${DATADIR}/desktop/${PORTNAME}.desktop ${STAGEDIR}${DESKTOPDIR}/${PORTNAME}.desktop
