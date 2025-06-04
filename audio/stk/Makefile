@@ -1,5 +1,6 @@
 PORTNAME=	stk
 DISTVERSION=	5.0.1
+PORTREVISION=	1
 CATEGORIES=	audio
 MASTER_SITES=	http://ccrma.stanford.edu/software/stk/release/
 
@@ -20,8 +21,7 @@ GNU_CONFIGURE=	yes
 MAKE_ARGS=	RAWWAVES=${DATADIR}/rawwaves/
 
 LDFLAGS+=	-pthread
-
-PIE_UNSAFE=	yes
+CPPFLAGS+=	${CXXFLAGS}
 
 OPTIONS_RADIO=		BACKEND
 OPTIONS_RADIO_BACKEND=	JACK OSS
