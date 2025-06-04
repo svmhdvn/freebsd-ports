@@ -1,6 +1,6 @@
 PORTNAME=	openjdk17
 PORTVERSION=	17.0.1.12.1
-PORTREVISION=	3
+PORTREVISION=	4
 CATEGORIES=	java devel
 MASTER_SITES=	LOCAL/glewis/bootstrap-openjdk17 \
 		LOCAL/pkubaj/bootstrap-openjdk17
@@ -15,7 +15,8 @@ LICENSE=	GPLv2
 
 ONLY_FOR_ARCHS=	aarch64 amd64 i386 powerpc powerpc64 powerpc64le
 
-USES=		tar:xz
+USES=		tar:xz xorg
+USE_XORG=	x11
 
 NO_BUILD=	yes
 PLIST_SUB=	JDK_ROOT=${JDK_ROOT}
