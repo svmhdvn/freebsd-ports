@@ -1,13 +1,13 @@
 # for committer: bump PORTREVISION for math/facile whenever ocaml gets updated
 
 PORTNAME=	ocaml
-PORTVERSION=	4.14.2
+DISTVERSION=	4.14.2
+PORTREVISION=	1
 CATEGORIES=	lang
 MASTER_SITES=	http://caml.inria.fr/pub/distrib/${DISTNAME:R}/ \
 		http://caml.inria.fr/pub/distrib/${DISTNAME:R}/:docs
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX}
 EXTRACT_ONLY=	${_DISTFILES:M*.tar.*}
-PKGNAMESUFFIX=	${SFX}
 
 MAINTAINER=	freebsd@dev.thsi.be
 COMMENT=	Objective Caml compiler and programming environment
@@ -21,12 +21,7 @@ RUN_DEPENDS=	${RUN_DEPENDS_${ARCH}}
 RUN_DEPENDS_armv7=	${LOCALBASE}/bin/as:devel/binutils
 
 USES=		compiler:c11 cpe gmake tar:xz
-ARCH!=		uname -p
-.if ${ARCH} == armv6 || ${ARCH} == armv7
-USE_BINUTILS=	yes
-.endif
 CPE_VENDOR=	inria
-USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--disable-force-safe-string \
 		--enable-ocamltest
@@ -37,7 +32,6 @@ TEST_TARGET=	tests
 LDFLAGS_armv7=	-Wl,-z,notext
 LDFLAGS_i386=	-Wl,-z,notext
 LDFLAGS_powerpc=	-Wl,-z,notext
-PIE_UNSAFE=	yes
 SSP_UNSAFE=	yes
 
 CONFLICTS=	metaocaml ocaml-nox11
@@ -58,6 +52,10 @@ THREADS_CONFIGURE_ENABLE=	systhreads
 
 .if ${ARCH} == powerpc
 LLD_UNSAFE=	yes
+.endif
+
+.if ${ARCH} == armv6 || ${ARCH} == armv7
+USE_BINUTILS=	yes
 .endif
 
 post-install-DOCS-on:
