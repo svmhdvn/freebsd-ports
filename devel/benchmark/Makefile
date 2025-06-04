@@ -1,6 +1,6 @@
 PORTNAME=	benchmark
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.9.2
+DISTVERSION=	1.9.4
 PORTEPOCH=	1
 CATEGORIES=	devel
 
@@ -26,7 +26,6 @@ CMAKE_TESTING_ARGS=	-DGOOGLETEST_PATH=${WRKSRC_googletest}
 CFLAGS+=	-Wno-error=sign-conversion
 CXXFLAGS+=	${CXXFLAGS_${CHOSEN_COMPILER_TYPE}}
 CXXFLAGS_gcc=	-Wno-stringop-truncation
-PIE_UNSAFE=	yes
 
 BINARY_ALIAS=	git=false
 
