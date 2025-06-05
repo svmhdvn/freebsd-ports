@@ -1,5 +1,6 @@
 PORTNAME=	citrix_ica
 PORTVERSION=	13.10.0
+PORTREVISION=	1
 CATEGORIES=	net comms linux
 MASTER_SITES=	#
 DISTNAME=	linuxx86-${PORTVERSION}.20
@@ -16,7 +17,7 @@ LICENSE_PERMS=	auto-accept
 
 ONLY_FOR_ARCHS=	i386 amd64
 USES=		fakeroot linux:c7 webplugin:linux
-USE_LINUX=	alsalib gtk2 libxml2 openmotif
+USE_LINUX=	alsalib curl gtk2 libxml2 openmotif
 WEBPLUGIN_DIR=	${PREFIX}/ICAClient
 WEBPLUGIN_FILES=	npica.so
 
