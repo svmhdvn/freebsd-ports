@@ -1,0 +1,31 @@
+--- data/meson.build.orig	2021-01-28 16:09:26 UTC
++++ data/meson.build
+@@ -0,0 +1,28 @@
++# Legacy intltool rules
++intltool_merge=find_program('intltool-merge')
++custom_target('appdata',
++    input: meson.project_name() + '.appdata.xml.in',
++    output: meson.project_name() + '.appdata.xml',
++    install: true,
++    install_dir: join_paths(get_option('datadir'), 'metainfo'),
++    command: [intltool_merge, '-x', '-u', join_paths(meson.source_root(), 'po'), '@INPUT@', '@OUTPUT@'],
++)
++custom_target('desktop',
++    input: configure_file(
++        input: meson.project_name() + '.desktop.in.in',
++        output: meson.project_name() + '.desktop.in',
++        configuration: {'VERSION': meson.project_version()}
++    ),
++    output: meson.project_name() + '.desktop',
++    install: true,
++    install_dir: join_paths(get_option('datadir'), 'applications'),
++    command: [intltool_merge, '-d', '-u', join_paths(meson.source_root(), 'po'), '@INPUT@', '@OUTPUT@'],
++)
++
++filename = meson.project_name() + '.png'
++foreach sz : [16, 22, 24, 32, 48, 256, 512, 1024]
++    szname = '@0@x@0@/apps'.format(sz)
++    install_data('icons/'+szname+'/'+filename,
++        install_dir: join_paths(get_option('datadir'), 'icons/hicolor/'+szname)
++    )
++endforeach
