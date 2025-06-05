@@ -1,0 +1,11 @@
+--- meson.build.orig	2021-01-22 18:27:33 UTC
++++ meson.build
+@@ -25,6 +25,8 @@ m_dep = cc.find_library('m', required : false)
+ inc = include_directories('src')
+ subdir('src')
+ subdir('po')
++subdir('data')
++subdir('man')
+ pkg_mod = import('pkgconfig')
+ pkg_mod.generate(libraries : gnomeinternetradiolibrary,
+                  version : '3.9.0',

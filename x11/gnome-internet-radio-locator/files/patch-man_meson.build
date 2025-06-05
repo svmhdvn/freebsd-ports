@@ -1,0 +1,7 @@
+--- man/meson.build.orig	2021-01-28 16:40:08 UTC
++++ man/meson.build
+@@ -0,0 +1,4 @@
++install_data(meson.project_name() + '.1',
++    install_dir: join_paths(get_option('mandir'), 'man1')
++)
++
