@@ -53,6 +53,8 @@ ASAN_CMAKE_BOOL=MOLD_USE_ASAN
 
 LTO_CMAKE_BOOL=	MOLD_LTO
 
+MOLD_UNSAFE=	yes
+
 pre-test:
 	### BINARY_ALIAS doesn't work for tests so we need to fix it manually
 	@${REINPLACE_CMD} -e 's|OBJCOPY=objcopy|OBJCOPY=${PREFIX}/bin/objcopy|g' \
