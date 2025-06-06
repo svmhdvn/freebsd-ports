@@ -1,5 +1,5 @@
 PORTNAME=	htop
-DISTVERSION=	3.4.0
+DISTVERSION=	3.4.1
 CATEGORIES=	sysutils
 MASTER_SITES=	https://github.com/${PORTNAME}-dev/${PORTNAME}/releases/download/${DISTVERSION}/
 
@@ -26,6 +26,6 @@ OPTIONS_DEFINE=	LSOF
 LSOF_RUN_DEPENDS=	lsof:sysutils/lsof
 
 post-patch:
-	@${REINPLACE_CMD} -e 's/3.4.0-dev-3.4.0/3.4.0/' ${WRKSRC}/configure
+	@${REINPLACE_CMD} 's/3.4.1-3.4.1/3.4.1/g' ${WRKSRC}/configure
 
 .include <bsd.port.mk>
