@@ -16,6 +16,8 @@ PIE_Include_MAINTAINER=	portmgr@FreeBSD.org
 .  if !defined(PIE_UNSAFE)
 .    if defined(_INCLUDE_USES_CMAKE_MK)
 CMAKE_ARGS+=	-DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=true
+.    elif defined(_INCLUDE_USES_MESON_MK)
+MESON_ARGS+=	-Db_pie=true
 .    else
 PIE_CFLAGS?=	-fPIE -fPIC
 CFLAGS+=	${PIE_CFLAGS}
