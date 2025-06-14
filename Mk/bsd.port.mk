@@ -2020,6 +2020,18 @@ NONEXISTENT?=	/nonexistent
 CHECKSUM_ALGORITHMS?= sha256
 
 DISTINFO_FILE?=		${MASTERDIR}/distinfo
+_TIMESTAMP=			0
+.if !defined(NOT_REPRODUCIBLE) && exists(${DISTINFO_FILE})
+.if !defined(TIMESTAMP_CACHE) || empty(_TIMESTAMP_CACHE)
+_TIMESTAMP_CACHE!=	${AWK} '$$1 == "TIMESTAMP" {print $$3}' ${DISTINFO_FILE}
+.endif
+_TIMESTAMP=		${_TIMESTAMP_CACHE}
+.endif
+.if ${_TIMESTAMP} != 0
+WRK_ENV+=		SOURCE_DATE_EPOCH='${_TIMESTAMP}'
+.endif
+
+
 
 MAKE_FLAGS?=	-f
 MAKEFILE?=		Makefile
@@ -3477,6 +3489,9 @@ PKG_CREATE_ARGS+= -f ${PKG_COMPRESSION_FORMAT}
 PKG_CREATE_ARGS+= -l ${PKG_COMPRESSION_LEVEL}
 .      endif
 PKG_CREATE_ARGS+=	-r ${STAGEDIR}
+.if ${_TIMESTAMP} != 0
+PKG_CREATE_ARGS+=	-t ${_TIMESTAMP}
+.endif
 .      if defined(PKG_CREATE_VERBOSE)
 PKG_CREATE_ARGS+=	-v
 .      endif
