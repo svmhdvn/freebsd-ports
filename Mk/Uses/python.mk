@@ -595,6 +595,7 @@ PYTHON_SOABI=	# empty
 
 .  if ${PYTHON_MAJOR_VER} < 3
 DEPRECATED?=	Uses Python 2.7 which is EOLed upstream
+NOT_REPRODUCIBLE=
 .  endif
 
 .  if !defined(PYTHONBASE)
