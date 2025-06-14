@@ -92,6 +92,7 @@
     SUBDIR += imposm3
     SUBDIR += influxdb
     SUBDIR += influxdb2-cli
+    SUBDIR += influxdb3
     SUBDIR += innotop
     SUBDIR += iowow
     SUBDIR += ip4r

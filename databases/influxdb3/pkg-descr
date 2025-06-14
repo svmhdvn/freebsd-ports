@@ -1,0 +1,4 @@
+InfluxDB Core is a database built to collect, process, transform, and store
+event and time series data. It is ideal for use cases that require real-time
+ingest and fast query response times to build user interfaces, monitoring, and
+automation solutions.
