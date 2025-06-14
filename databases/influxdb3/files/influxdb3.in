@@ -1,0 +1,44 @@
+#!/bin/sh
+
+# PROVIDE: influxdb3
+# REQUIRE: DAEMON
+# KEYWORD: shutdown
+#
+# Add the following lines to /etc/rc.conf to enable influxdb:
+# influxdb3_enable="YES"
+#
+# influxdb3_enable (bool):      Set to YES to enable influxdb3
+#                               Default: NO
+# influxdb3_user (str):         influxdb3 daemon user
+#                               Default: influxdb
+# influxdb3_group (str):        influxdb3 daemon group
+#                               Default: influxdb
+# influxdb3_args (str):         Command-line args passed to influxdb3
+#
+
+. /etc/rc.subr
+
+name=influxdb3
+rcvar=influxdb3_enable
+load_rc_config $name
+
+: ${influxdb3_enable:="NO"}
+: ${influxdb3_user:="influxd"}
+: ${influxdb3_group:="influxd"}
+: ${influxdb3_flags:=""}
+
+pidfile=/var/run/influxdb3.pid
+procname="/usr/local/bin/${name}"
+start_precmd=influxdb3_precmd
+command=/usr/sbin/daemon
+command_args="-cfS -p ${pidfile} ${procname} serve ${influxdb3_args}"
+
+influxdb3_precmd()
+{
+	if [ ! -e ${pidfile} ]; then
+		install -o ${influxdb3_user} -g ${influxdb3_group} /dev/null ${pidfile}
+	fi
+	echo "${influxdb3_args}"
+}
+
+run_rc_command "$1"
