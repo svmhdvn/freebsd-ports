@@ -15,6 +15,7 @@ LICENSE=	PSFL
 
 DEPRECATED=	EOLed upstream
 EXPIRATION_DATE=	2020-12-31
+NOT_REPRODUCIBLE=
 
 USES=		cpe ncurses pathfix pkgconfig readline shebangfix ssl tar:xz tk:86
 PATHFIX_MAKEFILEIN=	Makefile.pre.in
