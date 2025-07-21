@@ -10,8 +10,9 @@ WWW=		https://savannah.nongnu.org/projects/spamass-milt/
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=	spamc:mail/spamassassin
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	spamc:mail/spamassassin
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USE_RC_SUBR=	spamass-milter
 

@@ -10,10 +10,11 @@ WWW=		https://www.spmfilter.org/
 
 LICENSE=	LGPL3
 
-BUILD_DEPENDS=	libcmime>=0.1.10:mail/libcmime \
+BR_DEPENDS=	libcmime>=0.1.10:mail/libcmime \
 		libesmtp>=1.0:mail/libesmtp
 
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 SMFUSER?=	nobody
 SMFGROUP?=	mail

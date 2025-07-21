@@ -16,8 +16,9 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	DSSSL stylesheets for the DocBook DTD by Norman Walsh
 WWW=		https://sourceforge.net/projects/docbook/
 
-BUILD_DEPENDS=	xmlcatmgr:textproc/xmlcatmgr
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	xmlcatmgr:textproc/xmlcatmgr
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 NO_ARCH=	yes
 NO_MTREE=	yes

@@ -11,8 +11,9 @@ WWW=		https://www.latex2html.org/
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BUILD_DEPENDS=	${LOCALBASE}/bin/anytopnm:graphics/netpbm
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	${LOCALBASE}/bin/anytopnm:graphics/netpbm
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 CONFLICTS=	ja-latex2html
 

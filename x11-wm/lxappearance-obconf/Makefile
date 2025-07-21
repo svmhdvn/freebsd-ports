@@ -11,12 +11,13 @@ WWW=		https://www.lxde.org/
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
+BR_DEPENDS=	openbox:x11-wm/openbox \
+		lxappearance:x11-themes/lxappearance
+BUILD_DEPENDS=	${BR_DEPENDS}
 LIB_DEPENDS=	libImlib2.so:graphics/imlib2 \
-	libfontconfig.so:x11-fonts/fontconfig \
-	libfreetype.so:print/freetype2
-BUILD_DEPENDS=	openbox:x11-wm/openbox \
-	lxappearance:x11-themes/lxappearance
-RUN_DEPENDS=	${BUILD_DEPENDS}
+		libfontconfig.so:x11-fonts/fontconfig \
+		libfreetype.so:print/freetype2
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=	gettext-tools gmake gnome libtool pkgconfig tar:xz xorg
 GNU_CONFIGURE=	yes

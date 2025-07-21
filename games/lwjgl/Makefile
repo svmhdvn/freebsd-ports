@@ -11,9 +11,10 @@ LICENSE=	BSD3CLAUSE
 
 ONLY_FOR_ARCHS=	aarch64 amd64 i386 powerpc powerpc64 powerpc64le
 
-BUILD_DEPENDS=	${JAVAJARDIR}/jutils/jutils.jar:games/jutils \
+BR_DEPENDS=	${JAVAJARDIR}/jutils/jutils.jar:games/jutils \
 		${JAVAJARDIR}/jinput/jinput.jar:games/jinput
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		dos2unix java:ant,run xorg
 DOS2UNIX_REGEX=	.*.[^jp][^an][^rg]$

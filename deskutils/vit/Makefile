@@ -10,9 +10,10 @@ WWW=		https://tasktools.org/projects/vit.html
 
 LICENSE=	GPLv3+
 
-BUILD_DEPENDS=	p5-Curses>=0:devel/p5-Curses \
+BR_DEPENDS=	p5-Curses>=0:devel/p5-Curses \
 		task:deskutils/taskwarrior
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 NO_ARCH=	yes
 USES=		perl5 shebangfix

@@ -12,11 +12,12 @@ WWW=		https://metacpan.org/release/Catalyst-Model-CDBI
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual
 
-BUILD_DEPENDS=	p5-Class-DBI-Loader>=0:databases/p5-Class-DBI-Loader \
+BR_DEPENDS=	p5-Class-DBI-Loader>=0:databases/p5-Class-DBI-Loader \
 		p5-Catalyst-Runtime>=0:www/p5-Catalyst-Runtime \
 		p5-Catalyst-Devel>=1.00:www/p5-Catalyst-Devel \
 		p5-Class-DBI>=0:databases/p5-Class-DBI
-RUN_DEPENDS:=	${BUILD_DEPENDS} \
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS} \
 		p5-MRO-Compat>=0.11:devel/p5-MRO-Compat
 
 USES=		perl5

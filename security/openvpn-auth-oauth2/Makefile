@@ -10,8 +10,6 @@ WWW=		https://github.com/jkroepke/openvpn-auth-oauth2
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
-EXTRACT_DEPENDS=	${BUILD_DEPENDS}
-
 USES=		go:1.24,modules
 
 GO_MODULE=	github.com/jkroepke/openvpn-auth-oauth2

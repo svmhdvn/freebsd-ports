@@ -10,8 +10,9 @@ WWW=		https://www.langfeldt.net/w3mir/
 
 LICENSE=	ART10
 
-BUILD_DEPENDS=	p5-libwww>=0:www/p5-libwww
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	p5-libwww>=0:www/p5-libwww
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		perl5
 USE_PERL5=	configure

@@ -11,11 +11,12 @@ WWW=		https://sourceforge.jp/projects/scim-imengine/
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	scim:textproc/scim
+BR_DEPENDS=	scim:textproc/scim
+BUILD_DEPENDS=	${BR_DEPENDS}
 LIB_DEPENDS=	libanthy-unicode.so:japanese/anthy-unicode \
 		libfontconfig.so:x11-fonts/fontconfig \
 		libfreetype.so:print/freetype2
-RUN_DEPENDS:=	${BUILD_DEPENDS} \
+RUN_DEPENDS:=	${BR_DEPENDS} \
 		kasumi:japanese/kasumi-unicode
 
 USES=		gettext-runtime gmake gnome iconv libtool:keepla pkgconfig

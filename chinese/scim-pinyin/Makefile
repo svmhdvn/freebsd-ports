@@ -11,8 +11,9 @@ WWW=		https://github.com/scim-im/scim
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	scim>=1.2.0:textproc/scim
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	scim>=1.2.0:textproc/scim
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		gmake iconv libtool:keepla localbase:ldflags pkgconfig
 USE_CXXSTD=	c++14

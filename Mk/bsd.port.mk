@@ -5131,12 +5131,10 @@ config-recursive:
 		${_FLAVOR_RECURSIVE_SH}
 .    endif # config-recursive
 
-.    if !target(config-conditional)
 config-conditional:
 .      if !empty(NEW_OPTIONS)
 	@cd ${.CURDIR} && ${MAKE} config;
 .      endif
-.    endif # config-conditional
 
 .    if !target(showconfig) && (make(*config*) || (!empty(.MAKEFLAGS:M-V) && !empty(.MAKEFLAGS:M*_DESC)))
 .include "${PORTSDIR}/Mk/bsd.options.desc.mk"

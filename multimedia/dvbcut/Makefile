@@ -10,13 +10,14 @@ WWW=		https://github.com/bernhardu/dvbcut-deb/
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=	mplayer:multimedia/mplayer \
+BR_DEPENDS=	mplayer:multimedia/mplayer \
 		ffmpeg:multimedia/ffmpeg
+BUILD_DEPENDS=	${BR_DEPENDS}
 LIB_DEPENDS=	liba52.so:audio/liba52 \
 		libao.so:audio/libao \
 		libmad.so:audio/libmad \
 		libavutil.so:multimedia/ffmpeg
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		compiler:c++11-lang desktop-file-utils gl pkgconfig \
 		qmake:outsource qt:5 shared-mime-info

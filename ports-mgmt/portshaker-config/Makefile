@@ -5,8 +5,9 @@ CATEGORIES=	ports-mgmt
 MAINTAINER=	romain@FreeBSD.org
 COMMENT=	Simple configuration manager for portshaker
 
-BUILD_DEPENDS=	portshaker:ports-mgmt/portshaker
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	portshaker:ports-mgmt/portshaker
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 MASTERDIR=	${.CURDIR}/../portshaker
 BUILD_WRKSRC=	${WRKSRC}/examples

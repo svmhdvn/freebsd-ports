@@ -10,8 +10,9 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Scilab 1-D and 2-D Wavelet Toolbox
 WWW=		https://atoms.scilab.org/toolboxes/swt
 
-BUILD_DEPENDS=	${SCILAB_CMD}:math/scilab
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	${SCILAB_CMD}:math/scilab
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		dos2unix zip
 USE_LOCALE=	en_US.UTF-8

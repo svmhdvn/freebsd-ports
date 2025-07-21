@@ -13,7 +13,7 @@ WWW=		https://ikiwiki.info/
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=	p5-CGI-FormBuilder>=0:www/p5-CGI-FormBuilder \
+BR_DEPENDS=	p5-CGI-FormBuilder>=0:www/p5-CGI-FormBuilder \
 		p5-CGI-Session>=0:www/p5-CGI-Session \
 		p5-HTML-Parser>=0:www/p5-HTML-Parser \
 		p5-HTML-Scrubber>=0:www/p5-HTML-Scrubber \
@@ -29,7 +29,7 @@ BUILD_DEPENDS=	p5-CGI-FormBuilder>=0:www/p5-CGI-FormBuilder \
 		p5-XML-Twig>=0:textproc/p5-XML-Twig \
 		p5-YAML-LibYAML>=0:textproc/p5-YAML-LibYAML \
 		p5-YAML>=0:textproc/p5-YAML
-RUN_DEPENDS:=	${BUILD_DEPENDS} \
+RUN_DEPENDS=	${BR_DEPENDS} \
 		${PYTHON_PKGNAMEPREFIX}docutils>0:textproc/py-docutils@${PY_FLAVOR} \
 		p5-Authen-Passphrase>=0:security/p5-Authen-Passphrase \
 		p5-File-MimeInfo>=0:devel/p5-File-MimeInfo \

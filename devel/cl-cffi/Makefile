@@ -22,10 +22,11 @@ WWW=		https://common-lisp.net/project/cffi/
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYRIGHT
 
-BUILD_DEPENDS=	cl-alexandria>=0:devel/cl-alexandria \
+BR_DEPENDS=	cl-alexandria>=0:devel/cl-alexandria \
 		cl-trivial-features>=0:devel/cl-trivial-features \
 		cl-babel>=0:converters/cl-babel
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 NO_BUILD=	yes
 

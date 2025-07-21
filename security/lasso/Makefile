@@ -18,10 +18,11 @@ WWW=		https://lasso.entrouvert.org/
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}six>0:devel/py-six@${PY_FLAVOR}
+BR_DEPENDS=	${PYTHON_PKGNAMEPREFIX}six>0:devel/py-six@${PY_FLAVOR}
+BUILD_DEPENDS=	${BR_DEPENDS}
 LIB_DEPENDS=	libltdl.so:devel/libltdl \
 		libxmlsec1-openssl.so:security/xmlsec1
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		cpe gmake gnome libtool pathfix pkgconfig python ssl
 CPE_VENDOR=	entrouvert

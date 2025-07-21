@@ -11,10 +11,11 @@ WWW=		https://ygrek.org/p/ocurl/
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	ocamlc:lang/ocaml \
+BR_DEPENDS=	ocamlc:lang/ocaml \
 		ocamlfind:devel/ocaml-findlib
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
 LIB_DEPENDS=	libcurl.so:ftp/curl
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		gmake ocaml:camlp4,findlib,ldconfig
 

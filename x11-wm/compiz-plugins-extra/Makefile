@@ -11,15 +11,16 @@ WWW=		https://gitlab.com/compiz/compiz-plugins-extra
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
+BR_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/compiz.pc:x11-wm/compiz \
+		${LOCALBASE}/libdata/pkgconfig/bcop.pc:devel/compiz-bcop \
+		${LOCALBASE}/libdata/pkgconfig/compiz-text.pc:x11-wm/compiz-plugins-main
+BUILD_DEPENDS=	${BR_DEPENDS}
 LIB_DEPENDS=	libcairo.so:graphics/cairo \
 		libfontconfig.so:x11-fonts/fontconfig \
 		libfreetype.so:print/freetype2 \
 		libnotify.so:devel/libnotify \
 		libstartup-notification-1.so:x11/startup-notification
-BUILD_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/compiz.pc:x11-wm/compiz \
-		${LOCALBASE}/libdata/pkgconfig/bcop.pc:devel/compiz-bcop \
-		${LOCALBASE}/libdata/pkgconfig/compiz-text.pc:x11-wm/compiz-plugins-main
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		gettext-tools gmake gl gnome libtool:keepla localbase:ldflags \
 		pathfix pkgconfig tar:bzip2 xorg

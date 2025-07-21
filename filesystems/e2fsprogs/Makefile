@@ -2,8 +2,9 @@ PORTNAME=	e2fsprogs
 CATEGORIES=	filesystems sysutils
 PORTVERSION=	1.47.3
 PORTREVISION=	0
-BUILD_DEPENDS=	e2fsprogs-core=${PORTVERSION}${${PORTREVISION} > 0:?_${PORTREVISION}:}:filesystems/e2fsprogs-core
-RUN_DEPENDS=	${BUILD_DEPENDS}
+BR_DEPENDS=	e2fsprogs-core=${PORTVERSION}${${PORTREVISION} > 0:?_${PORTREVISION}:}:filesystems/e2fsprogs-core
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 DISTFILES=	# empty
 NO_BUILD=	yes
 LICENSE=	GPLv2+

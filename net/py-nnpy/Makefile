@@ -12,9 +12,10 @@ WWW=		https://github.com/nanomsg/nnpy
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
+BR_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cffi>0:devel/py-cffi@${PY_FLAVOR}
+BUILD_DEPENDS=	${BR_DEPENDS}
 LIB_DEPENDS=	libnanomsg.so:net/nanomsg
-BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cffi>0:devel/py-cffi@${PY_FLAVOR}
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		python
 USE_PYTHON=	autoplist distutils

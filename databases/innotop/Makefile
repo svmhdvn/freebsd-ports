@@ -10,13 +10,14 @@ WWW=		https://github.com/innotop/innotop
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	${DBD_MYSQL} \
+BR_DEPENDS=	${DBD_MYSQL} \
 		p5-DBI>=1.46:databases/p5-DBI \
 		p5-Term-ReadKey>=2.10:devel/p5-Term-ReadKey \
 		p5-Time-HiRes>0:devel/p5-Time-HiRes \
 		p5-Term-ANSIColor>0:devel/p5-Term-ANSIColor \
 		p5-Term-ReadLine>0:devel/p5-Term-ReadLine
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		mysql perl5
 

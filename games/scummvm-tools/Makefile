@@ -11,16 +11,17 @@ WWW=		https://www.scummvm.org/
 LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	lame:audio/lame \
+BR_DEPENDS=	lame:audio/lame \
 		flac:audio/flac \
 		oggenc:audio/vorbis-tools
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
 LIB_DEPENDS=	libboost_system.so:devel/boost-libs \
 		libpng.so:graphics/png \
 		libmad.so:audio/libmad \
 		libogg.so:audio/libogg \
 		libvorbis.so:audio/libvorbis \
 		libfreetype.so:print/freetype2
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		compiler:c++11-lang gmake iconv pkgconfig tar:bzip2
 HAS_CONFIGURE=	yes

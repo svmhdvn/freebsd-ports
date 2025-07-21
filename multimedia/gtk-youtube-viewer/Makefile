@@ -11,7 +11,7 @@ LICENSE=	ART10 GPLv3
 LICENSE_COMB=	dual
 
 # According to Build.PL
-BUILD_DEPENDS=	p5-JSON>0:converters/p5-JSON \
+BR_DEPENDS=	p5-JSON>0:converters/p5-JSON \
 		p5-JSON-XS>0:converters/p5-JSON-XS \
 		p5-Data-Dump>0:devel/p5-Data-Dump \
 		p5-PathTools>0:devel/p5-PathTools \
@@ -21,7 +21,8 @@ BUILD_DEPENDS=	p5-JSON>0:converters/p5-JSON \
 		p5-LWP-Protocol-https>0:www/p5-LWP-Protocol-https \
 		p5-Mozilla-CA>0:www/p5-Mozilla-CA \
 		p5-libwww>0:www/p5-libwww
-RUN_DEPENDS:=	${BUILD_DEPENDS} \
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS} \
 		p5-common-sense>=2.02:devel/p5-common-sense
 
 USES=		perl5 shebangfix

@@ -10,9 +10,10 @@ WWW=		http://ceres-solver.org/
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BUILD_DEPENDS=	glog>=0.5.0:devel/glog
+BR_DEPENDS=	glog>=0.5.0:devel/glog
+BUILD_DEPENDS=	${BR_DEPENDS}
 LIB_DEPENDS=	libglog.so:devel/glog
-RUN_DEPENDS:=	${BUILD_DEPENDS:Meigen*}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		cmake:testing compiler:${OPENMP}c++11-lib eigen:3 localbase shebangfix
 USE_GITHUB=	yes

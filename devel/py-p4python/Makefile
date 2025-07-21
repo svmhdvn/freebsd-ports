@@ -12,8 +12,9 @@ WWW=		https://www.perforce.com/manuals/p4python/Content/P4Python/Home-p4python.h
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
-BUILD_DEPENDS+=	${LOCALBASE}/lib/perforce/libclient.a:devel/p4api
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	${LOCALBASE}/lib/perforce/libclient.a:devel/p4api
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		dos2unix python ssl
 USE_PYTHON=	distutils autoplist

@@ -9,9 +9,10 @@ WWW=		https://github.com/Alexey-Yakovenko/jack
 
 LICENSE=	MIT
 
-BUILD_DEPENDS=	${LOCALBASE}/include/deadbeef/deadbeef.h:audio/deadbeef
+BR_DEPENDS=	${LOCALBASE}/include/deadbeef/deadbeef.h:audio/deadbeef
+BUILD_DEPENDS=	${BR_DEPENDS}
 LIB_DEPENDS=	libjack.so:audio/jack
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	Alexey-Yakovenko

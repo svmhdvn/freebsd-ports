@@ -11,9 +11,10 @@ WWW=		https://wiki.gnome.org/Projects/Librest
 LICENSE=	LGPL21
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	ca_root_nss>0:security/ca_root_nss
+BR_DEPENDS=	ca_root_nss>0:security/ca_root_nss
+BUILD_DEPENDS=	${BR_DEPENDS}
 LIB_DEPENDS=	libsoup-2.4.so:devel/libsoup
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		gmake gnome libtool pathfix pkgconfig tar:xz
 GNU_CONFIGURE=	yes

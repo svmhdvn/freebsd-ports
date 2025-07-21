@@ -11,11 +11,12 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 BROKEN=		Fails to build, /bin/sh: perl: not found
 
-BUILD_DEPENDS=	bash:shells/bash \
+BR_DEPENDS=	bash:shells/bash \
 		expect:lang/expect \
 		xmllint:textproc/libxml2 \
 		xsltproc:textproc/libxslt
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		bison:both gmake libedit ssl
 USE_LDCONFIG=	${PREFIX}/${TTCN3_DIR}/lib

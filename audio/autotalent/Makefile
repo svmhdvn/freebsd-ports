@@ -12,8 +12,9 @@ WWW=		http://tombaran.info/autotalent.html
 LICENSE=	BSD3CLAUSE GPLv2
 LICENSE_COMB=	multi
 
-BUILD_DEPENDS=	${LOCALBASE}/include/ladspa.h:audio/ladspa
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	${LOCALBASE}/include/ladspa.h:audio/ladspa
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		gmake
 

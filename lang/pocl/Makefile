@@ -13,15 +13,15 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 ONLY_FOR_ARCHS=	aarch64 amd64 powerpc64 powerpc64le
 ONLY_FOR_ARCHS_REASON=	only tested on ${ONLY_FOR_ARCHS:tW:S/ /, /g}
 
-BUILD_DEPENDS=	clang${LLVM_VER}:devel/llvm${LLVM_VER} \
+BR_DEPENDS=	clang${LLVM_VER}:devel/llvm${LLVM_VER} \
 		opencl>=3:devel/opencl \
 		spirv-llvm-translator-llvm${LLVM_VER}>=${LLVM_VER}:devel/spirv-llvm-translator@llvm${LLVM_VER} \
 		spirv-tools>0:graphics/spirv-tools
-
+BUILD_DEPENDS=	${BR_DEPENDS}
 LIB_DEPENDS=	libhwloc.so:devel/hwloc2 \
 		libLLVM-${LLVM_VER}.so:devel/llvm${LLVM_VER} \
 		libOpenCL.so:devel/ocl-icd
-RUN_DEPENDS=	${BUILD_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		cmake:noninja gmake localbase:ldflags ncurses pkgconfig python
 USE_GITHUB=	yes

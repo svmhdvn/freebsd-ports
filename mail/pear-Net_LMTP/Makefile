@@ -8,8 +8,9 @@ WWW=		https://pear.php.net/package/Net_LMTP
 
 LICENSE=	PHP301
 
-BUILD_DEPENDS=	${PEARDIR}/Net/Socket.php:net/pear-Net_Socket@${PHP_FLAVOR}
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	${PEARDIR}/Net/Socket.php:net/pear-Net_Socket@${PHP_FLAVOR}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		pear
 

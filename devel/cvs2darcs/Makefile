@@ -10,11 +10,12 @@ WWW=		http://ab-initio.mit.edu/cvs2darcs/
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=	cvs:devel/cvs \
+BR_DEPENDS=	cvs:devel/cvs \
 		darcs:devel/hs-darcs \
 		cvsps:devel/cvsps \
 		p5-libwww>=0:www/p5-libwww
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 GNU_CONFIGURE=	yes
 GNU_CONFIGURE_MANPREFIX=${PREFIX}/share

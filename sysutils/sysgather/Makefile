@@ -10,8 +10,9 @@ WWW=		https://devel.ringlet.net/sysutils/sysgather/
 
 LICENSE=	BSD2CLAUSE
 
-BUILD_DEPENDS=	p5-Config-IniFiles>=0:devel/p5-Config-IniFiles
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	p5-Config-IniFiles>=0:devel/p5-Config-IniFiles
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		perl5 shebangfix uidfix
 SHEBANG_FILES=	sysgather.pl

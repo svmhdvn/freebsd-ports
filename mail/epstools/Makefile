@@ -7,8 +7,9 @@ MAINTAINER=	ismail@EnderUNIX.org
 COMMENT=	EPS (Email Parsing System) sample tools
 WWW=		https://www.inter7.com/index.php?page=eps
 
-BUILD_DEPENDS=	${LOCALBASE}/lib/libeps.a:mail/eps
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	${LOCALBASE}/lib/libeps.a:mail/eps
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 PORTDOCS=	README
 

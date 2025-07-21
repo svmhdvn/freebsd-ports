@@ -11,8 +11,9 @@ WWW=		https://metacpan.org/release/Nmap-Parser
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BUILD_DEPENDS=	p5-XML-Twig>=3.16:textproc/p5-XML-Twig
-RUN_DEPENDS:=	${BUILD_DEPENDS} \
+BR_DEPENDS=	p5-XML-Twig>=3.16:textproc/p5-XML-Twig
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS} \
 		nmap:security/nmap
 
 NO_ARCH=	yes

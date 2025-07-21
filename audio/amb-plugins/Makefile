@@ -12,8 +12,9 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Ambisonics LADSPA plugins, mainly to be used within Ardour
 WWW=		https://kokkinizita.linuxaudio.org/linuxaudio/ladspa/index.html
 
-BUILD_DEPENDS=	${LOCALBASE}/include/ladspa.h:audio/ladspa
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	${LOCALBASE}/include/ladspa.h:audio/ladspa
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 LICENSE=	GPLv2 GPLv3
 LICENSE_COMB=	dual

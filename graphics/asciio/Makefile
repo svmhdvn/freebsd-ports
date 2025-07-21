@@ -14,7 +14,7 @@ WWW=		https://metacpan.org/release/App-Asciio
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual
 
-BUILD_DEPENDS=	p5-Algorithm-Diff>=0:devel/p5-Algorithm-Diff \
+BR_DEPENDS=	p5-Algorithm-Diff>=0:devel/p5-Algorithm-Diff \
 		p5-Check-ISA>=0:devel/p5-Check-ISA \
 		p5-Compress-Bzip2>=0:archivers/p5-Compress-Bzip2 \
 		p5-Data-Compare>=0:devel/p5-Data-Compare \
@@ -34,7 +34,8 @@ BUILD_DEPENDS=	p5-Algorithm-Diff>=0:devel/p5-Algorithm-Diff \
 		p5-Term-Size-Any>=0:devel/p5-Term-Size-Any \
 		p5-Term-TermKey>=0:devel/p5-Term-TermKey \
 		p5-Text-Diff>=1.41:textproc/p5-Text-Diff
-RUN_DEPENDS:=	${BUILD_DEPENDS} \
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS} \
 		p5-Class-ISA>=0:devel/p5-Class-ISA
 TEST_DEPENDS=	p5-Test-NoWarnings>=0:devel/p5-Test-NoWarnings \
 		p5-Test-Warn>=0:devel/p5-Test-Warn

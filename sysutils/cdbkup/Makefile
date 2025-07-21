@@ -9,9 +9,10 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Simple but full-featured backup/restore perl scripts (uses gnu tar)
 WWW=		https://cdbkup.sourceforge.net/
 
-BUILD_DEPENDS=	${LOCALBASE}/sbin/eject:sysutils/eject \
+BR_DEPENDS=	${LOCALBASE}/sbin/eject:sysutils/eject \
 		cdrecord:sysutils/cdrtools
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 WRKSRC=		${WRKDIR}/${PORTNAME}
 

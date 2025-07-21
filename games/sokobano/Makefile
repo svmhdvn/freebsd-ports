@@ -10,9 +10,10 @@ WWW=		https://sokobano.sourceforge.net/
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=	${LOCALBASE}/share/java/classes/lwjgl/lwjgl.jar:games/lwjgl
-RUN_DEPENDS:=	${LOCALBASE}/share/java/classes/jmf.jar:java/jmf \
-		${BUILD_DEPENDS}
+BR_DEPENDS=	${LOCALBASE}/share/java/classes/lwjgl/lwjgl.jar:games/lwjgl
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS} \
+		${LOCALBASE}/share/java/classes/jmf.jar:java/jmf
 
 USES=		gmake java
 JAVA_VERSION=	8

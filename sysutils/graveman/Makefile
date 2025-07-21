@@ -8,9 +8,10 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Another GTK2 frontend for cdrecord, mkisofs, readcd, and sox
 WWW=		https://www.nongnu.org/graveman/
 
+BR_DEPENDS=	cdrecord:sysutils/cdrtools
+BUILD_DEPENDS=	${BR_DEPENDS}
 LIB_DEPENDS=	libmng.so:graphics/libmng
-BUILD_DEPENDS=	cdrecord:sysutils/cdrtools
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 GNU_CONFIGURE=	yes
 GNU_CONFIGURE_MANPREFIX=${PREFIX}/share

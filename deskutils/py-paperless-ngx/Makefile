@@ -66,8 +66,9 @@ BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}Jinja2>=3.1.6:devel/py-Jinja2@${PY_FLAVOR}
 		${PYTHON_PKGNAMEPREFIX}whitenoise>=6.2.0:www/py-whitenoise@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}whoosh>=2.7.4:textproc/py-whoosh@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pyyaml>=6.0.1:devel/py-pyyaml@${PY_FLAVOR}
-RUN_DEPENDS:=	${BUILD_DEPENDS}
-RUN_DEPENDS+=	gpg2:security/gnupg \
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS} \
+		gpg2:security/gnupg \
 		liberation-fonts-ttf>=2.1.3:x11-fonts/liberation-fonts-ttf \
 		optipng:graphics/optipng \
 		tesseract:graphics/tesseract \

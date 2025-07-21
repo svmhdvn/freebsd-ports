@@ -13,10 +13,11 @@ WWW=		https://metacpan.org/release/Autodia
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	p5-XML-Simple>=0:textproc/p5-XML-Simple \
+BR_DEPENDS=	p5-XML-Simple>=0:textproc/p5-XML-Simple \
 		p5-Template-Toolkit>=0:www/p5-Template-Toolkit \
 		p5-HTML-Mason>=0:www/p5-HTML-Mason
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		perl5 shebangfix
 SHEBANG_FILES=	autodia.pl

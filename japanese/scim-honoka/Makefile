@@ -9,8 +9,9 @@ MAINTAINER=	chiba.masashi@gmail.com
 COMMENT=	SCIM IMEngine module using various input methods
 WWW=		http://scim.freedesktop.org
 
-BUILD_DEPENDS=	scim:textproc/scim
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	scim:textproc/scim
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 GNU_CONFIGURE=	yes
 USES=		gettext gmake iconv libtool:keepla pathfix pkgconfig

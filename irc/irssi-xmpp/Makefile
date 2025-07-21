@@ -14,9 +14,10 @@ WWW=		https://cybione.org/~irssi-xmpp/
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=	irssi:irc/irssi
+BR_DEPENDS=	irssi:irc/irssi
+BUILD_DEPENDS=	${BR_DEPENDS}
 LIB_DEPENDS=	libloudmouth-1.so:net-im/loudmouth
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		gettext-runtime gnome pkgconfig
 

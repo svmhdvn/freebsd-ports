@@ -10,8 +10,9 @@ WWW=		https://www.cs.indiana.edu/~kinzler/vshnu/
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	p5-Term-Screen>=0:devel/p5-Term-Screen
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	p5-Term-Screen>=0:devel/p5-Term-Screen
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		perl5 shebangfix tar:tgz
 USE_PERL5=	configure

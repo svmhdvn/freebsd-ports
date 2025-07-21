@@ -10,7 +10,7 @@ WWW=		https://www.gnuradio.org/
 
 LICENSE=	GPLv3
 
-BUILD_DEPENDS=	${PYNUMPY} \
+BR_DEPENDS=	${PYNUMPY} \
 		${PYTHON_PKGNAMEPREFIX}jsonschema>0:devel/py-jsonschema@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}lxml5>0:devel/py-lxml5@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pyqtgraph>0:graphics/py-pyqtgraph@${PY_FLAVOR} \
@@ -34,6 +34,7 @@ BUILD_DEPENDS=	${PYNUMPY} \
 		sdl-config:devel/sdl12 \
 		volk>0:devel/volk \
 		xdg-open:devel/xdg-utils
+BUILD_DEPENDS=	${BR_DEPENDS}
 LIB_DEPENDS=	libad9361.so:misc/libad9361-iio \
 		libasound.so:audio/alsa-lib \
 		libboost_system.so:devel/boost-libs \
@@ -52,7 +53,7 @@ LIB_DEPENDS=	libad9361.so:misc/libad9361-iio \
 		libunwind.so:devel/libunwind \
 		libqwt.so:x11-toolkits/qwt6@qt5 \
 		libzmq.so:net/libzmq4
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		cmake compiler:c++14-lang desktop-file-utils fortran gnome \
 		iconv localbase:ldflags perl5 pkgconfig pyqt:5 python \

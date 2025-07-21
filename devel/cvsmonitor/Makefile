@@ -8,7 +8,7 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Monitor activity on a CVS Repository
 WWW=		https://sourceforge.net/projects/cvsmonitor/
 
-BUILD_DEPENDS=	p5-Time-Duration>=0:devel/p5-Time-Duration \
+BR_DEPENDS=	p5-Time-Duration>=0:devel/p5-Time-Duration \
 		p5-Class-Autouse>=0:devel/p5-Class-Autouse \
 		p5-Class-Default>=0:devel/p5-Class-Default \
 		p5-Class-Inspector>=0:devel/p5-Class-Inspector \
@@ -34,7 +34,8 @@ BUILD_DEPENDS=	p5-Time-Duration>=0:devel/p5-Time-Duration \
 		p5-Text-Glob>=0:textproc/p5-Text-Glob \
 		p5-XML-Generator>=0:textproc/p5-XML-Generator \
 		p5-GD-Graph>=0:graphics/p5-GD-Graph
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 WRKSRC=		${WRKDIR}/${PORTNAME}
 

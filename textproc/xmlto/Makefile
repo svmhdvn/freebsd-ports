@@ -20,7 +20,7 @@ LICENSE=	GPLv2
 DEPRECATED=	Depends on vulnerable unmaintained libxslt
 EXPIRATION_DATE=2025-09-12
 
-BUILD_DEPENDS=	${BASH_CMD}:shells/bash \
+BR_DEPENDS=	${BASH_CMD}:shells/bash \
 		${GETOPT_CMD}:misc/getopt \
 		xmllint:textproc/libxml2 \
 		xsltproc:textproc/libxslt \
@@ -28,7 +28,8 @@ BUILD_DEPENDS=	${BASH_CMD}:shells/bash \
 		paperconf:print/libpaper \
 		w3m:www/w3m \
 		docbook-xml>0:textproc/docbook-xml
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		tar:bzip2
 GNU_CONFIGURE=	yes

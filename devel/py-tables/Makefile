@@ -11,15 +11,16 @@ WWW=		https://www.pytables.org/
 
 LICENSE=	BSD3CLAUSE
 
-BUILD_DEPENDS=	${PYNUMPY} \
+BR_DEPENDS=	${PYNUMPY} \
 		${PYTHON_PKGNAMEPREFIX}numexpr>=1.4.1:math/py-numexpr@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}packaging>=0:devel/py-packaging@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}py-cpuinfo>=0:sysutils/py-py-cpuinfo@${PY_FLAVOR}
+BUILD_DEPENDS=	${BR_DEPENDS}
 LIB_DEPENDS=	libhdf5.so:science/hdf5 \
 		liblzo2.so:archivers/lzo2 \
 		libucl.so:archivers/ucl \
 		libblosc2.so:archivers/c-blosc2
-RUN_DEPENDS:=	${BUILD_DEPENDS} \
+RUN_DEPENDS=	${BR_DEPENDS} \
 		${PYTHON_PKGNAMEPREFIX}six>=1.9.0:devel/py-six@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}mock>=2.0:devel/py-mock@${PY_FLAVOR}
 

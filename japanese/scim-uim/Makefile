@@ -9,9 +9,10 @@ MAINTAINER=	s_yanagita@ybb.ne.jp
 COMMENT=	SCIM IMEngine module using UIM input method library
 WWW=		https://sourceforge.net/projects/scim/files/scim-uim/
 
-BUILD_DEPENDS=	scim:textproc/scim
+BR_DEPENDS=	scim:textproc/scim
+BUILD_DEPENDS=	${BR_DEPENDS}
 LIB_DEPENDS=	libuim.so:textproc/uim
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		gmake iconv libtool:keepla pkgconfig
 GNU_CONFIGURE=	yes

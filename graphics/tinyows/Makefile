@@ -11,8 +11,9 @@ WWW=		https://mapserver.org/tinyows/
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.md
 
-BUILD_DEPENDS=	shp2pgsql:databases/postgis33
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+BR_DEPENDS=	shp2pgsql:databases/postgis33
+BUILD_DEPENDS=	${BR_DEPENDS}
+RUN_DEPENDS=	${BR_DEPENDS}
 
 USES=		autoreconf gnome pgsql
 USE_GNOME=	libxml2
