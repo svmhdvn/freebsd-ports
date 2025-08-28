@@ -1,0 +1,4 @@
+Buck2: fast multi-language build system
+
+Buck2 is a fast, hermetic, multi-language build system, and a direct successor
+to the original Buck build system ("Buck1") — both designed by Meta.

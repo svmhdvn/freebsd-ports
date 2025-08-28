@@ -341,6 +341,7 @@
     SUBDIR += bsddialog
     SUBDIR += bsdowl
     SUBDIR += bstring
+    SUBDIR += buck2
     SUBDIR += buf
     SUBDIR += bugzilla50
     SUBDIR += bugzilla52
