@@ -1,6 +1,5 @@
 PORTNAME=	halloy
-DISTVERSION=	2025.6
-PORTREVISION=	3
+DISTVERSION=	2025.11
 CATEGORIES=	irc
 
 MAINTAINER=	pokeysquirrel@gmail.com
@@ -11,12 +10,15 @@ LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 LIB_DEPENDS=	libasound.so:audio/alsa-lib \
-		libzstd.so:archivers/zstd
+		libzstd.so:archivers/zstd \
+		libxcb.so:x11/libxcb
 
 USES=		cargo desktop-file-utils ssl
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	squidowl
+
+CARGO_TEST_ARGS=	--workspace
 
 post-install:
 	${INSTALL_DATA} ${FILESDIR}/halloy.desktop ${STAGEDIR}${DESKTOPDIR}
