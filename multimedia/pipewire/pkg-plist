@@ -30,6 +30,8 @@ bin/spa-json-dump
 bin/spa-monitor
 bin/spa-resample
 etc/security/limits.d/25-pw-rlimits.conf
+etc/xdg/autostart/pipewire-pulse.desktop
+etc/xdg/autostart/pipewire.desktop
 include/pipewire-0.3/pipewire/array.h
 include/pipewire-0.3/pipewire/buffers.h
 include/pipewire-0.3/pipewire/client.h

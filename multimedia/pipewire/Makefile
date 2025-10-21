@@ -113,6 +113,10 @@ post-patch:
 	${REINPLACE_CMD} -e "s|find_installation('python3'|find_installation('python${PYTHON_VER}'|" \
 		${WRKSRC}/meson.build
 
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/xdg/autostart
+	${INSTALL_DATA} ${PATCHDIR}/*.desktop ${STAGEDIR}${PREFIX}/etc/xdg/autostart
+
 post-install-ALSA-on:
 	${MKDIR} ${STAGEDIR}${DATADIR}/${PORTNAME}.conf.d
 	${INSTALL_DATA} ${WRKDIR}/10-alsa-default.conf \
