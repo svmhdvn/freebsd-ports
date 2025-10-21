@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=PipeWire PulseAudio replacement
+Comment=Start the PulseAudio-compatible PipeWire daemon
+Exec=pipewire-pulse
+Terminal=false
+Type=Application
+X-GNOME-Autostart-Phase=Initialization
+X-KDE-autostart-phase=1
+
