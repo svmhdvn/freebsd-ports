@@ -82,34 +82,41 @@ zig-pre-extract:
 	${MAKE} -C ${.CURDIR} do-extract EXTRACT_ONLY=${url:T} WRKDIR=${ZIG_TMPDEPSDIR}
 	# In some cases the distfile holds files at the top level of the archive,
 	# s we have to move ${ZIG_TMPDEPSDIR} itself, not its contents.
-	if [ "$$(${FIND} ${ZIG_TMPDEPSDIR} -depth 1 -type f)" ]; then \
-		${MV} ${ZIG_TMPDEPSDIR} ${ZIG_DEPSDIR}/${dir}; \
-	else \
+	if [ "$$(${FIND} ${ZIG_TMPDEPSDIR} -maxdepth 1 -printf '%y')" = "dd" ]; then \
 		${MV} ${ZIG_TMPDEPSDIR}/* ${ZIG_DEPSDIR}/${dir}; \
+	else \
+		${MV} ${ZIG_TMPDEPSDIR} ${ZIG_DEPSDIR}/${dir}; \
 	fi
 .    endfor
 .  endfor
 	@${RMDIR} ${ZIG_TMPDEPSDIR}
 
-ZIG_ENV+=	DESTDIR=${STAGEDIR}
-ZIG_ARGS+=	--prefix ${PREFIX} --system ${ZIG_DEPSDIR} --verbose \
+ZIG_ARGS+=	--system ${ZIG_DEPSDIR} --verbose \
 		-Dcpu=${ZIG_CPUTYPE} \
 		${"${WITH_DEBUG}" != "":?:--release=fast} \
-		${"${WITH_DEBUG}" != "":?-Doptimize=Debug:-Doptimize=ReleaseSmall} \
+		${"${WITH_DEBUG}" != "":?-Doptimize=Debug:-Doptimize=ReleaseFast} \
 		${ZIG_ARGS_${FLAVOR}}
-DO_MAKE_BUILD?=	${SETENVI} ${WRK_ENV} ${ZIG_ENV} ${ZIG_CMD} build \
-				${_MAKE_JOBS} ${ZIG_ARGS}
+DO_MAKE_BUILD?=	${SETENVI} ${WRK_ENV} ${ZIG_ENV} \
+			${ZIG_CMD} build ${_MAKE_JOBS} ${ZIG_ARGS}
+DO_MAKE_INSTALL?=${SETENVI} ${WRK_ENV} ${ZIG_ENV} DESTDIR=${STAGEDIR} \
+			${ZIG_CMD} build --prefix ${PREFIX} ${ZIG_ARGS}
 .  if !target(do-build)
 do-build:
-	@${DO_NADA}
-.  endif
-
-.  if !target(do-install)
-do-install:
 	@(cd ${BUILD_WRKSRC}; if ! ${DO_MAKE_BUILD}; then \
 		if [ -n "${BUILD_FAIL_MESSAGE}" ] ; then \
 			${ECHO_MSG} "===> Compilation failed unexpectedly."; \
 			(${ECHO_CMD} "${BUILD_FAIL_MESSAGE}") | ${FMT_80} ; \
+			fi; \
+		${FALSE}; \
+		fi)
+.  endif
+
+.  if !target(do-install)
+do-install:
+	@(cd ${BUILD_WRKSRC}; if ! ${DO_MAKE_INSTALL}; then \
+		if [ -n "${INSTALL_FAIL_MESSAGE}" ] ; then \
+			${ECHO_MSG} "===> Installation failed unexpectedly."; \
+			(${ECHO_CMD} "${INSTALL_FAIL_MESSAGE}") | ${FMT_80} ; \
 			fi; \
 		${FALSE}; \
 		fi)
