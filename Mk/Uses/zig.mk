@@ -43,8 +43,6 @@ ZIG_CPUTYPE?=		${CPUTYPE:U${ZIG_CPUTYPE_DEFAULT}}
 
 _ZIG2TUPLE_CMD=	zig2tuple
 
-BUILD_DEPENDS+=	${ZIG_CMD}:${ZIG_PORT}
-
 DIST_SUBDIR?=	zig
 
 .  for z in ${ZIG_TUPLE}
@@ -54,8 +52,6 @@ DISTFILES+=	${url:T}:${group}
 WRKSRC_${group}=${ZIG_DEPSDIR}/${dir}
 .    endfor
 .  endfor
-
-_USES_extract=	299:zig-pre-extract
 
 # Generates ZIG_TUPLE= ... line ready to be pasted into the port based on
 # build.zig.zon files found in ${WRKSRC}
@@ -70,7 +66,9 @@ check-zig2tuple:
 
 # Main targets implementation.
 
-zig-pre-extract:
+.  if !target(pre-extract)
+EXTRACT_DEPENDS+=	${ZIG_CMD}:${ZIG_PORT}
+pre-extract:
 	@${ECHO_CMD} "===> Extracting zig dependencies"
 # We don't know the name of the directory that is contained in the archive,
 # but we need to rename it into the last component of the tuple
@@ -79,17 +77,12 @@ zig-pre-extract:
 	@${MKDIR} ${ZIG_DEPSDIR} ${ZIG_TMPDEPSDIR}
 .  for z in ${ZIG_TUPLE}
 .    for group url dir in ${z:S/:/ /g:tw}
-	${MAKE} -C ${.CURDIR} do-extract EXTRACT_ONLY=${url:T} WRKDIR=${ZIG_TMPDEPSDIR}
-	# In some cases the distfile holds files at the top level of the archive,
-	# s we have to move ${ZIG_TMPDEPSDIR} itself, not its contents.
-	if [ "$$(${FIND} ${ZIG_TMPDEPSDIR} -maxdepth 1 -printf '%y')" = "dd" ]; then \
-		${MV} ${ZIG_TMPDEPSDIR}/* ${ZIG_DEPSDIR}/${dir}; \
-	else \
-		${MV} ${ZIG_TMPDEPSDIR} ${ZIG_DEPSDIR}/${dir}; \
-	fi
+	${ZIG_CMD} fetch --global-cache-dir ${ZIG_TMPDEPSDIR} ${_DISTDIR}/${url:T}
 .    endfor
 .  endfor
-	@${RMDIR} ${ZIG_TMPDEPSDIR}
+	@${MV} ${ZIG_TMPDEPSDIR}/p/* ${ZIG_DEPSDIR}
+	@${RM} -r ${ZIG_TMPDEPSDIR}
+.  endif
 
 ZIG_ARGS+=	--system ${ZIG_DEPSDIR} --verbose \
 		-Dcpu=${ZIG_CPUTYPE} \
@@ -101,6 +94,7 @@ DO_MAKE_BUILD?=	${SETENVI} ${WRK_ENV} ${ZIG_ENV} \
 DO_MAKE_INSTALL?=${SETENVI} ${WRK_ENV} ${ZIG_ENV} DESTDIR=${STAGEDIR} \
 			${ZIG_CMD} build --prefix ${PREFIX} ${ZIG_ARGS}
 .  if !target(do-build)
+BUILD_DEPENDS+=	${ZIG_CMD}:${ZIG_PORT}
 do-build:
 	@(cd ${BUILD_WRKSRC}; if ! ${DO_MAKE_BUILD}; then \
 		if [ -n "${BUILD_FAIL_MESSAGE}" ] ; then \
