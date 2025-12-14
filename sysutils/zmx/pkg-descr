@@ -1,0 +1,10 @@
+zmx
+session persistence for terminal processes
+features:
+* Persist terminal shell sessions (pty processes)
+* Ability to attach and detach from a shell session without killing it
+* Native terminal scrollback
+* Multiple clients can connect to the same session
+* Re-attaching to a session restores previous terminal state and output
+* Works on mac and linux
+* This project does NOT provide windows, tabs, or splits
