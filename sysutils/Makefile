@@ -1655,6 +1655,7 @@
     SUBDIR += zetaback-devel
     SUBDIR += zidrav
     SUBDIR += zli
+    SUBDIR += zmx
     SUBDIR += znapzend
     SUBDIR += zogftw
     SUBDIR += zot

@@ -90,25 +90,35 @@ zig-pre-extract:
 .  endfor
 	@${RMDIR} ${ZIG_TMPDEPSDIR}
 
-ZIG_ENV+=	DESTDIR=${STAGEDIR}
-ZIG_ARGS+=	--prefix ${PREFIX} --system ${ZIG_DEPSDIR} --verbose \
+# Force all build logging to be simple and sequential
+ZIG_ENV+=	TERM=dumb
+
+ZIG_ARGS+=	--system ${ZIG_DEPSDIR} --verbose \
 		-Dcpu=${ZIG_CPUTYPE} \
 		${"${WITH_DEBUG}" != "":?:--release=fast} \
 		${"${WITH_DEBUG}" != "":?-Doptimize=Debug:-Doptimize=ReleaseSmall} \
 		${ZIG_ARGS_${FLAVOR}}
-DO_MAKE_BUILD?=	${SETENVI} ${WRK_ENV} ${ZIG_ENV} ${ZIG_CMD} build \
-				${_MAKE_JOBS} ${ZIG_ARGS}
+DO_MAKE_BUILD?=	${SETENVI} ${WRK_ENV} ${ZIG_ENV} \
+			${ZIG_CMD} build ${_MAKE_JOBS} -fno-incremental ${ZIG_ARGS}
+DO_MAKE_INSTALL?=${SETENVI} ${WRK_ENV} ${ZIG_ENV} DESTDIR=${STAGEDIR} \
+			${ZIG_CMD} build --prefix ${PREFIX} ${ZIG_ARGS}
 .  if !target(do-build)
 do-build:
-	@${DO_NADA}
-.  endif
-
-.  if !target(do-install)
-do-install:
 	@(cd ${BUILD_WRKSRC}; if ! ${DO_MAKE_BUILD}; then \
 		if [ -n "${BUILD_FAIL_MESSAGE}" ] ; then \
 			${ECHO_MSG} "===> Compilation failed unexpectedly."; \
 			(${ECHO_CMD} "${BUILD_FAIL_MESSAGE}") | ${FMT_80} ; \
+			fi; \
+		${FALSE}; \
+		fi)
+.  endif
+
+.  if !target(do-install)
+do-install:
+	@(cd ${BUILD_WRKSRC}; if ! ${DO_MAKE_INSTALL}; then \
+		if [ -n "${INSTALL_FAIL_MESSAGE}" ] ; then \
+			${ECHO_MSG} "===> Installation failed unexpectedly."; \
+			(${ECHO_CMD} "${INSTALL_FAIL_MESSAGE}") | ${FMT_80} ; \
 			fi; \
 		${FALSE}; \
 		fi)
