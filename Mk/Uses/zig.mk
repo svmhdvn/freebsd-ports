@@ -92,7 +92,12 @@ zig-pre-extract:
 	@${RMDIR} ${ZIG_TMPDEPSDIR}
 
 ZIG_ENV+=	DESTDIR=${STAGEDIR}
-ZIG_ARGS+=	--prefix ${PREFIX} --system ${ZIG_DEPSDIR} --verbose \
+# zig 0.17+ roots the system package directory (--system [pkgdir]) at its
+# absolute store path, so a `.path` dependency in any build.zig.zon
+# resolves to an absolute path, which it refuses with this error:
+# "expected path relative to build root; found absolute path".
+# To fix this, we pass a pkgdir to --system instead of an absolute path.
+ZIG_ARGS+=	--prefix ${PREFIX} --system ${ZIG_DEPSDIR:S,^${WRKDIR},..,W} --verbose \
 		-Dcpu=${ZIG_CPUTYPE} \
 		${"${WITH_DEBUG}" != "":?:--release=fast} \
 		${"${WITH_DEBUG}" != "":?-Doptimize=Debug:-Doptimize=ReleaseSmall} \
