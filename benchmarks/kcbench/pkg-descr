@@ -1,0 +1,4 @@
+Linux kernel compile benchmarks kcbench and kcbenchrate
+
+Kcbench and kcbenchrate are simple benchmarks scripts to
+measure how long it takes to compile a Linux kernel.

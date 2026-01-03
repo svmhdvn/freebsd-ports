@@ -37,6 +37,7 @@
     SUBDIR += ipc-bench
     SUBDIR += iperf
     SUBDIR += iperf3
+    SUBDIR += kcbench
     SUBDIR += kdiskmark
     SUBDIR += libcelero
     SUBDIR += libcpucycles
