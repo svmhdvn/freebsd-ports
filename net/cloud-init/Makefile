@@ -1,6 +1,5 @@
 PORTNAME=	cloud-init
-DISTVERSION=	25.2
-PORTREVISION=	1
+DISTVERSION=	25.3
 CATEGORIES=	net python
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
@@ -27,7 +26,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}configobj>0:devel/py-configobj@${PY_FLAVOR} 
 USES=		python shebangfix sudo
 USE_GITHUB=	yes
 GH_ACCOUNT=	canonical
-USE_PYTHON=	autoplist distutils
+USE_PYTHON=	autoplist distutils pytest
 
 SHEBANG_FILES=	tools/hook-hotplug tools/read-dependencies tools/read-version \
 		tools/validate-yaml.py
