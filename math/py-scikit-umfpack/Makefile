@@ -1,6 +1,6 @@
 PORTNAME=	scikit-umfpack
 DISTVERSION=	0.4.2
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	math python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -15,18 +15,18 @@ LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}meson-python>0:devel/meson-python@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}numpy1>=1.16:math/py-numpy1@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}numpy>2:math/py-numpy@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}scipy>0:science/py-scipy@${PY_FLAVOR} \
 		swig:devel/swig
 LIB_DEPENDS=	libamd.so:math/suitesparse-amd \
 		libcblas.so:math/cblas \
 		libopenblas.so:math/openblas \
 		libumfpack.so:math/suitesparse-umfpack
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}numpy1>=1.16:math/py-numpy1@${PY_FLAVOR} \
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}numpy>2:math/py-numpy@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}scipy>0:science/py-scipy@${PY_FLAVOR}
 
 USES=		fortran localbase:ldflags python
-USE_PYTHON=	pep517 cython3 autoplist pytest
+USE_PYTHON=	pep517 cython autoplist pytest
 PEP517_BUILD_CONFIG_SETTING=	"-Cbuild-dir=_build"
 
 CFLAGS+=	-I/usr/local/include/suitesparse
