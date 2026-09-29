@@ -116,38 +116,25 @@ while IFS= read -r _file; do
 			echo -n "cd ${dp_DISTDIR} && { "
 			;;
 	esac
-	sites_remaining=0
 	if [ -n "${dp_RANDOMIZE_SITES}" ]; then
 		sites="$(${SORTED_MASTER_SITES_CMD_TMP} | ${dp_RANDOMIZE_SITES})"
 	else
 		sites="$(${SORTED_MASTER_SITES_CMD_TMP})"
 	fi
+	case ${file} in
+		*/*)
+			case ${dp_TARGET} in
+				fetch-list)
+					echo -n "mkdir -p \"${file%/*}\" && "
+					;;
+				*)
+					mkdir -p "${file%/*}"
+					;;
+			esac
+		;;
+	esac
+	urls=""
 	for site in ${sites}; do
-		sites_remaining=$((sites_remaining + 1))
-	done
-	for site in ${sites}; do
-		# This target only echoes the full URL, handle it first to simplify the rest
-		# of the loop.
-		if [ "${dp_TARGET}" = fetch-url-list-int ]; then
-			echo "${site}${file}"
-			continue
-		fi
-
-		sites_remaining=$((sites_remaining - 1))
-		CKSIZE=$(distinfo_data SIZE "${full_file}")
-		case ${file} in
-			*/*)
-				case ${dp_TARGET} in
-					fetch-list)
-						echo -n "mkdir -p \"${file%/*}\" && "
-						;;
-					*)
-						mkdir -p "${file%/*}"
-						;;
-				esac
-			;;
-		esac
-
 		# When the distname is not the last part of the final url, we append a
 		# `?dummy=/` so that the url ends up looking something like this:
 		# http://foo.bar/baz/1.0?dummy=/baz-1.0.tar.gz
@@ -170,43 +157,32 @@ while IFS= read -r _file; do
 				url="${site}${file}"
 			;;
 		esac
-		args="-o ${file} $url"
-
-		_fetch_cmd="${dp_FETCH_CMD} ${dp_FETCH_BEFORE_ARGS}"
-		if [ -z "${dp_DISABLE_SIZE}" -a -n "${CKSIZE}" ]; then
-			_fetch_cmd="${_fetch_cmd} -S ${CKSIZE}"
-		fi
-		_fetch_cmd="${_fetch_cmd} ${args} ${dp_FETCH_AFTER_ARGS}"
-		case ${dp_TARGET} in
-			do-fetch|makesum)
-				${dp_ECHO_MSG} "=> Attempting to fetch ${url}"
-				if env -S "${dp_FETCH_ENV}" ${_fetch_cmd}; then
-					actual_size=$(stat -f %z "${file}")
-					if [ -n "${dp_DISABLE_SIZE}" ] || [ -z "${CKSIZE}" ] || [ "${actual_size}" -eq "${CKSIZE}" ]; then
-						continue 2
-					else
-						${dp_ECHO_MSG} "=> Fetched file size mismatch (expected ${CKSIZE}, actual ${actual_size})"
-						if [ ${sites_remaining} -gt 0 ]; then
-							${dp_ECHO_MSG} "=> Trying next site"
-							rm -f "${file}"
-						fi
-					fi
-				fi
-				;;
-			fetch-list)
-				echo -n "env $(escape "${_fetch_cmd}") || "
-				;;
-		esac
+		urls="${urls} ${url}"
 	done
 	case ${dp_TARGET} in
 		do-fetch|makesum)
-			${dp_ECHO_MSG} "=> Couldn't fetch it - please try to retrieve this"
-			${dp_ECHO_MSG} "=> port manually into ${dp_DISTDIR} and try again."
-			exit 1
+			${dp_ECHO_MSG} "=> Attempting to fetch ${file} from these URLs in order:"
+			echo "${urls}" | xargs -n1 printf '=>\t%s\n'
+
+			_fetch_cmd="${dp_FETCH_CMD} ${dp_FETCH_BEFORE_ARGS} -1 -o ${file}"
+			CKSIZE=$(distinfo_data SIZE "${full_file}")
+			if [ -z "${dp_DISABLE_SIZE}" -a -n "${CKSIZE}" ]; then
+				_fetch_cmd="${_fetch_cmd} -S ${CKSIZE}"
+			fi
+			_fetch_cmd="${_fetch_cmd} ${urls} ${dp_FETCH_AFTER_ARGS}"
+			if ! env -S "${dp_FETCH_ENV}" ${_fetch_cmd}; then
+				${dp_ECHO_MSG} "=> Couldn't fetch it - please try to retrieve this"
+				${dp_ECHO_MSG} "=> port manually into ${dp_DISTDIR} and try again."
+  				rm -f "${file}"
+				exit 1
+			fi
+
 			;;
 		fetch-list)
-			echo "echo \"${file}\" not fetched; }"
+			echo -n "env $(escape "${_fetch_cmd}") || echo \"${file}\" not fetched; }"
 			;;
+		fetch-url-list-int)
+  			echo "${urls}" | xargs -n1
 	esac
 done < $dp_FILES_FILE
 
