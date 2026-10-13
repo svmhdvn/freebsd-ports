@@ -1,5 +1,5 @@
 PORTNAME=	river
-DISTVERSION=	0.4.8
+DISTVERSION=	0.5.0
 CATEGORIES=	x11-wm wayland
 MASTER_SITES=	https://codeberg.org/river/river/releases/download/v${DISTVERSION}/
 DISTFILES=	river-${DISTVERSIONFULL}${EXTRACT_SUFX}
@@ -19,7 +19,7 @@ LIB_DEPENDS=	libevdev.so:devel/libevdev \
 		libinput.so:x11/libinput \
 		libxkbcommon.so:x11/libxkbcommon
 
-USES=		pkgconfig xorg zig
+USES=		pkgconfig xorg zig:016
 USE_XORG=	pixman
 
 OPTIONS_DEFINE=	MANPAGES X11
