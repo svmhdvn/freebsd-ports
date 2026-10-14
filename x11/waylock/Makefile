@@ -1,26 +1,25 @@
 PORTNAME=	waylock
-DISTVERSIONPREFIX=	v
-DISTVERSION=	1.5.0
+DISTVERSION=	1.6.0
 CATEGORIES=	x11 wayland
+MASTER_SITES=	https://codeberg.org/ifreund/waylock/releases/download/v${DISTVERSION}/
+DISTFILES=	${PORTNAME}-${DISTVERSIONFULL}${EXTRACT_SUFX}
 
-MAINTAINER=	ports@FreeBSD.org
-COMMENT=	Small screenlocker for Wayland compositors
-WWW=		https://codeberg.org/ifreund/waylock
+PATCH_SITES=	https://codeberg.org/ifreund/waylock/commit/
+PATCHFILES=	88673f084afae33b0dcc4d4d62b4bf9b2db6b6a9.patch:-p1
 
 LICENSE=	ISCL
 LICENSE_FILE=	${WRKSRC}/LICENSE
+
+MAINTAINER=	siva@FreeBSD.org
+COMMENT=	Small screenlocker for Wayland compositors
+WWW=		https://codeberg.org/ifreund/waylock
 
 BUILD_DEPENDS=	wayland-protocols>0:graphics/wayland-protocols
 LIB_DEPENDS=	libwayland-client.so:graphics/wayland \
 		libxkbcommon.so:x11/libxkbcommon
 RUN_DEPENDS=	unix-selfauth-helper>0:security/unix-selfauth-helper
 
-# There is an LLVM/zig016 regression which causes waylock to fail to run when
-# using any of the release modes with this error:
-# ld-elf.so.1: /lib/libc.so.7: Undefined symbol "environ"
-USES=		pkgconfig zig:015
-USE_GITHUB=	yes
-GH_ACCOUNT=	ifreund
+USES=		pkgconfig zig:016
 
 PLIST_FILES=	bin/${PORTNAME} \
 		etc/pam.d/${PORTNAME}
