@@ -1,5 +1,5 @@
 PORTNAME=	public_suffix_list
-PORTVERSION=	20261031
+PORTVERSION=	20261109
 CATEGORIES=	dns
 
 MAINTAINER=	sunpoet@FreeBSD.org
@@ -21,7 +21,7 @@ SLAVEDIRS=	dns/p5-Mozilla-PublicSuffix dns/py-publicsuffix dns/py-publicsuffix2 
 USE_GITHUB=	yes
 GH_ACCOUNT=	publicsuffix
 GH_PROJECT=	list
-GH_TAGNAME=	73f8cc7
+GH_TAGNAME=	c682e9e4600a1581e7e58bc21675159d7e713b31
 
 do-install:
 	${MKDIR} ${STAGEDIR}${DATADIR}/
