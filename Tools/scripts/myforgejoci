@@ -1,0 +1,129 @@
+#!/bin/sh
+
+set -euo pipefail
+
+err() {
+  >&2 printf 'ERROR: %s.\nUsage: myfbsdportsci <forgejo runner workspace> <base ref> <head ref>\n' "$1"
+  exit 1
+}
+
+tap() {
+  result="$1" # either 'ok' or 'not ok'
+  msg="$2"
+  printf '%s %d - %s: %s\n' \
+    "${result}" "${test_num}" "${origin}" "${msg}" \
+    >> "${summary}"
+}
+
+ci() {
+  origin="$1"
+
+  logs="${results}/${origin}"
+  mkdir -p "${logs}"
+  ${su} poudriere jail -k -j "${jail}" || true
+
+  test_depends_origins="$(make -C "${portsdir}/${origin}" -V TEST_DEPENDS | awk -v 'RS=[ \t]*' -v 'ORS= ' -F: '{ print $2 }')"
+  test_depends_bulk_log="poudriere_bulk_test_depends.log"
+  if ! ${su} poudriere bulk -j "${jail}" ${test_depends_origins} 2>&1 | tee "${logs}/${test_depends_bulk_log}"; then
+    tap 'not ok' "ERROR: 'poudriere bulk' of TEST_DEPENDS failed. Log: ${test_depends_bulk_log}"
+    return 1
+  fi
+
+  testport_log="poudriere_testport.log"
+  if ! ${su} poudriere testport -NNI -j "${jail}" "${origin}" 2>&1 | tee "${logs}/${testport_log}"; then
+    tap 'not ok' "ERROR: 'poudriere testport' failed. Log: ${testport_log}"
+    return 1
+  fi
+
+  test_depends_install_log="jail_test_depends_install.log"
+  if ! ${su} jexec "${jail}-default-n" pkg install -y ${test_depends_origins} 2>&1 | tee "${logs}/${test_depends_install_log}"; then
+    tap 'not ok' "CRITICAL: failed to install TEST_DEPENDS. REPORT TO MAINTAINER. Log: ${test_depends_install_log}"
+    return 1
+  fi
+
+  make_test_log="make_test.log"
+  set +e
+  ${su} jexec -U nobody "${jail}-default-n" timeout -k 30s "${test_timeout}" make -C "/usr/ports/${origin}" test 2>&1 | tee "${logs}/${make_test_log}"
+  rc=$?
+  set -e
+  if [ "${rc}" -eq 124 ]; then
+    tap 'not ok' "CRITICAL: 'make test' timed out after ${test_timeout}. REPORT TO MAINTAINER. Log: ${make_test_log}"
+    return 1
+  elif [ "${rc}" -ne 0 ]; then
+    tap 'not ok' "WARNING: 'make test' failed. Log: ${make_test_log}"
+    return 2
+  fi
+
+  tap ok 'all tests passed'
+}
+
+while getopts j:p:t: name
+do
+  case "${name}" in
+    j) jail="${OPTARG}" ;;
+    p) portsdir="${OPTARG}" ;;
+    ?) err "Unknown flag '${name}'" ;;
+    *) ;;
+  esac
+done
+shift $((OPTIND - 1))
+: "${jail:=151amd64}"
+: "${portsdir:=/usr/ports}"
+
+[ $# -eq 3 ]                              || err "wrong number of arguments"
+poudriere jail -i -j "${jail}" >/dev/null || err "Bad option: -j ${jail}"
+[ -r "${portsdir}/MOVED" ]                || err "Bad option: -p ${portsdir}: invalid ports tree"
+timeout "${test_timeout}" true            || err "Bad option: -t ${test_timeout}: incorrect format"
+
+for s in mdo doas sudo; do
+  if ${s} id -u 2>/dev/null | xargs test 0 -eq; then
+    su="${s}"
+    break
+  fi
+done
+[ -n "${su}" ] || err "Permission denied: mdo(1), doas(1), or sudo(1) not configured"
+
+# from any incoming pull request, we will only get:
+# head ref (source branch)
+# base ref (target branch)
+workspace="$1"
+baseref="$2"
+headref="$3"
+[ -w "${workspace}" ] || err "Bad argument: workspace=${workspace}: not found or not writeable"
+
+git -C "${portsdir}" fetch origin "${baseref}" "${headref}"
+maybe_origins="$(git -C "${portsdir}" diff --name-only "origin/${headref}..origin/${baseref}" | awk -F/ -vOFS=/ '{ print $1, $2 }' | sort -u)"
+
+all_origins=
+num_origins=0
+while IFS= read -r origin; do
+  if [ -r "${portsdir}/${origin}/Makefile" ]; then
+    all_origins="${all_origins} ${origin}"
+    num_origins=$(( num_origins + 1))
+  fi
+done <<EOF
+${maybe_origins}
+EOF
+echo "Testing these ports: "
+echo "${all_origins}" | xargs -n1 printf '\t%s\n'
+
+git -C "${portsdir}" switch "${headref}"
+
+results="${workspace}/ports_ci_results"
+summary="${results}/summary.tap"
+mkdir -p "${results}"
+printf 'TAP version 14\n1..%d\n' "${num_origins}" > "${summary}"
+
+test_num=1
+for origin in ${all_origins}; do
+  # Ignore the exit code here. We will simply grep for 'not ok' in the
+  # TAP test results to determine the overall result.
+  ci "${origin}" || true
+  test_num=$(( test_num + 1 ))
+done
+${su} poudriere jail -k -j "${jail}" || true
+
+printf '\n########## RESULTS ##########\n\n'
+cat "${summary}"
+printf '\n#############################\n'
+! grep -q '^not ok' "${summary}"

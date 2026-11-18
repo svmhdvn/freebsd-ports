@@ -1,0 +1,90 @@
+#!/bin/sh
+
+set -euo pipefail
+
+bump_port() {
+  origin="$1"
+  newversion="$2"
+
+  if ! grep -Eq '^(DIST|PORT)VERSION[ \t]*=' "${portsdir}/${origin}/Makefile"; then
+    tap 'not ok' 'Cannot bump version unattended, needs manual verification: cannot find (DIST|PORT)VERSION= in Makefile'
+    return
+  fi
+
+  if grep -Eq '^(DIST|PORT)VERSION[ \t]*=[ \t]*.*\$' "${portsdir}/${origin}/Makefile"; then
+    tap ok 'Cannot bump version unattended, needs manual verification: non-trivial, because (DIST|PORT)VERSION contains variables'
+    return
+  fi
+
+  curversion="$(make -C "${portsdir}/${origin}" -V DISTVERSION)"
+  if [ "${curversion}" = "${newversion}" ]; then
+    tap ok "${curversion} == ${newversion} # SKIP nothing to do"
+    return
+  fi
+
+  mkdir -p "${scratch}/logs/${origin}" "${scratch}/b/${origin}"
+  cp -R "${portsdir}/${origin}/" "${scratch}/b/${origin}/"
+
+  sed \
+    -e "s|^DISTVERSION=\([ \t]*\).*$|DISTVERSION=\1${newversion}|g" \
+    -e "s|^PORTVERSION=\([ \t]*\).*$|PORTVERSION=\1${newversion}|g" \
+    -e "/^PORTREVISION=/d" \
+    -i '' "${scratch}/b/${origin}/Makefile"
+  log="logs/${origin}/makesum.log"
+  if ! make -C "${scratch}/b/${origin}" OVERLAYS="${scratch}/b" makesum 2>&1 | tee "${scratch}/${log}"; then
+    tap 'not ok' "ERROR: 'make makesum' failed. Log: ${log}"
+    return
+  fi
+
+  final_patch="${scratch}/patches/000${num}.diff"
+  cat > "${final_patch}" <<EOF
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: ${EMAIL:-myfbsdbumpport <myfbsdbumpport@localhost>}
+Date: ${DATE:-${date}}
+Subject: [PATCH] ${origin}: update ${curversion} -> ${newversion}
+
+EOF
+  (cd "${scratch}" && diff -x 'work*' -ruN "a/${origin}" "b/${origin}" >> "${final_patch}" || true)
+  echo --- >> "${final_patch}"
+  tap ok "${curversion} -> ${newversion}"
+}
+
+tap() {
+  result="$1" # either 'ok' or 'not ok'
+  msg="$2"
+  printf '%s %d - %s: %s\n' \
+    "${result}" "${num}" "${origin}" "${msg}" \
+    >> "${scratch}/results.tap"
+}
+
+err() {
+  >&2 printf 'ERROR: %s\nUsage: %s: TODO\n' "$0" "$1"
+  exit 1
+}
+
+top="$(dirname "$0")"
+portsdir="$(realpath "${top}/../..")"
+date="$(date -u '+%a, %d %b %Y %H:%M:%S +0000')"
+[ -r "${portsdir}/MOVED" ] || err "ports tree '${portsdir}' is invalid"
+
+scratch="$(mktemp -d)"
+chmod 0755 "${scratch}"
+mkdir -p \
+  "${scratch}/logs" \
+  "${scratch}/patches" \
+  "${scratch}/b"
+ln -sf "${portsdir}" "${scratch}/a"
+
+[ $(( $# % 2 )) -eq 0 ] || err "Wrong number of arguments"
+total=$(($# / 2))
+printf 'TAP version 14\n1..%d\n' "${total}" > "${scratch}/results.tap"
+for num in $(seq 1 "${total}"); do
+  bump_port "$1" "$2"
+  shift 2
+done
+
+printf '\n##### RESULTS #####\n\nGenerated patches: %s\n' "${scratch}/patches"
+ls -lh "${scratch}/patches"
+printf '\nSummary:\n\n'
+cat "${scratch}/results.tap"
+printf '\n###################\n'

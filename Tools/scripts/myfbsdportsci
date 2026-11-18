@@ -1,0 +1,116 @@
+#!/bin/sh
+
+set -euo pipefail
+
+err() {
+  >&2 printf 'ERROR: %s.\nUsage: myfbsdportsci <port/origin1> [port/origin2...]\n' "$1"
+  exit 1
+}
+
+tap() {
+  result="$1" # either 'ok' or 'not ok'
+  msg="$2"
+  printf '%s %d - %s: %s\n' \
+    "${result}" "${num}" "${origin}" "${msg}" \
+    >> "${summary}"
+}
+
+ci() {
+  origin="$1"
+  if [ ! -r "${portsdir}/${origin}/Makefile" ]; then
+    tap 'not ok' "ERROR: not a valid port origin"
+    return 1
+  fi
+
+  logs="${scratch}/logs/${origin}"
+  mkdir -p "${logs}"
+  ${su} poudriere jail -k -j "${jail}" -p "${poudriere_ports}" || true
+
+  # TODO figure out the extra space output on empty TEST_DEPENDS
+  test_depends_origins="$(make -C "${portsdir}/${origin}" -V TEST_DEPENDS | awk -v 'RS=[ \t]*' -v 'ORS= ' -F: '{ print $2 }')"
+  if [ -n "${test_depends_origins}" ]; then
+    test_depends_bulk_log="poudriere_bulk_test_depends.log"
+    if ! ${su} poudriere bulk -j "${jail}" -p "${poudriere_ports}" ${test_depends_origins} 2>&1 | tee "${logs}/${test_depends_bulk_log}"; then
+      tap 'not ok' "ERROR: 'poudriere bulk' of TEST_DEPENDS failed. Log: ${test_depends_bulk_log}"
+      return 1
+    fi
+  fi
+
+  testport_log="poudriere_testport.log"
+  if ! ${su} poudriere testport -NNI -j "${jail}" -p "${poudriere_ports}" "${origin}" 2>&1 | tee "${logs}/${testport_log}"; then
+    tap 'not ok' "ERROR: 'poudriere testport' failed. Log: ${testport_log}"
+    return 1
+  fi
+
+  if [ -n "${test_depends_origins}" ]; then
+    test_depends_install_log="jail_test_depends_install.log"
+    if ! ${su} jexec "${jail}-${poudriere_ports}-n" pkg install -y ${test_depends_origins} 2>&1 | tee "${logs}/${test_depends_install_log}"; then
+      tap 'not ok' "CRITICAL: failed to install TEST_DEPENDS. REPORT TO MAINTAINER. Log: ${test_depends_install_log}"
+      return 1
+    fi
+  fi
+
+  make_test_log="make_test.log"
+  set +e
+  ${su} jexec -U nobody "${jail}-${poudriere_ports}-n" timeout -k 30s "${test_timeout}" make -C "/usr/ports/${origin}" test 2>&1 | tee "${logs}/${make_test_log}"
+  rc=$?
+  set -e
+  if [ "${rc}" -eq 124 ]; then
+    tap 'not ok' "CRITICAL: 'make test' timed out after ${test_timeout}. REPORT TO MAINTAINER. Log: ${make_test_log}"
+    return 1
+  elif [ "${rc}" -ne 0 ]; then
+    tap 'not ok' "WARNING: 'make test' failed. Log: ${make_test_log}"
+    return 2
+  fi
+
+  tap ok 'all tests passed'
+}
+
+top="$(dirname "$0")"
+portsdir="$(realpath "${top}/../..")"
+[ -r "${portsdir}/MOVED" ] || err "ports tree '${portsdir}' is invalid"
+
+while getopts j:p:t: name
+do
+  case "${name}" in
+    j) jail="${OPTARG}" ;;
+    p) poudriere_ports="${OPTARG}" ;;
+    t) test_timeout="${OPTARG}" ;;
+    ?) err "Unknown flag '${name}'" ;;
+    *) ;;
+  esac
+done
+shift $((OPTIND - 1))
+: "${test_timeout:=5m}"
+
+[ $# -gt 0 ]                                          || err "No port origin arguments given, nothing to do!"
+timeout "${test_timeout}" true                        || err "Bad option: -t ${test_timeout}: incorrect format"
+poudriere jail -i -j "${jail}" >/dev/null             || err "Bad option: -j ${jail}"
+poudriere ports -lq | grep -xq "${poudriere_ports} *null *.* ${portsdir}" \
+  || err "Bad option: -p ${poudriere_ports}: must be a valid poudriere ports tree created with '-m null -M ${portsdir}'"
+
+for s in mdo doas sudo; do
+  if ${s} id -u 2>/dev/null | xargs test 0 -eq; then
+    su="${s}"
+    break
+  fi
+done
+[ -n "${su}" ] || err "Permission denied: mdo(1), doas(1), or sudo(1) not configured"
+
+scratch="$(mktemp -d)"
+mkdir -p "${scratch}/logs"
+summary="${scratch}/summary.tap"
+printf 'TAP version 14\n1..%d\n' $# > "${summary}"
+
+for num in $(seq 1 $#); do
+  # Ignore the exit code here. We will simply grep for 'not ok' in the
+  # TAP test summary to determine the overall result.
+  ci "$1" || true
+  shift
+done
+${su} poudriere jail -k -j "${jail}" -p "${poudriere_ports}" || true
+
+printf '\n########## RESULTS ##########\n\nLogs: %s\n\n' "${scratch}"
+cat "${summary}"
+printf '\n#############################\n'
+! grep -q '^not ok' "${summary}"
